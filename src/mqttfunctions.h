@@ -9,24 +9,22 @@ void sendDeviceStatus()
   }
 }
 
-void sendSensorsArnoTest() {
-  //get_gass();
-  //get_temphum();
-  //get_light()
-}
-
 void sendSensors(){
-  
+
+  #ifdef SAVE_SD
+    DEBUG_INFORMATION_SERIAL.print("3SDinserted: ");
+    DEBUG_INFORMATION_SERIAL.println(SDinserted);
+    DEBUG_INFORMATION_SERIAL.println(SDinserted ? "YES" : "NO");
+    if(SDinserted){
+      writePayload();
+    }
+  #endif
+
+
   /* get some values and send this shit */
   sprintf(msg,payloadFormat, SensorValues.sensor, SensorValues.one, SensorValues.two, SensorValues.three, SensorValues.four, SensorValues.five, SensorValues.six, SensorValues.seven, SensorValues.eight, SensorValues.nine, SensorValues.ten, SensorValues.rssi );
   // "{\"sensor\":%d, \"value1\":%d, \"value2\":%d, \"value3\":%d, \"value4\":%d, \"value5\":%d, \"value6\":%d, \"value7\":%d, \"value8\":%d, \"value9\":%d, \"value10\":%d}";
   // https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm
-  
-  #ifdef SAVE_SD
-  if(SDpresent){
-    writePayload();
-  }
-  #endif
 
   DEBUG_INFORMATION_SERIAL.print("Sending payload: ");
   DEBUG_INFORMATION_SERIAL.println(msg);
@@ -36,6 +34,7 @@ void sendSensors(){
   } else {
     DEBUG_ERROR_SERIAL.println("Publish failed");
   }
+
 }
 
 void callback(char *topic, byte *payload, unsigned int length){

@@ -32,9 +32,9 @@ void setup() {
   #endif
   Serial.begin(115200);
   while (!Serial);
-  DEBUG_ERROR_SERIAL.println("This is an error message");
-  DEBUG_WARNING_SERIAL.println("This is a warning message");
-  DEBUG_INFORMATION_SERIAL.println("Some output value");
+  //DEBUG_ERROR_SERIAL.println("This is an error message");
+  //DEBUG_WARNING_SERIAL.println("This is a warning message");
+  //DEBUG_INFORMATION_SERIAL.println("Some output value");
   connectWifi();
   initManagedDevice();
 
