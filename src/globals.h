@@ -10,7 +10,7 @@
 #define DEBUG_INFORMATION true
 #define DEBUG_INFORMATION_SERIAL if(DEBUG_INFORMATION)Serial
 
-#define SAVE_SD
+//#define SAVE_SD
 bool SDinserted = false;
 
 struct {
@@ -50,8 +50,8 @@ const char payloadFormat[] = "{\"sensor\":\"%s\", \"value1\":%f, \"value2\":%d, 
 const char sdFormat[] = "%s,%f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d";
 
 const char statusFormat[] = "{\"hostname\":\"%s\", \"ipadress\":\"%s\", \"rssi\":%d, \"status\":\"ONLINE\"}";
-char msg[150];
-char sdmsg[150];
+char msg[256];
+char sdmsg[256];
 
 char outTopic[] = "sensors/evt";
 char statusTopic[] = "sensors/status";

@@ -23,10 +23,12 @@ void connectWifi()
   DEBUG_INFORMATION_SERIAL.print("WiFi connected, IP address: ");
   DEBUG_INFORMATION_SERIAL.println(WiFi.localIP());
   DEBUG_INFORMATION_SERIAL.println();
-  DEBUG_INFORMATION_SERIAL.print("MAC: ");
-  DEBUG_INFORMATION_SERIAL.println(WiFi.macAddress());
-  //DEBUG_INFORMATION_SERIAL.print("RSSI: ");
-  //DEBUG_INFORMATION_SERIAL.println(WiFi.RSSI());
+  #ifdef ESP32
+    DEBUG_INFORMATION_SERIAL.print("MAC: ");
+    DEBUG_INFORMATION_SERIAL.println(WiFi.macAddress());
+    DEBUG_INFORMATION_SERIAL.print("RSSI: ");
+    DEBUG_INFORMATION_SERIAL.println(WiFi.RSSI());
+  #endif
 }
 
 String ip2Str(IPAddress ip){

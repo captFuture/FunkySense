@@ -61,7 +61,9 @@ void callback(char *topic, byte *payload, unsigned int length){
     if(command == 1){
      DEBUG_INFORMATION_SERIAL.println("Clearing SD content");
      if(SDinserted){
-      clearSDcontent();
+      #ifdef ESP32
+        clearSDcontent();
+      #endif
      }
     }
     if(command == 2){

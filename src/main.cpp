@@ -19,7 +19,9 @@ void callback(char *topic, byte *payload, unsigned int length);
 WiFiClient wifiClient;
 PubSubClient client(mqttserver, 1883, callback, wifiClient);
 
-#include <sdfunctions.h>
+#ifdef ESP32
+  #include <sdfunctions.h>
+#endif
 #include <setupwifi.h>
 #include <mqttfunctions.h>
 #include <sensorValues.h>
@@ -49,13 +51,16 @@ void loop() {
     reconnect();
   }
 
+  #ifdef ESP32
   if ((WiFi.status() != WL_CONNECTED) && (millis() - oldMillisTWO >= pauseTWO)) {
     DEBUG_INFORMATION_SERIAL.println("Reconnecting to WiFi...");
     WiFi.disconnect();
     WiFi.reconnect();
+ 
     oldMillisTWO = millis();
   }
-
+  #endif
+  
   askSensors();
 
   if (millis() - oldMillisONE >= pauseONE) {
