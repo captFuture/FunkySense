@@ -1,6 +1,6 @@
 void sendDeviceStatus()
 {
-  sprintf(msg, statusFormat, clientId, ip2Str(WiFi.localIP()));
+  sprintf(msg, statusFormat, clientId, ip2Str(WiFi.localIP()), SensorValues.rssi);
   if (client.publish(statusTopic, msg))
   {
   }
@@ -60,7 +60,22 @@ void callback(char *topic, byte *payload, unsigned int length){
 
     if(command == 1){
      DEBUG_INFORMATION_SERIAL.println("Clearing SD content");
-     clearSDcontent();
+     if(SDinserted){
+      clearSDcontent();
+     }
+    }
+    if(command == 2){
+     DEBUG_INFORMATION_SERIAL.println("Rebooting device");
+     #ifdef ESP32
+      ESP.restart();
+     #else
+      NVIC_SystemReset();
+     #endif   
+    }
+
+    if(command == 3){
+      DEBUG_INFORMATION_SERIAL.println("Sending device Status");
+      sendDeviceStatus();
     }
 }
 

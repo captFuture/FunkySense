@@ -31,6 +31,9 @@ struct {
 unsigned long pauseONE = 10000; //10 seconds
 unsigned long oldMillisONE = 0;
 
+unsigned long pauseTWO = 10000; //10 seconds
+unsigned long oldMillisTWO = 0;
+
 const char* ssid = "TarantlBros";
 const char* password = "chillfumml";
 //const char* ssid = "KAJJAR";
@@ -46,7 +49,7 @@ const char* mqttserver = xstr(MQTTSERVER);
 const char payloadFormat[] = "{\"sensor\":\"%s\", \"value1\":%f, \"value2\":%d, \"value3\":%d, \"value4\":%d, \"value5\":%d, \"value6\":%d, \"value7\":%d, \"value8\":%d, \"value9\":%d, \"value10\":%d, \"rssi\":%d}";
 const char sdFormat[] = "%s,%f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d";
 
-const char statusFormat[] = "{\"hostname\":\"%s\", \"ipadress\":\"%s\", \"status\":\"ONLINE\"}";
+const char statusFormat[] = "{\"hostname\":\"%s\", \"ipadress\":\"%s\", \"rssi\":%d, \"status\":\"ONLINE\"}";
 char msg[150];
 char sdmsg[150];
 

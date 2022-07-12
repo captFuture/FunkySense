@@ -49,11 +49,11 @@ void loop() {
     reconnect();
   }
 
-  if ((WiFi.status() != WL_CONNECTED) && (millis() - oldMillisONE >= pauseONE)) {
+  if ((WiFi.status() != WL_CONNECTED) && (millis() - oldMillisTWO >= pauseTWO)) {
     DEBUG_INFORMATION_SERIAL.println("Reconnecting to WiFi...");
     WiFi.disconnect();
     WiFi.reconnect();
-    oldMillisONE = millis();
+    oldMillisTWO = millis();
   }
 
   askSensors();
