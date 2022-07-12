@@ -20,36 +20,36 @@ void sendSensors(){
   /* get some values and send this shit */
   sprintf(msg,payloadFormat, SensorValues.sensor, SensorValues.one, SensorValues.two, SensorValues.three, SensorValues.four, SensorValues.five, SensorValues.six, SensorValues.seven, SensorValues.eight, SensorValues.nine, SensorValues.ten );
   // "{\"sensor\":%d, \"value1\":%d, \"value2\":%d, \"value3\":%d, \"value4\":%d, \"value5\":%d, \"value6\":%d, \"value7\":%d, \"value8\":%d, \"value9\":%d, \"value10\":%d}";
-  Serial.print("Sending payload: ");
-  Serial.println(msg);
+  DEBUG_INFORMATION_SERIAL.print("Sending payload: ");
+  DEBUG_INFORMATION_SERIAL.println(msg);
 
   if (client.publish(outTopic, msg)) {
-    Serial.println("Publish ok");
+    DEBUG_INFORMATION_SERIAL.println("Publish ok");
   } else {
-    Serial.println("Publish failed");
+    DEBUG_ERROR_SERIAL.println("Publish failed");
   }
 }
 
 void callback(char *topic, byte *payload, unsigned int length){
-  Serial.println("Message arrived");
+  DEBUG_INFORMATION_SERIAL.println("Message arrived");
   char json[length + 1];
   strncpy(json, (char *)payload, length);
   json[length] = '\0';
 
-  Serial.print("Topic: ");
-  Serial.println(topic);
-  Serial.print("Message: ");
-  Serial.println(json);
+  DEBUG_INFORMATION_SERIAL.print("Topic: ");
+  DEBUG_INFORMATION_SERIAL.println(topic);
+  DEBUG_INFORMATION_SERIAL.print("Message: ");
+  DEBUG_INFORMATION_SERIAL.println(json);
 
   if (strcmp(rebootTopic, topic) == 0)
   {
-    Serial.println("Rebooting...");
+    DEBUG_INFORMATION_SERIAL.println("Rebooting...");
     //restart();
   }
 
   if (strcmp(updateTopic, topic) == 0)
   {
-    Serial.println("Updating firmware");
+    DEBUG_INFORMATION_SERIAL.println("Updating firmware");
     //checkOTA();
   }
 
@@ -58,7 +58,7 @@ void callback(char *topic, byte *payload, unsigned int length){
   JsonObject &doc = jsonBuffer.parseObject((char *)json);
   if (!doc.success())
   {
-    Serial.println("parseObject() failed");
+    DEBUG_ERROR_SERIAL.println("parseObject() failed");
     return;
 
   }

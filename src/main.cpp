@@ -42,12 +42,12 @@ void setup() {
 
 void loop() {
   if (!client.connected()) {
-    Serial.println("Not connected - go to reconnect");
+    DEBUG_INFORMATION_SERIAL.println("Not connected - go to reconnect");
     reconnect();
   }
 
   if ((WiFi.status() != WL_CONNECTED) && (millis() - oldMillisONE >= pauseONE)) {
-    Serial.println("Reconnecting to WiFi...");
+    DEBUG_INFORMATION_SERIAL.println("Reconnecting to WiFi...");
     WiFi.disconnect();
     WiFi.reconnect();
     oldMillisONE = millis();

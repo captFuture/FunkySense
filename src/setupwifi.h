@@ -1,14 +1,14 @@
 void connectWifi()
 {
   int w = 1;
-  Serial.print("Connecting to ");
-  Serial.print(ssid);
+  DEBUG_INFORMATION_SERIAL.print("Connecting to ");
+  DEBUG_INFORMATION_SERIAL.print(ssid);
   WiFi.setHostname(clientId);
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED)
   {
     delay(500);
-    Serial.print(".");
+    DEBUG_INFORMATION_SERIAL.print(".");
     w++;
     if (w > 25)
     {
@@ -19,10 +19,10 @@ void connectWifi()
       #endif     
     }
   }
-  Serial.println("");
-  Serial.print("WiFi connected, IP address: ");
-  Serial.println(WiFi.localIP());
-  Serial.println();
-  Serial.print("MAC: ");
-  Serial.println(WiFi.macAddress());
+  DEBUG_INFORMATION_SERIAL.println("");
+  DEBUG_INFORMATION_SERIAL.print("WiFi connected, IP address: ");
+  DEBUG_INFORMATION_SERIAL.println(WiFi.localIP());
+  DEBUG_INFORMATION_SERIAL.println();
+  DEBUG_INFORMATION_SERIAL.print("MAC: ");
+  DEBUG_INFORMATION_SERIAL.println(WiFi.macAddress());
 }
