@@ -26,5 +26,6 @@ void writePayload(){
     DEBUG_INFORMATION_SERIAL.print("Writing Sensordata to SD: ");
     DEBUG_INFORMATION_SERIAL.println(sdmsg);
     sensorFile.println(sdmsg);
+    sensorFile.print("\r\n");
     sensorFile.close();
 }
