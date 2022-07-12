@@ -124,6 +124,8 @@ void reconnect()
   while (!client.connected())
   {
     DEBUG_INFORMATION_SERIAL.print("Attempting MQTT connection...");
+    DEBUG_INFORMATION_SERIAL.println(mqttserver);
+
     //if (client.connect(clientId, mqttuser, mqttpassword))
     if (client.connect(clientId))
     {

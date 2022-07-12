@@ -24,13 +24,6 @@ PubSubClient client(mqttserver, 1883, callback, wifiClient);
 #include <sensorValues.h>
 
 void setup() {
-
-  #ifdef ESP32
-
-  #else
-
-  #endif
-
   Serial.begin(115200);
   while (!Serial);
   DEBUG_ERROR_SERIAL.println("This is an error message");
@@ -38,6 +31,12 @@ void setup() {
   DEBUG_INFORMATION_SERIAL.println("Some output value");
   connectWifi();
   initManagedDevice();
+
+  #ifdef ESP32
+
+  #else
+
+  #endif
 }
 
 void loop() {
