@@ -9,6 +9,11 @@ void sendDeviceStatus()
   }
 }
 
+void sendSensorsArnoTest() {
+  get_
+
+}
+
 void sendSensors(){
   
   /* get some values and send this shit */

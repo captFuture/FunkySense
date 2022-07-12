@@ -49,7 +49,7 @@ void loop() {
 
   if(millis() >= time_now + period)
   {
-    sendSensors();
+    //sendSensors();
     time_now += period;
     DEBUG_INFORMATION_SERIAL.println("one second passed");
   }
