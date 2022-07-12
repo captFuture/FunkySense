@@ -22,7 +22,9 @@ struct {
     int eight;
     int nine;
     int ten;
+    float eleven;
 } SensorValues;
+// SensorValues.one
 
 int period = 1000;
 unsigned long time_now = 0;

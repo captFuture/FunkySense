@@ -9,6 +9,12 @@ void sendDeviceStatus()
   }
 }
 
+void sendSensorsArnoTest() {
+  //get_gass();
+  //get_temphum();
+  //get_light()
+}
+
 void sendSensors(){
   
   /* get some values and send this shit */
