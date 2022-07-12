@@ -10,6 +10,9 @@
 #define DEBUG_INFORMATION true
 #define DEBUG_INFORMATION_SERIAL if(DEBUG_INFORMATION)Serial
 
+#define SAVE_SD
+bool SDpresent = false;
+
 struct {
     char *sensor;
     float one;
@@ -41,8 +44,11 @@ const char* clientId = xstr(CLIENTID);
 const char* mqttserver = xstr(MQTTSERVER);
 
 const char payloadFormat[] = "{\"sensor\":\"%s\", \"value1\":%f, \"value2\":%d, \"value3\":%d, \"value4\":%d, \"value5\":%d, \"value6\":%d, \"value7\":%d, \"value8\":%d, \"value9\":%d, \"value10\":%d, \"rssi\":%d}";
+const char sdFormat[] = "%s,%f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d";
+
 const char statusFormat[] = "{\"hostname\":\"%s\", \"ipadress\":\"%s\", \"status\":\"ONLINE\"}";
 char msg[100];
+char sdmsg[100];
 char message_buff[100];
 
 char outTopic[] = "sensors/evt";

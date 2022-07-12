@@ -19,11 +19,17 @@ void callback(char *topic, byte *payload, unsigned int length);
 WiFiClient wifiClient;
 PubSubClient client(mqttserver, 1883, callback, wifiClient);
 
+#include <sdfunctions.h>
 #include <setupwifi.h>
 #include <mqttfunctions.h>
 #include <sensorValues.h>
 
 void setup() {
+  #ifdef ESP32
+    M5.begin();
+  #else
+
+  #endif
   Serial.begin(115200);
   while (!Serial);
   DEBUG_ERROR_SERIAL.println("This is an error message");
@@ -32,10 +38,8 @@ void setup() {
   connectWifi();
   initManagedDevice();
 
-  #ifdef ESP32
-
-  #else
-
+  #ifdef SAVE_SD
+    initializeSD();
   #endif
 }
 
