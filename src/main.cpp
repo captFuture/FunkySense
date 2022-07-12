@@ -25,20 +25,32 @@ PubSubClient client(server, 1883, callback, wifiClient);
 #include <sensorValues.h>
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   while (!Serial);
   DEBUG_ERROR_SERIAL.println("This is an error message");
   DEBUG_WARNING_SERIAL.println("This is a warning message");
-  DEBUG_INFORMATION_SERIAL.print("Some output value");
-
+  DEBUG_INFORMATION_SERIAL.println("Some output value");
+  connectWifi();
 }
 
 void loop() {
+  //time_now = millis();
+  
   askSensors();
-  time_now = millis();
-  while(millis() < time_now + period){    
+  
+  //ARNO: WHILE IS BLOCKING, IF IS NOT BLOCKING
+  //ARNO: =====================================
+  //while(millis() < time_now + period){    
     // add the code you want to keep running here
-    DEBUG_INFORMATION_SERIAL.print("one second passed");
+    //DEBUG_INFORMATION_SERIAL.print("one second passed");
+    //sendSensors();
+  // }
+   
+
+  if(millis() >= time_now + period)
+  {
     sendSensors();
-   }
+    time_now += period;
+    DEBUG_INFORMATION_SERIAL.println("one second passed");
+  }
 }

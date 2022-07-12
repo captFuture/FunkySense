@@ -129,7 +129,7 @@ void reconnect()
       Serial.println(" trying fallback");
       delay(5000);
 
-      client.setServer("192.168.5.1", 1883);
+      client.setServer("192.168.0.26", 1883);
       if (client.connect(deviceid))
       {
         Serial.println("connected");

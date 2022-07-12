@@ -31,8 +31,10 @@ const char* version = xstr(VERSION);
 const char* deviceid = xstr(DEVICEID);
 const char* ipaddress = xstr(IPADDRESS);
 
-const char* ssid = "TarantlBros";
-const char* password = "chillfumml";
+//const char* ssid = "TarantlBros";
+//const char* password = "chillfumml";
+const char* ssid = "KAJJAR";
+const char* password = "hvstjsr6mrS2";
 
 const char* mqttuser = "";
 const char* mqttpassword = "";
@@ -42,7 +44,7 @@ const char statusFormat[] = "{\"hostname\":\"%s\", \"ipadress\":\"%s\", \"status
 char msg[100];
 char message_buff[100];
 
-char server[20] = "192.168.50.50";
+char server[20] = "192.168.0.26";
 char outTopic[] = "sensors/evt";
 char inTopic[] = "sensors/cmd";
 //char clientId[9] = deviceid;
