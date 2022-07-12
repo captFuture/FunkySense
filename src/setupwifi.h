@@ -1,22 +1,28 @@
 void connectWifi()
 {
   int w = 1;
-  Serial.print("Connecting to ");
-  Serial.print(ssid);
-  WiFi.setHostname(deviceid);
+  DEBUG_INFORMATION_SERIAL.print("Connecting to ");
+  DEBUG_INFORMATION_SERIAL.print(ssid);
+  WiFi.setHostname(clientId);
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED)
   {
     delay(500);
-    Serial.print(".");
+    DEBUG_INFORMATION_SERIAL.print(".");
     w++;
     if (w > 25)
     {
-      //ESP.restart();
+      #ifdef ESP32
+      ESP.restart();
+      #else
+      NVIC_SystemReset();
+      #endif     
     }
   }
-  Serial.println("");
-  Serial.print("WiFi connected, IP address: ");
-  Serial.println(WiFi.localIP());
+  DEBUG_INFORMATION_SERIAL.println("");
+  DEBUG_INFORMATION_SERIAL.print("WiFi connected, IP address: ");
+  DEBUG_INFORMATION_SERIAL.println(WiFi.localIP());
+  DEBUG_INFORMATION_SERIAL.println();
+  DEBUG_INFORMATION_SERIAL.print("MAC: ");
+  DEBUG_INFORMATION_SERIAL.println(WiFi.macAddress());
 }
-

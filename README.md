@@ -18,16 +18,15 @@ GY-Bme280 High Precision Digital Sensor Barometric Pressure Temperature Humidity
 Windows Installation needed
 - nodejs (https://nodejs.org/en/ - 16.6 LTS)
 - node-red (https://nodered.org/docs/getting-started/windows - do not forget to create "Run Node-RED on Startup")
-<<<<<<< HEAD
-and install https://flows.nodered.org/node/node-red-node-sqlite connector, https://flows.nodered.org/node/sqlite-plugin-red and https://flows.nodered.org/node/thethingbox-node-timestamp
-=======
     * Rechteproblem beim Start von Node-Red?
         Alles ein wenig unsicher: set-executionpolicy remotesigned
         Alles sehr unsicher: set-executionpolicy Unrestricted
 and install https://flows.nodered.org/node/node-red-node-sqlite connector and 
->>>>>>> 86088ab91ec5ffcb0213bcb8a0e25d8100b4a176
 
 - mosquitto mqtt broker (https://mosquitto.org/download/ - mosquitto-2.0.14-install-windows-x64.exe - and create a startup task like with node red)
+IMPORTANT: 
+- Deactivate windows firewall or create exception for port 1880
+- change mosquitto conf (AND allow_anonymous true AND port 1883 at top of config file)
 
 - SQlite (https://www.sqlite.org/download.html - sqlite-dll-win64-x64-3390000.zip - sqlite-tools-win32-x86-3390000.zip )
 

@@ -26,30 +26,30 @@ struct {
 } SensorValues;
 // SensorValues.one
 
-int period = 1000;
-unsigned long time_now = 0;
+unsigned long pauseONE = 10000; //10 seconds
+unsigned long oldMillisONE = 0;
+
+const char* ssid = "TarantlBros";
+const char* password = "chillfumml";
+//const char* ssid = "KAJJAR";
+//const char* password = "hvstjsr6mrS2";
+
+const char* mqttuser = "captFuture";
+const char* mqttpassword = "Che11as!1";
+
+char server[20] = "192.168.50.31";
+#define DEVICE_ID "TheSensor_001"
+
 
 const char* version = xstr(VERSION);
-const char* deviceid = xstr(DEVICEID);
-const char* ipaddress = xstr(IPADDRESS);
-
-//const char* ssid = "TarantlBros";
-//const char* password = "chillfumml";
-const char* ssid = "KAJJAR";
-const char* password = "hvstjsr6mrS2";
-
-const char* mqttuser = "";
-const char* mqttpassword = "";
-
 const char payloadFormat[] = "{\"sensor\":%d, \"value1\":%d, \"value2\":%d, \"value3\":%d, \"value4\":%d, \"value5\":%d, \"value6\":%d, \"value7\":%d, \"value8\":%d, \"value9\":%d, \"value10\":%d}";
 const char statusFormat[] = "{\"hostname\":\"%s\", \"ipadress\":\"%s\", \"status\":\"ONLINE\"}";
 char msg[100];
 char message_buff[100];
 
-char server[20] = "192.168.0.26";
 char outTopic[] = "sensors/evt";
 char inTopic[] = "sensors/cmd";
-//char clientId[9] = deviceid;
+char clientId[] = DEVICE_ID;
 
 char mqtt_will[] = "";
 char mqtt_testament[] = "";
