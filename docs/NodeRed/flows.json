@@ -1,0 +1,274 @@
+[
+    {
+        "id": "65e4cc568d352a50",
+        "type": "tab",
+        "label": "Save SensorData",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "8ea1be0ee3110155",
+        "type": "mqtt in",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "topic": "sensors/#",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "b28dd0f42a9ff1d6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 80,
+        "y": 80,
+        "wires": [
+            [
+                "377f3094259b2118",
+                "2fdc0d140a7e1468"
+            ]
+        ]
+    },
+    {
+        "id": "377f3094259b2118",
+        "type": "debug",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 270,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "8c7546cd2ff35fc8",
+        "type": "sqlite",
+        "z": "65e4cc568d352a50",
+        "mydb": "98a3f5798948f0b7",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "city_001",
+        "x": 820,
+        "y": 80,
+        "wires": [
+            [
+                "0e555557217cde20"
+            ]
+        ]
+    },
+    {
+        "id": "2fdc0d140a7e1468",
+        "type": "json",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 230,
+        "y": 80,
+        "wires": [
+            [
+                "cf8a319168d3a255"
+            ]
+        ]
+    },
+    {
+        "id": "ef2cadfd782ec3cd",
+        "type": "template",
+        "z": "65e4cc568d352a50",
+        "name": "template city_001",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "INSERT INTO citydata (\n   sensor,\n   value1,\n   value2,\n   value3,\n   value4,\n   value5,\n   value6,\n   value7,\n   value8,\n   value9,\n   value10,\n   timestamp\n)\nVALUES (\n   {{payload.sensor}},\n   {{payload.value1}},\n   {{payload.value2}},\n   {{payload.value3}},\n   {{payload.value4}},\n   {{payload.value5}},\n   {{payload.value6}},\n   {{payload.value7}},\n   {{payload.value8}},\n   {{payload.value9}},\n   {{payload.value10}},\n   \"{{timestamp}}\"\n);",
+        "output": "str",
+        "x": 570,
+        "y": 80,
+        "wires": [
+            [
+                "8c7546cd2ff35fc8"
+            ]
+        ]
+    },
+    {
+        "id": "cf8a319168d3a255",
+        "type": "timestamp",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "x": 370,
+        "y": 80,
+        "wires": [
+            [
+                "ef2cadfd782ec3cd"
+            ]
+        ]
+    },
+    {
+        "id": "0e555557217cde20",
+        "type": "debug",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1070,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "d60db1996b39eff6",
+        "type": "sqlite",
+        "z": "65e4cc568d352a50",
+        "mydb": "e126d4f9ebed8290",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "city_002",
+        "x": 820,
+        "y": 160,
+        "wires": [
+            [
+                "504fc0c53318de9b"
+            ]
+        ]
+    },
+    {
+        "id": "e61f61d97a9e4eb3",
+        "type": "template",
+        "z": "65e4cc568d352a50",
+        "name": "template city_002",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "INSERT INTO citydata (\n   sensor,\n   value1,\n   value2,\n   value3,\n   value4,\n   value5,\n   value6,\n   value7,\n   value8,\n   value9,\n   value10,\n   timestamp\n)\nVALUES (\n   {{payload.sensor}},\n   {{payload.value1}},\n   {{payload.value2}},\n   {{payload.value3}},\n   {{payload.value4}},\n   {{payload.value5}},\n   {{payload.value6}},\n   {{payload.value7}},\n   {{payload.value8}},\n   {{payload.value9}},\n   {{payload.value10}},\n   \"{{timestamp}}\"\n);",
+        "output": "str",
+        "x": 570,
+        "y": 160,
+        "wires": [
+            [
+                "d60db1996b39eff6"
+            ]
+        ]
+    },
+    {
+        "id": "86de31b46e7f08e0",
+        "type": "sqlite",
+        "z": "65e4cc568d352a50",
+        "mydb": "da2206d7ad52541a",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "city_003",
+        "x": 820,
+        "y": 240,
+        "wires": [
+            [
+                "dfb5625f1306d746"
+            ]
+        ]
+    },
+    {
+        "id": "c1f8ec41caa960cd",
+        "type": "template",
+        "z": "65e4cc568d352a50",
+        "name": "template city_003",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "INSERT INTO citydata (\n   sensor,\n   value1,\n   value2,\n   value3,\n   value4,\n   value5,\n   value6,\n   value7,\n   value8,\n   value9,\n   value10,\n   timestamp\n)\nVALUES (\n   {{payload.sensor}},\n   {{payload.value1}},\n   {{payload.value2}},\n   {{payload.value3}},\n   {{payload.value4}},\n   {{payload.value5}},\n   {{payload.value6}},\n   {{payload.value7}},\n   {{payload.value8}},\n   {{payload.value9}},\n   {{payload.value10}},\n   \"{{timestamp}}\"\n);",
+        "output": "str",
+        "x": 570,
+        "y": 240,
+        "wires": [
+            [
+                "86de31b46e7f08e0"
+            ]
+        ]
+    },
+    {
+        "id": "504fc0c53318de9b",
+        "type": "debug",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1070,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "dfb5625f1306d746",
+        "type": "debug",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1070,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "b28dd0f42a9ff1d6",
+        "type": "mqtt-broker",
+        "name": "localhost",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "98a3f5798948f0b7",
+        "type": "sqlitedb",
+        "db": "D:\\Development\\GIT\\FunkySense\\sqlite\\city_001.sqlite3",
+        "mode": "RWC"
+    },
+    {
+        "id": "e126d4f9ebed8290",
+        "type": "sqlitedb",
+        "db": "D:\\Development\\GIT\\FunkySense\\sqlite\\city_002.sqlite3",
+        "mode": "RWC"
+    },
+    {
+        "id": "da2206d7ad52541a",
+        "type": "sqlitedb",
+        "db": "D:\\Development\\GIT\\FunkySense\\sqlite\\city_003.sqlite3",
+        "mode": "RWC"
+    }
+]

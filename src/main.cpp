@@ -18,7 +18,7 @@
 
 void callback(char *topic, byte *payload, unsigned int length);
 WiFiClient wifiClient;
-PubSubClient client(server, 1883, callback, wifiClient);
+PubSubClient client("192.168.0.26", 1883, callback, wifiClient);
 
 #include <setupwifi.h>
 #include <mqttfunctions.h>
@@ -31,6 +31,7 @@ void setup() {
   DEBUG_WARNING_SERIAL.println("This is a warning message");
   DEBUG_INFORMATION_SERIAL.println("Some output value");
   connectWifi();
+  initManagedDevice();
 }
 
 void loop() {
