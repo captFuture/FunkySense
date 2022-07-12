@@ -1,6 +1,6 @@
 void sendDeviceStatus()
 {
-  sprintf(msg, statusFormat, deviceid, ipaddress);
+  sprintf(msg, statusFormat, clientId, ipaddress);
   if (client.publish(manageTopic, msg))
   {
   }
@@ -72,48 +72,48 @@ void initManagedDevice()
 {
   if (client.subscribe(inTopic))
   {
-    Serial.println("subscribe to inTopic OK");
+    DEBUG_INFORMATION_SERIAL.println("subscribe to inTopic OK");
   }
   else
   {
-    Serial.println("subscribe to inTopic FAILED");
+    DEBUG_ERROR_SERIAL.println("subscribe to inTopic FAILED");
   }
 
   if (client.subscribe(responseTopic))
   {
-    Serial.println("subscribe to responses OK");
+    DEBUG_INFORMATION_SERIAL.println("subscribe to responses OK");
   }
   else
   {
-    Serial.println("subscribe to responses FAILED");
+    DEBUG_ERROR_SERIAL.println("subscribe to responses FAILED");
   }
 
   if (client.subscribe(rebootTopic))
   {
-    Serial.println("subscribe to reboot OK");
+    DEBUG_INFORMATION_SERIAL.println("subscribe to reboot OK");
   }
   else
   {
-    Serial.println("subscribe to reboot FAILED");
+    DEBUG_ERROR_SERIAL.println("subscribe to reboot FAILED");
   }
 
   if (client.subscribe(updateTopic))
   {
-    Serial.println("subscribe to update OK");
+    DEBUG_INFORMATION_SERIAL.println("subscribe to update OK");
   }
   else
   {
-    Serial.println("subscribe to update FAILED");
+    DEBUG_ERROR_SERIAL.println("subscribe to update FAILED");
   }
 
   if (client.subscribe(manageTopic))
   {
     sendDeviceStatus();
-    Serial.println("device Manage ok");
+    DEBUG_INFORMATION_SERIAL.println("device Manage ok");
   }
   else
   {
-    Serial.println("device Manage failed");
+    DEBUG_ERROR_SERIAL.println("device Manage failed");
   }
 }
 
@@ -121,31 +121,34 @@ void reconnect()
 {
   while (!client.connected())
   {
-    Serial.print("Attempting MQTT connection...");
-    if (client.connect(deviceid, mqttuser, mqttpassword))
+    DEBUG_INFORMATION_SERIAL.print("Attempting MQTT connection...");
+    //if (client.connect(clientId, mqttuser, mqttpassword))
+    if (client.connect(clientId))
     {
-      Serial.println("connected");
+      DEBUG_INFORMATION_SERIAL.println("connected");
+      DEBUG_INFORMATION_SERIAL.print("state:");
+      DEBUG_INFORMATION_SERIAL.println(client.state());
       delay(1000);
       initManagedDevice();
     }
     else
     {
-      Serial.print("failed, rc=");
-      Serial.print(client.state());
-      Serial.println(" trying fallback");
+      DEBUG_ERROR_SERIAL.print("failed, rc=");
+      DEBUG_ERROR_SERIAL.print(client.state());
+      DEBUG_ERROR_SERIAL.println(" trying fallback");
       delay(5000);
 
-      client.setServer("192.168.0.26", 1883);
-      if (client.connect(deviceid))
+      client.setServer("192.168.50.31", 1883);
+      if (client.connect(clientId))
       {
-        Serial.println("connected");
+        DEBUG_INFORMATION_SERIAL.println("fallback connected");
         delay(1000);
         initManagedDevice();
       }else{
-        Serial.print("failed, rc=");
-        Serial.print(client.state());
-        Serial.println(" back to server");
-        client.setServer(server, 1883);
+        DEBUG_ERROR_SERIAL.print("failed, rc=");
+        DEBUG_ERROR_SERIAL.print(client.state());
+        DEBUG_ERROR_SERIAL.println(" back to server");
+        client.setServer("192.168.50.31", 1883);
         delay(5000);
       }
     }
