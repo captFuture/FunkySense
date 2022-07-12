@@ -17,7 +17,7 @@
 
 void callback(char *topic, byte *payload, unsigned int length);
 WiFiClient wifiClient;
-PubSubClient client("192.168.50.31", 1883, callback, wifiClient);
+PubSubClient client(server, 1883, callback, wifiClient);
 
 #include <setupwifi.h>
 #include <mqttfunctions.h>
@@ -45,6 +45,14 @@ void loop() {
     Serial.println("Not connected - go to reconnect");
     reconnect();
   }
+
+  if ((WiFi.status() != WL_CONNECTED) && (millis() - oldMillisONE >= pauseONE)) {
+    Serial.println("Reconnecting to WiFi...");
+    WiFi.disconnect();
+    WiFi.reconnect();
+    oldMillisONE = millis();
+  }
+
   askSensors();
 
   if (millis() - oldMillisONE >= pauseONE) {
