@@ -12,6 +12,5 @@ void askSensors(){
     SensorValues.eight = 8; // int
     SensorValues.nine = 9; // int
     SensorValues.ten = 10; // int
-
-
+    SensorValues.rssi = WiFi.RSSI();
 }

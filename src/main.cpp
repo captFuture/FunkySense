@@ -17,7 +17,7 @@
 
 void callback(char *topic, byte *payload, unsigned int length);
 WiFiClient wifiClient;
-PubSubClient client(server, 1883, callback, wifiClient);
+PubSubClient client(mqttserver, 1883, callback, wifiClient);
 
 #include <setupwifi.h>
 #include <mqttfunctions.h>

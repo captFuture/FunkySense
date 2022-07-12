@@ -18,7 +18,7 @@ void sendSensorsArnoTest() {
 void sendSensors(){
   
   /* get some values and send this shit */
-  sprintf(msg,payloadFormat, SensorValues.sensor, SensorValues.one, SensorValues.two, SensorValues.three, SensorValues.four, SensorValues.five, SensorValues.six, SensorValues.seven, SensorValues.eight, SensorValues.nine, SensorValues.ten );
+  sprintf(msg,payloadFormat, SensorValues.sensor, SensorValues.one, SensorValues.two, SensorValues.three, SensorValues.four, SensorValues.five, SensorValues.six, SensorValues.seven, SensorValues.eight, SensorValues.nine, SensorValues.ten, SensorValues.rssi );
   // "{\"sensor\":%d, \"value1\":%d, \"value2\":%d, \"value3\":%d, \"value4\":%d, \"value5\":%d, \"value6\":%d, \"value7\":%d, \"value8\":%d, \"value9\":%d, \"value10\":%d}";
   // https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm
   
@@ -140,7 +140,7 @@ void reconnect()
       DEBUG_ERROR_SERIAL.println(" trying fallback");
       delay(5000);
 
-      client.setServer(server, 1883);
+      client.setServer(mqttserver, 1883);
       if (client.connect(clientId))
       {
         DEBUG_INFORMATION_SERIAL.println("fallback connected");
@@ -150,7 +150,7 @@ void reconnect()
         DEBUG_ERROR_SERIAL.print("failed, rc=");
         DEBUG_ERROR_SERIAL.print(client.state());
         DEBUG_ERROR_SERIAL.println(" back to server");
-        client.setServer(server, 1883);
+        client.setServer(mqttserver, 1883);
         delay(5000);
       }
     }
