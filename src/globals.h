@@ -51,12 +51,6 @@ char msg[150];
 char sdmsg[150];
 
 char outTopic[] = "sensors/evt";
+char statusTopic[] = "sensors/status";
 char inTopic[] = "sensors/cmd";
-
-char mqtt_will[] = "";
-char mqtt_testament[] = "";
-
-char responseTopic[] = "sensors/mgmt/response";
-char manageTopic[] = "sensors/mgmt/manage";
-const char updateTopic[] = "sensors/mgmt/initiate/device/update";
-const char rebootTopic[] = "sensors/mgmt/initiate/device/reboot";
+char clearSDcommand[] = "clearsd";

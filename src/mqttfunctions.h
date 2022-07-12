@@ -1,10 +1,7 @@
 void sendDeviceStatus()
 {
   sprintf(msg, statusFormat, clientId, ip2Str(WiFi.localIP()));
-  if (client.publish(manageTopic, msg))
-  {
-  }
-  else
+  if (client.publish(statusTopic, msg))
   {
   }
 }
@@ -48,18 +45,6 @@ void callback(char *topic, byte *payload, unsigned int length){
   DEBUG_INFORMATION_SERIAL.print("Message: ");
   DEBUG_INFORMATION_SERIAL.println(json);
 
-  if (strcmp(rebootTopic, topic) == 0)
-  {
-    DEBUG_INFORMATION_SERIAL.println("Rebooting...");
-    //restart();
-  }
-
-  if (strcmp(updateTopic, topic) == 0)
-  {
-    DEBUG_INFORMATION_SERIAL.println("Updating firmware");
-    //checkOTA();
-  }
-
   // Decode JSON request
   StaticJsonBuffer<300> jsonBuffer;
   JsonObject &doc = jsonBuffer.parseObject((char *)json);
@@ -69,10 +54,14 @@ void callback(char *topic, byte *payload, unsigned int length){
     return;
 
   }
-    //const char* name = doc["name"]; // 
-    //const char* ssid = doc["ssid"]; // 
-    //const char* passwd = doc["passwd"]; // 
-    
+    int command = doc["command"]; // 
+    DEBUG_INFORMATION_SERIAL.print("COMMAND: ");
+    DEBUG_INFORMATION_SERIAL.println(command);
+
+    if(command == 1){
+     DEBUG_INFORMATION_SERIAL.println("Clearing SD content");
+     clearSDcontent();
+    }
 }
 
 void initManagedDevice()
@@ -86,37 +75,10 @@ void initManagedDevice()
     DEBUG_ERROR_SERIAL.println("subscribe to inTopic FAILED");
   }
 
-  if (client.subscribe(responseTopic))
-  {
-    DEBUG_INFORMATION_SERIAL.println("subscribe to responses OK");
-  }
-  else
-  {
-    DEBUG_ERROR_SERIAL.println("subscribe to responses FAILED");
-  }
-
-  if (client.subscribe(rebootTopic))
-  {
-    DEBUG_INFORMATION_SERIAL.println("subscribe to reboot OK");
-  }
-  else
-  {
-    DEBUG_ERROR_SERIAL.println("subscribe to reboot FAILED");
-  }
-
-  if (client.subscribe(updateTopic))
-  {
-    DEBUG_INFORMATION_SERIAL.println("subscribe to update OK");
-  }
-  else
-  {
-    DEBUG_ERROR_SERIAL.println("subscribe to update FAILED");
-  }
-
-  if (client.subscribe(manageTopic))
+  if (client.subscribe(statusTopic))
   {
     sendDeviceStatus();
-    DEBUG_INFORMATION_SERIAL.println("device Manage ok");
+    DEBUG_INFORMATION_SERIAL.println("device statusTopic Manage ok");
   }
   else
   {
