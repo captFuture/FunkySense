@@ -12,7 +12,11 @@ void connectWifi()
     w++;
     if (w > 25)
     {
-      //ESP.restart();
+      #ifdef ESP32
+      ESP.restart();
+      #else
+      NVIC_SystemReset();
+      #endif     
     }
   }
   Serial.println("");
@@ -22,4 +26,3 @@ void connectWifi()
   Serial.print("MAC: ");
   Serial.println(WiFi.macAddress());
 }
-

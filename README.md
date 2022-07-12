@@ -24,6 +24,9 @@ Windows Installation needed
 and install https://flows.nodered.org/node/node-red-node-sqlite connector and 
 
 - mosquitto mqtt broker (https://mosquitto.org/download/ - mosquitto-2.0.14-install-windows-x64.exe - and create a startup task like with node red)
+IMPORTANT: 
+- Deactivate windows firewall or create exception for port 1880
+- change mosquitto conf (AND allow_anonymous true AND port 1883 at top of config file)
 
 - SQlite (https://www.sqlite.org/download.html - sqlite-dll-win64-x64-3390000.zip - sqlite-tools-win32-x86-3390000.zip )
 

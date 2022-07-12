@@ -1,6 +1,6 @@
 void sendDeviceStatus()
 {
-  sprintf(msg, statusFormat, clientId, ipaddress);
+  sprintf(msg, statusFormat, clientId, server);
   if (client.publish(manageTopic, msg))
   {
   }
@@ -138,7 +138,7 @@ void reconnect()
       DEBUG_ERROR_SERIAL.println(" trying fallback");
       delay(5000);
 
-      client.setServer("192.168.50.31", 1883);
+      client.setServer(server, 1883);
       if (client.connect(clientId))
       {
         DEBUG_INFORMATION_SERIAL.println("fallback connected");
@@ -148,7 +148,7 @@ void reconnect()
         DEBUG_ERROR_SERIAL.print("failed, rc=");
         DEBUG_ERROR_SERIAL.print(client.state());
         DEBUG_ERROR_SERIAL.println(" back to server");
-        client.setServer("192.168.50.31", 1883);
+        client.setServer(server, 1883);
         delay(5000);
       }
     }
