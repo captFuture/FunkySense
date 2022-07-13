@@ -20,8 +20,12 @@
   Adafruit_BMP280 bme;
   GAS_GMXXX<TwoWire> gas;
   static uint8_t recv_cmd[8] = {};
-  
 #else
+  #include <Adafruit_Sensor.h>
+  #include <Adafruit_BMP280.h>
+  #include <Multichannel_Gas_GMXXX.h>
+  GAS_GMXXX<TwoWire> gas;
+  static uint8_t recv_cmd[8] = {};
 #endif
 
 #include <ArduinoJson.h>
@@ -46,7 +50,7 @@ void setup() {
     /* Start Grove multichannel Gas sensor */
     gas.begin(Wire, 0x08);
   #else
-
+    gas.begin(Wire, 0x08);
   #endif
 
  

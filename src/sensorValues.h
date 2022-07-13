@@ -1,10 +1,12 @@
 void M5EnvSensor(){
-    while (!bme.begin(0x76)) {
-        DEBUG_ERROR_SERIAL.println("Could not find a valid BMP280 sensor, check wiring!");
-    }
-    SensorValues.one = dht12.readTemperature(); // float temperature
-    SensorValues.two = dht12.readHumidity();    // float humidity
+    #ifdef ESP32
+        while (!bme.begin(0x76)) {
+            DEBUG_ERROR_SERIAL.println("Could not find a valid BMP280 sensor, check wiring!");
+        }
+        SensorValues.one = dht12.readTemperature(); // float temperature
+        SensorValues.two = dht12.readHumidity();    // float humidity
     SensorValues.three = bme.readPressure();    // float pressure
+    #endif
     }
 
 void GroveMultiGas(){
