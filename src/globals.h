@@ -25,9 +25,26 @@ struct {
     float eight;
     float nine;
     float ten;
-    float eleven;
     long rssi;
 } SensorValues;
+
+struct {
+    char *sensor;
+    float one;
+    float two;
+    float three;
+    int four;
+    int five;
+    int six;
+    int seven;
+    float eight;
+    float nine;
+    float ten;
+    long rssi;
+} SensorValues1;
+
+
+
 
 unsigned long pauseONE = 10000; //10 seconds
 unsigned long oldMillisONE = 0;
@@ -47,7 +64,8 @@ const char* version = xstr(VERSION);
 const char* clientId = xstr(CLIENTID);
 const char* mqttserver = xstr(MQTTSERVER);
 
-const char payloadFormat[] = "{\"s\":\"%s\", \"v1\":%f, \"v2\":%f, \"v3\":%f, \"v4\":%u, \"v5\":%u, \"v6\":%u, \"v7\":%u, \"v8\":%f, \"v9\":%f, \"v10\":%f, \"v11\":%f}";
+const char payloadFormat[] = "{\"s\":\"%s\", \"v1\":%f, \"v2\":%f, \"v3\":%f, \"v4\":%u, \"v5\":%u, \"v6\":%u, \"v7\":%u, \"v8\":%f, \"v9\":%f, \"v10\":%f, \"rssi\":%d}";
+const char payloadFormat1[] = "{\"s\":\"%s\", \"v1\":%f, \"v2\":%f, \"v3\":%f, \"v4\":%u, \"v5\":%u, \"v6\":%u, \"v7\":%u, \"v8\":%f, \"v9\":%f, \"v10\":%f, \"rssi\":%d}";
 const char sdFormat[] = "%s,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f";
 
 const char statusFormat[] = "{\"n\":\"%s\", \"ip\":\"%s\", \"rssi\":%d, \"s\":\"ONLINE\"}";
@@ -55,6 +73,7 @@ char msg[1024];
 char sdmsg[1024];
 
 char outTopic[] = "sensors/evt";
+char outTopic1[] = "sensors/evt1";
 char statusTopic[] = "sensors/status";
 char inTopic[] = "sensors/cmd";
 char clearSDcommand[] = "clearsd";

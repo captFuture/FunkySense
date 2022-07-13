@@ -20,12 +20,17 @@
   Adafruit_BMP280 bme;
   GAS_GMXXX<TwoWire> gas;
   static uint8_t recv_cmd[8] = {};
+
+  #include <Adafruit_VCNL4040.h>
 #else
   #include <Adafruit_Sensor.h>
   #include <Adafruit_BMP280.h>
   #include <Multichannel_Gas_GMXXX.h>
+  
   GAS_GMXXX<TwoWire> gas;
   static uint8_t recv_cmd[8] = {};
+
+  #include <Adafruit_VCNL4040.h>
 #endif
 
 #include <ArduinoJson.h>

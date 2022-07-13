@@ -40,8 +40,6 @@ void askSensors(){
     SensorValues.eight = 0.0;     // float 
     SensorValues.nine = 0.0;      // float 
     SensorValues.ten = 0.0;      // float 
-    SensorValues.eleven = 0;   // long 
-    
     SensorValues.rssi = WiFi.RSSI();
 
     #ifdef ESP32
