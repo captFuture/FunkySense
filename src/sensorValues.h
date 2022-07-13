@@ -79,6 +79,7 @@ void askSensors(){
     SensorValues1.six = 0;     // FREI
     SensorValues1.seven = 0;   // FREI 
     SensorValues1.eight = 0;     // FREI 
+    
     SensorValues1.nine = 0;      // FREI 
     SensorValues1.ten = 0;       // FREI 
 
