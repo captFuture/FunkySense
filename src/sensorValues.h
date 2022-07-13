@@ -27,10 +27,6 @@ void GroveMultiGas(){
 
 void askSensors(){
     //DEBUG_INFORMATION_SERIAL.println("Sensorloop");
-    #ifdef ESP32
-        //DEBUG_INFORMATION_SERIAL.print("askSensors() running on core ");
-        //DEBUG_INFORMATION_SERIAL.println(xPortGetCoreID());
-    #endif
     SensorValues.sensor = "001";
     SensorValues.one = 0.0; // float temperature
     SensorValues.two = 0.0;    // float humidity
