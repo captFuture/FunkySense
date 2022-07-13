@@ -11,29 +11,20 @@
 #endif
 
 /* Sensor Libraries */
-#ifdef ESP32
   #include <Adafruit_Sensor.h>
-  #include <Adafruit_BMP280.h>
-  #include <M5_ENV.h>
+  #include <Adafruit_BME280.h>
   #include <Multichannel_Gas_GMXXX.h>
-  DHT12 dht12;
-  Adafruit_BMP280 bme;
+  Adafruit_BME280 bme;
   GAS_GMXXX<TwoWire> gas;
   static uint8_t recv_cmd[8] = {};
 
-  #include <Adafruit_VCNL4040.h>
-  Adafruit_VCNL4040 vcnl4040 = Adafruit_VCNL4040();
-#else
-  #include <Adafruit_Sensor.h>
-  #include <Adafruit_BMP280.h>
-  #include <Multichannel_Gas_GMXXX.h>
-  
-  GAS_GMXXX<TwoWire> gas;
-  static uint8_t recv_cmd[8] = {};
+  //#include <M5_ENV.h>
+  //#include <Adafruit_BMP280.h>
+  //DHT12 dht12;
+  //Adafruit_BMP280 bmp;
+  //#include <Adafruit_VCNL4040.h>
+  //Adafruit_VCNL4040 vcnl4040 = Adafruit_VCNL4040();
 
-  #include <Adafruit_VCNL4040.h>
-  Adafruit_VCNL4040 vcnl4040 = Adafruit_VCNL4040();
-#endif
 
 #include <ArduinoJson.h>
 #include <PubSubClient.h>

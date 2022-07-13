@@ -1,19 +1,402 @@
 [
     {
+        "id": "65e4cc568d352a50",
+        "type": "tab",
+        "label": "Save SensorData",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "8ea1be0ee3110155",
+        "type": "mqtt in",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "topic": "sensors/evt",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "b28dd0f42a9ff1d6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 90,
+        "y": 80,
+        "wires": [
+            [
+                "377f3094259b2118",
+                "2fdc0d140a7e1468"
+            ]
+        ]
+    },
+    {
+        "id": "377f3094259b2118",
+        "type": "debug",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 250,
+        "y": 200,
+        "wires": []
+    },
+    {
         "id": "8c7546cd2ff35fc8",
         "type": "sqlite",
         "z": "65e4cc568d352a50",
         "mydb": "98a3f5798948f0b7",
         "sqlquery": "msg.topic",
         "sql": "",
-        "name": "city_001",
-        "x": 820,
+        "name": "city_001--citydata",
+        "x": 850,
         "y": 80,
         "wires": [
             [
                 "0e555557217cde20"
             ]
         ]
+    },
+    {
+        "id": "2fdc0d140a7e1468",
+        "type": "json",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 230,
+        "y": 80,
+        "wires": [
+            [
+                "cf8a319168d3a255"
+            ]
+        ]
+    },
+    {
+        "id": "ef2cadfd782ec3cd",
+        "type": "template",
+        "z": "65e4cc568d352a50",
+        "name": "template city_001",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "INSERT INTO citydata (\n   sensor,\n   value1,\n   value2,\n   value3,\n   value4,\n   value5,\n   value6,\n   value7,\n   value8,\n   value9,\n   value10,\n   timestamp\n)\nVALUES (\n   \"{{payload.s}}\",\n   {{payload.v1}},\n   {{payload.v2}},\n   {{payload.v3}},\n   {{payload.v4}},\n   {{payload.v5}},\n   {{payload.v6}},\n   {{payload.v7}},\n   {{payload.v8}},\n   {{payload.v9}},\n   {{payload.v10}},\n   \"{{timestamp}}\"\n);",
+        "output": "str",
+        "x": 590,
+        "y": 80,
+        "wires": [
+            [
+                "8c7546cd2ff35fc8"
+            ]
+        ]
+    },
+    {
+        "id": "cf8a319168d3a255",
+        "type": "timestamp",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "x": 370,
+        "y": 80,
+        "wires": [
+            [
+                "ef2cadfd782ec3cd"
+            ]
+        ]
+    },
+    {
+        "id": "0e555557217cde20",
+        "type": "debug",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "0cd72863206de857",
+        "type": "mqtt in",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "topic": "#",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "b28dd0f42a9ff1d6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 70,
+        "y": 260,
+        "wires": [
+            [
+                "c4f47b9dec1d5c52"
+            ]
+        ]
+    },
+    {
+        "id": "c4f47b9dec1d5c52",
+        "type": "debug",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 270,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "e7bee8bb78aee3ae",
+        "type": "inject",
+        "z": "65e4cc568d352a50",
+        "name": "Clear SDcard",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"command\":1}",
+        "payloadType": "json",
+        "x": 130,
+        "y": 400,
+        "wires": [
+            [
+                "1623cc1e792ae88f",
+                "1f06cfde139f5990"
+            ]
+        ]
+    },
+    {
+        "id": "1623cc1e792ae88f",
+        "type": "mqtt out",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "topic": "sensors/cmd",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "b28dd0f42a9ff1d6",
+        "x": 390,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "1f06cfde139f5990",
+        "type": "debug",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 390,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "45415393dc84713b",
+        "type": "inject",
+        "z": "65e4cc568d352a50",
+        "name": "Reboot Sensor",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"command\":2}",
+        "payloadType": "json",
+        "x": 140,
+        "y": 460,
+        "wires": [
+            [
+                "1623cc1e792ae88f",
+                "1f06cfde139f5990"
+            ]
+        ]
+    },
+    {
+        "id": "457ba38ae5fce2fb",
+        "type": "inject",
+        "z": "65e4cc568d352a50",
+        "name": "Get Sensor Status",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"command\":3}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 520,
+        "wires": [
+            [
+                "1623cc1e792ae88f",
+                "1f06cfde139f5990"
+            ]
+        ]
+    },
+    {
+        "id": "d8e5c70163cb3024",
+        "type": "mqtt in",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "topic": "sensors/evt1",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "b28dd0f42a9ff1d6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 90,
+        "y": 140,
+        "wires": [
+            [
+                "377f3094259b2118",
+                "3fcea01b4d6221c1"
+            ]
+        ]
+    },
+    {
+        "id": "3fcea01b4d6221c1",
+        "type": "json",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 250,
+        "y": 140,
+        "wires": [
+            [
+                "77ca701d491bbe59"
+            ]
+        ]
+    },
+    {
+        "id": "77ca701d491bbe59",
+        "type": "timestamp",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "x": 390,
+        "y": 140,
+        "wires": [
+            [
+                "075feccfac77e79c"
+            ]
+        ]
+    },
+    {
+        "id": "075feccfac77e79c",
+        "type": "template",
+        "z": "65e4cc568d352a50",
+        "name": "template city_001",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "INSERT INTO citydata1 (\n   sensor,\n   value1,\n   value2,\n   value3,\n   value4,\n   value5,\n   value6,\n   value7,\n   value8,\n   value9,\n   value10,\n   timestamp\n)\nVALUES (\n   \"{{payload.s}}\",\n   {{payload.v1}},\n   {{payload.v2}},\n   {{payload.v3}},\n   {{payload.v4}},\n   {{payload.v5}},\n   {{payload.v6}},\n   {{payload.v7}},\n   {{payload.v8}},\n   {{payload.v9}},\n   {{payload.v10}},\n   \"{{timestamp}}\"\n);",
+        "output": "str",
+        "x": 590,
+        "y": 140,
+        "wires": [
+            [
+                "8cb237543cf17c07"
+            ]
+        ]
+    },
+    {
+        "id": "8cb237543cf17c07",
+        "type": "sqlite",
+        "z": "65e4cc568d352a50",
+        "mydb": "98a3f5798948f0b7",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "city_001-citydata1",
+        "x": 850,
+        "y": 140,
+        "wires": [
+            [
+                "0e555557217cde20"
+            ]
+        ]
+    },
+    {
+        "id": "b28dd0f42a9ff1d6",
+        "type": "mqtt-broker",
+        "name": "localhost",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
     },
     {
         "id": "98a3f5798948f0b7",

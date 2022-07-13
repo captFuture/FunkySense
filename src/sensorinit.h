@@ -1,10 +1,14 @@
 void initSensors(){
     #ifdef ESP32
         while (!bme.begin(0x76)) {
-            DEBUG_ERROR_SERIAL.println("Could not find a valid BMP280 sensor, check wiring!");
+            DEBUG_ERROR_SERIAL.println("Could not find a valid BME280 sensor, check wiring!");
         }
 
-        while (!vcnl4040.begin()) {
+       /* while (!bmp.begin(0x76)) {
+            DEBUG_ERROR_SERIAL.println("Could not find a valid BMP280 sensor, check wiring!");
+        }*/
+
+        /*while (!vcnl4040.begin()) {
             Serial.println("Couldn't find VCNL4040 chip");
         }
         Serial.println("Found VCNL4040 chip");
@@ -13,6 +17,7 @@ void initSensors(){
         vcnl4040.setAmbientIntegrationTime(VCNL4040_AMBIENT_INTEGRATION_TIME_80MS);
         vcnl4040.setProximityIntegrationTime(VCNL4040_PROXIMITY_INTEGRATION_TIME_8T);
         vcnl4040.setProximityHighResolution(false);
+        */
     #else
         
     #endif
