@@ -5,7 +5,6 @@
 #ifdef ESP32
   #include <M5Stack.h>
   #include <WiFi.h>
-  
 #else
   #include <WiFiNINA.h>
 #endif
@@ -13,10 +12,14 @@
 /* Sensor Libraries */
   #include <Adafruit_Sensor.h>
   #include <Adafruit_BME280.h>
+  #include <Adafruit_TSL2591.h>
   #include <Multichannel_Gas_GMXXX.h>
+
   Adafruit_BME280 bme;
   GAS_GMXXX<TwoWire> gas;
   static uint8_t recv_cmd[8] = {};
+  Adafruit_TSL2591 tsl = Adafruit_TSL2591(2591);
+  
 
   //#include <M5_ENV.h>
   //#include <Adafruit_BMP280.h>
@@ -46,14 +49,14 @@ void setup() {
   
   #ifdef ESP32
     M5.begin();
-    /* Start Grove multichannel Gas sensor */
-    gas.begin(Wire, 0x08);
   #else
-    gas.begin(Wire, 0x08);
+    
   #endif
 
+  gas.begin(Wire, 0x08);
+
   Serial.begin(115200);
-  while (!Serial);
+  while (!Serial) { delay(1); }
 
   connectWifi();
   initManagedDevice();
@@ -61,7 +64,6 @@ void setup() {
   #ifdef SAVE_SD
     initializeSD();
   #endif
-
   
   initSensors();
 }

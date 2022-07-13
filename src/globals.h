@@ -4,8 +4,8 @@
 #define DEBUG_ERROR true
 #define DEBUG_ERROR_SERIAL if(DEBUG_ERROR)Serial
 
-#define DEBUG_WARNING true
-#define DEBUG_WARNING_SERIAL if(DEBUG_WARNING)Serial
+#define DEBUG_SENSOR true
+#define DEBUG_SENSOR_SERIAL if(DEBUG_SENSOR)Serial
 
 #define DEBUG_INFORMATION true
 #define DEBUG_INFORMATION_SERIAL if(DEBUG_INFORMATION)Serial
@@ -32,10 +32,11 @@ struct {
 
 struct {
     char *sensor;
-    float one;
-    float two;
-    float three;
-    int four;
+    int one;
+    int two;
+    int three;
+    float four;
+
     int five;
     int six;
     int seven;
@@ -67,7 +68,7 @@ const char* clientId = xstr(CLIENTID);
 const char* mqttserver = xstr(MQTTSERVER);
 
 const char payloadFormat[] = "{\"s\":\"%s\", \"v1\":%f, \"v2\":%f, \"v3\":%f, \"v4\":%f, \"v5\":%u, \"v6\":%u, \"v7\":%u, \"v8\":%u, \"v9\":%u, \"v10\":%u, \"rssi\":%d}";
-const char payloadFormat1[] = "{\"s\":\"%s\", \"v1\":%f, \"v2\":%f, \"v3\":%f, \"v4\":%u, \"v5\":%u, \"v6\":%u, \"v7\":%u, \"v8\":%u, \"v9\":%u, \"v10\":%u}";
+const char payloadFormat1[] = "{\"s\":\"%s\", \"v1\":%u, \"v2\":%u, \"v3\":%u, \"v4\":%f, \"v5\":%u, \"v6\":%u, \"v7\":%u, \"v8\":%u, \"v9\":%u, \"v10\":%u}";
 const char sdFormat[] = "%s,%f,%f,%f,%u,%u,%u,%u,%u,%u,%u,%d";
 
 const char statusFormat[] = "{\"n\":\"%s\", \"ip\":\"%s\", \"rssi\":%d, \"s\":\"ONLINE\"}";
