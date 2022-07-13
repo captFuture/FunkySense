@@ -21,14 +21,31 @@ PubSubClient client(mqttserver, 1883, callback, wifiClient);
 
 #ifdef ESP32
   #include <sdfunctions.h>
+  TaskHandle_t SensorTask;
 #endif
 #include <setupwifi.h>
 #include <mqttfunctions.h>
 #include <sensorValues.h>
 
+#ifdef ESP32
+  void SensorTaskCode( void * pvParameters ){
+
+    for(;;){
+      //DEBUG_INFORMATION_SERIAL.print("SensorTask running on core ");
+      //DEBUG_INFORMATION_SERIAL.println(xPortGetCoreID());
+      askSensors();
+      delay(1000);
+    } 
+  }
+#endif
+
 void setup() {
   #ifdef ESP32
     M5.begin();
+    xTaskCreatePinnedToCore(SensorTaskCode, "SensorTask", 10000, NULL, 1, &SensorTask, 0);         
+    delay(500); 
+    DEBUG_INFORMATION_SERIAL.print("setup() running on core ");
+    DEBUG_INFORMATION_SERIAL.println(xPortGetCoreID());
   #else
 
   #endif
@@ -61,7 +78,11 @@ void loop() {
   }
   #endif
   
-  askSensors();
+  #ifdef ESP32
+    //use task instead of loop
+  #else
+    askSensors();
+  #endif
 
   if (millis() - oldMillisONE >= pauseONE) {
     DEBUG_INFORMATION_SERIAL.println("ten seconds passed");

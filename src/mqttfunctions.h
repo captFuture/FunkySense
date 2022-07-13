@@ -7,7 +7,10 @@ void sendDeviceStatus()
 }
 
 void sendSensors(){
-
+  #ifdef ESP32
+    DEBUG_INFORMATION_SERIAL.print("sendSensors() running on core ");
+    DEBUG_INFORMATION_SERIAL.println(xPortGetCoreID());
+  #endif
   #ifdef SAVE_SD
     DEBUG_INFORMATION_SERIAL.print("3SDinserted: ");
     DEBUG_INFORMATION_SERIAL.println(SDinserted);

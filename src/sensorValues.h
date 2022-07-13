@@ -1,6 +1,9 @@
 void askSensors(){
     //DEBUG_INFORMATION_SERIAL.println("Sensorloop");
-
+    #ifdef ESP32
+        //DEBUG_INFORMATION_SERIAL.print("askSensors() running on core ");
+        //DEBUG_INFORMATION_SERIAL.println(xPortGetCoreID());
+    #endif
     SensorValues.sensor = "001";
     SensorValues.one = 1.234; // float
     SensorValues.two = 20; // int
@@ -14,3 +17,4 @@ void askSensors(){
     SensorValues.ten = 10; // int
     SensorValues.rssi = WiFi.RSSI(); 
 }
+
