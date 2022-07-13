@@ -10,7 +10,7 @@
 #define DEBUG_INFORMATION true
 #define DEBUG_INFORMATION_SERIAL if(DEBUG_INFORMATION)Serial
 
-//#define SAVE_SD
+#define SAVE_SD
 bool SDinserted = false;
 
 struct {

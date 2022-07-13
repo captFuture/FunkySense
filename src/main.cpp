@@ -7,6 +7,7 @@
   #include <WiFi.h>
 #else
   #include <WiFiNINA.h>
+  #include <SD.h>
 #endif
 
 /* Sensor Libraries */
@@ -36,9 +37,7 @@ void callback(char *topic, byte *payload, unsigned int length);
 WiFiClient wifiClient;
 PubSubClient client(mqttserver, 1883, callback, wifiClient);
 
-#ifdef ESP32
-  #include <sdfunctions.h>
-#endif
+#include <sdfunctions.h>
 #include <setupwifi.h>
 #include <mqttfunctions.h>
 #include <sensorValues.h>
