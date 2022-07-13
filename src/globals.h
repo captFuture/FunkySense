@@ -65,7 +65,7 @@ const char* clientId = xstr(CLIENTID);
 const char* mqttserver = xstr(MQTTSERVER);
 
 const char payloadFormat[] = "{\"s\":\"%s\", \"v1\":%f, \"v2\":%f, \"v3\":%f, \"v4\":%u, \"v5\":%u, \"v6\":%u, \"v7\":%u, \"v8\":%u, \"v9\":%u, \"v10\":%u, \"rssi\":%d}";
-const char payloadFormat1[] = "{\"s\":\"%s\", \"v1\":%f, \"v2\":%f, \"v3\":%f, \"v4\":%u, \"v5\":%u, \"v6\":%u, \"v7\":%u, \"v8\":%u, \"v9\":%u, \"v10\":%u, \"rssi\":%d}";
+const char payloadFormat1[] = "{\"s\":\"%s\", \"v1\":%f, \"v2\":%f, \"v3\":%f, \"v4\":%u, \"v5\":%u, \"v6\":%u, \"v7\":%u, \"v8\":%u, \"v9\":%u, \"v10\":%u}";
 const char sdFormat[] = "%s,%f,%f,%f,%u,%u,%u,%u,%u,%u,%u,%d";
 
 const char statusFormat[] = "{\"n\":\"%s\", \"ip\":\"%s\", \"rssi\":%d, \"s\":\"ONLINE\"}";

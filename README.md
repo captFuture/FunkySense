@@ -50,3 +50,5 @@ You should see an output in nodeRed debug console
 Start DB Browser for SQlite and open database sqlite/democity_001.sqlite from repository
 After Node Red inserted the lines to the DB - you should see records (including insert timestamp in UTC)
 
+Some Infos:
+// https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm

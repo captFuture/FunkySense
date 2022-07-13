@@ -19,16 +19,21 @@ void sendSensors(){
 
   /* get some values and send this shit */
   sprintf(msg,payloadFormat, SensorValues.sensor, SensorValues.one, SensorValues.two, SensorValues.three, SensorValues.four, SensorValues.five, SensorValues.six, SensorValues.seven, SensorValues.eight, SensorValues.nine, SensorValues.ten, SensorValues.rssi);
-  // "{\"sensor\":%d, \"value1\":%d, \"value2\":%d, \"value3\":%d, \"value4\":%d, \"value5\":%d, \"value6\":%d, \"value7\":%d, \"value8\":%d, \"value9\":%d, \"value10\":%d}";
-  // https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm
-
   DEBUG_INFORMATION_SERIAL.print("Sending payload: ");
   DEBUG_INFORMATION_SERIAL.println(msg);
-
   if (client.publish(outTopic, msg)) {
     DEBUG_INFORMATION_SERIAL.println("Publish ok");
   } else {
     DEBUG_ERROR_SERIAL.println("Publish failed");
+  }
+
+  sprintf(msg1,payloadFormat1, SensorValues1.sensor, SensorValues1.one, SensorValues1.two, SensorValues1.three, SensorValues1.four, SensorValues1.five, SensorValues1.six, SensorValues1.seven, SensorValues1.eight, SensorValues1.nine, SensorValues1.ten);
+  DEBUG_INFORMATION_SERIAL.print("Sending payload1: ");
+  DEBUG_INFORMATION_SERIAL.println(msg1);
+  if (client.publish(outTopic1, msg1)) {
+    DEBUG_INFORMATION_SERIAL.println("Publish1 ok");
+  } else {
+    DEBUG_ERROR_SERIAL.println("Publish1 failed");
   }
 
 }
