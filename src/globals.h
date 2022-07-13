@@ -16,15 +16,16 @@ bool SDinserted = false;
 struct {
     char *sensor;
     float one;
-    int two;
-    int three;
+    float two;
+    float three;
     int four;
     int five;
     int six;
     int seven;
-    int eight;
-    int nine;
-    int ten;
+    float eight;
+    float nine;
+    float ten;
+    float eleven;
     long rssi;
 } SensorValues;
 
@@ -46,12 +47,12 @@ const char* version = xstr(VERSION);
 const char* clientId = xstr(CLIENTID);
 const char* mqttserver = xstr(MQTTSERVER);
 
-const char payloadFormat[] = "{\"sensor\":\"%s\", \"value1\":%f, \"value2\":%d, \"value3\":%d, \"value4\":%d, \"value5\":%d, \"value6\":%d, \"value7\":%d, \"value8\":%d, \"value9\":%d, \"value10\":%d, \"rssi\":%d}";
-const char sdFormat[] = "%s,%f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d";
+const char payloadFormat[] = "{\"s\":\"%s\", \"v1\":%f, \"v2\":%f, \"v3\":%f, \"v4\":%u, \"v5\":%u, \"v6\":%u, \"v7\":%u, \"v8\":%f, \"v9\":%f, \"v10\":%f, \"v11\":%f}";
+const char sdFormat[] = "%s,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f";
 
-const char statusFormat[] = "{\"hostname\":\"%s\", \"ipadress\":\"%s\", \"rssi\":%d, \"status\":\"ONLINE\"}";
-char msg[256];
-char sdmsg[256];
+const char statusFormat[] = "{\"n\":\"%s\", \"ip\":\"%s\", \"rssi\":%d, \"s\":\"ONLINE\"}";
+char msg[1024];
+char sdmsg[1024];
 
 char outTopic[] = "sensors/evt";
 char statusTopic[] = "sensors/status";

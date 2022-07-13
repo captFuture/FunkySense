@@ -5,12 +5,24 @@
 #ifdef ESP32
   #include <M5Stack.h>
   #include <WiFi.h>
+  
 #else
   #include <WiFiNINA.h>
 #endif
 
-#include <Adafruit_Sensor.h>
-#include <Adafruit_BME280.h>
+/* Sensor Libraries */
+#ifdef ESP32
+  #include <Adafruit_Sensor.h>
+  #include <Adafruit_BMP280.h>
+  #include <M5_ENV.h>
+  #include <Multichannel_Gas_GMXXX.h>
+  DHT12 dht12;
+  Adafruit_BMP280 bme;
+  GAS_GMXXX<TwoWire> gas;
+  static uint8_t recv_cmd[8] = {};
+  
+#else
+#endif
 
 #include <ArduinoJson.h>
 #include <PubSubClient.h>
@@ -21,34 +33,24 @@ PubSubClient client(mqttserver, 1883, callback, wifiClient);
 
 #ifdef ESP32
   #include <sdfunctions.h>
-  TaskHandle_t SensorTask;
 #endif
 #include <setupwifi.h>
 #include <mqttfunctions.h>
 #include <sensorValues.h>
 
-#ifdef ESP32
-  void SensorTaskCode( void * pvParameters ){
-
-    for(;;){
-      //DEBUG_INFORMATION_SERIAL.print("SensorTask running on core ");
-      //DEBUG_INFORMATION_SERIAL.println(xPortGetCoreID());
-      askSensors();
-      delay(1000);
-    } 
-  }
-#endif
-
 void setup() {
+  Wire.begin();
+  
   #ifdef ESP32
     M5.begin();
-    xTaskCreatePinnedToCore(SensorTaskCode, "SensorTask", 10000, NULL, 1, &SensorTask, 0);         
-    delay(500); 
-    DEBUG_INFORMATION_SERIAL.print("setup() running on core ");
-    DEBUG_INFORMATION_SERIAL.println(xPortGetCoreID());
+    /* Start Grove multichannel Gas sensor */
+    gas.begin(Wire, 0x08);
   #else
 
   #endif
+
+ 
+
   Serial.begin(115200);
   while (!Serial);
   //DEBUG_ERROR_SERIAL.println("This is an error message");
@@ -78,11 +80,7 @@ void loop() {
   }
   #endif
   
-  #ifdef ESP32
-    //use task instead of loop
-  #else
-    askSensors();
-  #endif
+  askSensors();
 
   if (millis() - oldMillisONE >= pauseONE) {
     DEBUG_INFORMATION_SERIAL.println("ten seconds passed");

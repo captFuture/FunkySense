@@ -22,7 +22,7 @@ void sendSensors(){
 
 
   /* get some values and send this shit */
-  sprintf(msg,payloadFormat, SensorValues.sensor, SensorValues.one, SensorValues.two, SensorValues.three, SensorValues.four, SensorValues.five, SensorValues.six, SensorValues.seven, SensorValues.eight, SensorValues.nine, SensorValues.ten, SensorValues.rssi );
+  sprintf(msg,payloadFormat, SensorValues.sensor, SensorValues.one, SensorValues.two, SensorValues.three, SensorValues.four, SensorValues.five, SensorValues.six, SensorValues.seven, SensorValues.eight, SensorValues.nine, SensorValues.ten, SensorValues.eleven);
   // "{\"sensor\":%d, \"value1\":%d, \"value2\":%d, \"value3\":%d, \"value4\":%d, \"value5\":%d, \"value6\":%d, \"value7\":%d, \"value8\":%d, \"value9\":%d, \"value10\":%d}";
   // https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm
 
@@ -119,6 +119,7 @@ void reconnect()
       DEBUG_INFORMATION_SERIAL.println("connected");
       DEBUG_INFORMATION_SERIAL.print("state:");
       DEBUG_INFORMATION_SERIAL.println(client.state());
+      client.setBufferSize(512);
       delay(1000);
       initManagedDevice();
     }
@@ -133,6 +134,7 @@ void reconnect()
       if (client.connect(clientId))
       {
         DEBUG_INFORMATION_SERIAL.println("fallback connected");
+        client.setBufferSize(512);
         delay(1000);
         initManagedDevice();
       }else{
