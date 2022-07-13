@@ -22,10 +22,10 @@ struct {
     int five;
     int six;
     int seven;
-    float eight;
-    float nine;
-    float ten;
-    long rssi;
+    int eight;
+    int nine;
+    int ten;
+    int rssi;
 } SensorValues;
 
 struct {
@@ -40,7 +40,7 @@ struct {
     float eight;
     float nine;
     float ten;
-    long rssi;
+    int rssi;
 } SensorValues1;
 
 
@@ -64,12 +64,13 @@ const char* version = xstr(VERSION);
 const char* clientId = xstr(CLIENTID);
 const char* mqttserver = xstr(MQTTSERVER);
 
-const char payloadFormat[] = "{\"s\":\"%s\", \"v1\":%f, \"v2\":%f, \"v3\":%f, \"v4\":%u, \"v5\":%u, \"v6\":%u, \"v7\":%u, \"v8\":%f, \"v9\":%f, \"v10\":%f, \"rssi\":%d}";
-const char payloadFormat1[] = "{\"s\":\"%s\", \"v1\":%f, \"v2\":%f, \"v3\":%f, \"v4\":%u, \"v5\":%u, \"v6\":%u, \"v7\":%u, \"v8\":%f, \"v9\":%f, \"v10\":%f, \"rssi\":%d}";
-const char sdFormat[] = "%s,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f";
+const char payloadFormat[] = "{\"s\":\"%s\", \"v1\":%f, \"v2\":%f, \"v3\":%f, \"v4\":%u, \"v5\":%u, \"v6\":%u, \"v7\":%u, \"v8\":%u, \"v9\":%u, \"v10\":%u, \"rssi\":%d}";
+const char payloadFormat1[] = "{\"s\":\"%s\", \"v1\":%f, \"v2\":%f, \"v3\":%f, \"v4\":%u, \"v5\":%u, \"v6\":%u, \"v7\":%u, \"v8\":%u, \"v9\":%u, \"v10\":%u, \"rssi\":%d}";
+const char sdFormat[] = "%s,%f,%f,%f,%u,%u,%u,%u,%u,%u,%u,%d";
 
 const char statusFormat[] = "{\"n\":\"%s\", \"ip\":\"%s\", \"rssi\":%d, \"s\":\"ONLINE\"}";
 char msg[1024];
+char msg1[1024];
 char sdmsg[1024];
 
 char outTopic[] = "sensors/evt";

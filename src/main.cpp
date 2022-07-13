@@ -22,6 +22,7 @@
   static uint8_t recv_cmd[8] = {};
 
   #include <Adafruit_VCNL4040.h>
+  Adafruit_VCNL4040 vcnl4040 = Adafruit_VCNL4040();
 #else
   #include <Adafruit_Sensor.h>
   #include <Adafruit_BMP280.h>
@@ -31,6 +32,7 @@
   static uint8_t recv_cmd[8] = {};
 
   #include <Adafruit_VCNL4040.h>
+  Adafruit_VCNL4040 vcnl4040 = Adafruit_VCNL4040();
 #endif
 
 #include <ArduinoJson.h>
@@ -46,6 +48,7 @@ PubSubClient client(mqttserver, 1883, callback, wifiClient);
 #include <setupwifi.h>
 #include <mqttfunctions.h>
 #include <sensorValues.h>
+#include <sensorinit.h>
 
 void setup() {
   Wire.begin();
@@ -58,19 +61,18 @@ void setup() {
     gas.begin(Wire, 0x08);
   #endif
 
- 
-
   Serial.begin(115200);
   while (!Serial);
-  //DEBUG_ERROR_SERIAL.println("This is an error message");
-  //DEBUG_WARNING_SERIAL.println("This is a warning message");
-  //DEBUG_INFORMATION_SERIAL.println("Some output value");
+
   connectWifi();
   initManagedDevice();
 
   #ifdef SAVE_SD
     initializeSD();
   #endif
+
+  
+  initSensors();
 }
 
 void loop() {
