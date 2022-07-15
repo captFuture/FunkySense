@@ -6,7 +6,9 @@ void sendDeviceStatus()
   }
 }
 
-void sendSensors(){
+void saveSensors(){
+  sprintf(sdmsg,sdFormat, SensorValues.sensor, SensorValues.one, SensorValues.two, SensorValues.three, SensorValues.four, SensorValues.five, SensorValues.six, SensorValues.seven, SensorValues.eight, SensorValues.nine, SensorValues.ten, SensorValues1.one, SensorValues1.two, SensorValues1.three, SensorValues1.four, SensorValues1.five, SensorValues1.six, SensorValues1.seven, SensorValues1.eight, SensorValues1.nine, SensorValues1.ten, SensorValues.rssi );
+  DEBUG_INFORMATION_SERIAL.println(sdmsg);
   #ifdef SAVE_SD
     DEBUG_INFORMATION_SERIAL.print("3SDinserted: ");
     DEBUG_INFORMATION_SERIAL.println(SDinserted);
@@ -15,7 +17,41 @@ void sendSensors(){
       writePayload();
     }
   #endif
+}
 
+void sendSensors(){
+  sprintf(sdmsg,sdFormat, SensorValues.sensor, SensorValues.one, SensorValues.two, SensorValues.three, SensorValues.four, SensorValues.five, SensorValues.six, SensorValues.seven, SensorValues.eight, SensorValues.nine, SensorValues.ten, SensorValues1.one, SensorValues1.two, SensorValues1.three, SensorValues1.four, SensorValues1.five, SensorValues1.six, SensorValues1.seven, SensorValues1.eight, SensorValues1.nine, SensorValues1.ten, SensorValues.rssi );
+  DEBUG_INFORMATION_SERIAL.println(sdmsg);
+  #ifdef ESP32
+  String encoded = base64::encode(sdmsg);
+  DEBUG_INFORMATION_SERIAL.println(encoded);
+
+  if (client.publish(encTopic, encoded.c_str())){
+    DEBUG_INFORMATION_SERIAL.println("Publish ok");
+  } else {
+    DEBUG_ERROR_SERIAL.println("Publish failed");
+  }
+
+  #else
+    unsigned char string[] = sdmsg;
+    unsigned char base64[1024]; 
+
+    // encode_base64() places a null terminator automatically, because the output is a string
+    unsigned int base64_length = encode_base64(sdmsg, strlen((char *) sdmsg), base64);
+
+    printf("%d\n", base64_length); // Prints "20"
+    printf((char *) base64); // Prints "U3RyaW5nIGV4YW1wbGU="
+
+
+    //String encoded = base64::encode(sdmsg);
+    String encoded = "lalalalala";
+    DEBUG_INFORMATION_SERIAL.println(encoded);
+    if (client.publish(encTopic, encoded.c_str())){
+      DEBUG_INFORMATION_SERIAL.println("Publish ok");
+    } else {
+      DEBUG_ERROR_SERIAL.println("Publish failed");
+    }
+  #endif
 
   /* get some values and send this shit */
   sprintf(msg,payloadFormat, SensorValues.sensor, SensorValues.one, SensorValues.two, SensorValues.three, SensorValues.four, SensorValues.five, SensorValues.six, SensorValues.seven, SensorValues.eight, SensorValues.nine, SensorValues.ten, SensorValues.rssi);

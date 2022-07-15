@@ -1,5 +1,6 @@
 void initSensors(){
-    while (!bme.begin(0x76)) {
+
+    if(!bme.begin(0x76)) {
         DEBUG_ERROR_SERIAL.println("Could not find a valid GY-BME280 sensor, check wiring!");
     }
 
@@ -18,9 +19,11 @@ void initSensors(){
     vcnl4040.setProximityHighResolution(false);
     */
 
+
     if (!tsl.begin()) 
     {
         DEBUG_ERROR_SERIAL.println("Could not find a valid Adafruit_TSL2591 sensor, check wiring!");
     } 
+
 
 }

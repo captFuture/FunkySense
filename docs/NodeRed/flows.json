@@ -21,7 +21,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 90,
-        "y": 80,
+        "y": 180,
         "wires": [
             [
                 "377f3094259b2118",
@@ -34,7 +34,7 @@
         "type": "debug",
         "z": "65e4cc568d352a50",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -42,7 +42,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 250,
-        "y": 200,
+        "y": 300,
         "wires": []
     },
     {
@@ -53,8 +53,8 @@
         "sqlquery": "msg.topic",
         "sql": "",
         "name": "city_001--citydata",
-        "x": 850,
-        "y": 80,
+        "x": 810,
+        "y": 180,
         "wires": [
             [
                 "0e555557217cde20"
@@ -70,7 +70,7 @@
         "action": "",
         "pretty": false,
         "x": 230,
-        "y": 80,
+        "y": 180,
         "wires": [
             [
                 "cf8a319168d3a255"
@@ -86,14 +86,12 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "INSERT INTO citydata (\n   sensor,\n   value1,\n   value2,\n   value3,\n   value4,\n   value5,\n   value6,\n   value7,\n   value8,\n   value9,\n   value10,\n   timestamp\n)\nVALUES (\n   \"{{payload.s}}\",\n   {{payload.v1}},\n   {{payload.v2}},\n   {{payload.v3}},\n   {{payload.v4}},\n   {{payload.v5}},\n   {{payload.v6}},\n   {{payload.v7}},\n   {{payload.v8}},\n   {{payload.v9}},\n   {{payload.v10}},\n   \"{{timestamp}}\"\n);",
+        "template": "INSERT INTO nonamecity (\n   sensor,\n   value1,\n   value2,\n   value3,\n   value4,\n   value5,\n   value6,\n   value7,\n   value8,\n   value9,\n   value10,\n   timestamp\n)\nVALUES (\n   \"{{payload.s}}\",\n   {{payload.v1}},\n   {{payload.v2}},\n   {{payload.v3}},\n   {{payload.v4}},\n   {{payload.v5}},\n   {{payload.v6}},\n   {{payload.v7}},\n   {{payload.v8}},\n   {{payload.v9}},\n   {{payload.v10}},\n   \"{{timestamp}}\"\n);",
         "output": "str",
         "x": 590,
-        "y": 80,
+        "y": 180,
         "wires": [
-            [
-                "8c7546cd2ff35fc8"
-            ]
+            []
         ]
     },
     {
@@ -102,7 +100,7 @@
         "z": "65e4cc568d352a50",
         "name": "",
         "x": 370,
-        "y": 80,
+        "y": 180,
         "wires": [
             [
                 "ef2cadfd782ec3cd"
@@ -114,7 +112,7 @@
         "type": "debug",
         "z": "65e4cc568d352a50",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -122,7 +120,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1050,
-        "y": 80,
+        "y": 180,
         "wires": []
     },
     {
@@ -139,7 +137,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 70,
-        "y": 260,
+        "y": 80,
         "wires": [
             [
                 "c4f47b9dec1d5c52"
@@ -159,7 +157,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 270,
-        "y": 260,
+        "y": 80,
         "wires": []
     },
     {
@@ -184,7 +182,7 @@
         "payload": "{\"command\":1}",
         "payloadType": "json",
         "x": 130,
-        "y": 400,
+        "y": 640,
         "wires": [
             [
                 "1623cc1e792ae88f",
@@ -207,7 +205,7 @@
         "expiry": "",
         "broker": "b28dd0f42a9ff1d6",
         "x": 390,
-        "y": 400,
+        "y": 640,
         "wires": []
     },
     {
@@ -215,7 +213,7 @@
         "type": "debug",
         "z": "65e4cc568d352a50",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -223,7 +221,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 390,
-        "y": 520,
+        "y": 760,
         "wires": []
     },
     {
@@ -248,7 +246,7 @@
         "payload": "{\"command\":2}",
         "payloadType": "json",
         "x": 140,
-        "y": 460,
+        "y": 700,
         "wires": [
             [
                 "1623cc1e792ae88f",
@@ -278,7 +276,7 @@
         "payload": "{\"command\":3}",
         "payloadType": "json",
         "x": 150,
-        "y": 520,
+        "y": 760,
         "wires": [
             [
                 "1623cc1e792ae88f",
@@ -300,7 +298,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 90,
-        "y": 140,
+        "y": 240,
         "wires": [
             [
                 "377f3094259b2118",
@@ -317,7 +315,7 @@
         "action": "",
         "pretty": false,
         "x": 250,
-        "y": 140,
+        "y": 240,
         "wires": [
             [
                 "77ca701d491bbe59"
@@ -330,7 +328,7 @@
         "z": "65e4cc568d352a50",
         "name": "",
         "x": 390,
-        "y": 140,
+        "y": 240,
         "wires": [
             [
                 "075feccfac77e79c"
@@ -346,14 +344,12 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "INSERT INTO citydata1 (\n   sensor,\n   value1,\n   value2,\n   value3,\n   value4,\n   value5,\n   value6,\n   value7,\n   value8,\n   value9,\n   value10,\n   timestamp\n)\nVALUES (\n   \"{{payload.s}}\",\n   {{payload.v1}},\n   {{payload.v2}},\n   {{payload.v3}},\n   {{payload.v4}},\n   {{payload.v5}},\n   {{payload.v6}},\n   {{payload.v7}},\n   {{payload.v8}},\n   {{payload.v9}},\n   {{payload.v10}},\n   \"{{timestamp}}\"\n);",
+        "template": "INSERT INTO nonamecity (\n   sensor,\n   value11,\n   value12,\n   value13,\n   value14,\n   value15,\n   value16,\n   value17,\n   value18,\n   value19,\n   value20,\n   timestamp\n)\nVALUES (\n   \"{{payload.s}}\",\n   {{payload.v1}},\n   {{payload.v2}},\n   {{payload.v3}},\n   {{payload.v4}},\n   {{payload.v5}},\n   {{payload.v6}},\n   {{payload.v7}},\n   {{payload.v8}},\n   {{payload.v9}},\n   {{payload.v10}},\n   \"{{timestamp}}\"\n);",
         "output": "str",
         "x": 590,
-        "y": 140,
+        "y": 240,
         "wires": [
-            [
-                "8cb237543cf17c07"
-            ]
+            []
         ]
     },
     {
@@ -364,13 +360,170 @@
         "sqlquery": "msg.topic",
         "sql": "",
         "name": "city_001-citydata1",
-        "x": 850,
-        "y": 140,
+        "x": 810,
+        "y": 240,
         "wires": [
             [
                 "0e555557217cde20"
             ]
         ]
+    },
+    {
+        "id": "97f795bc88262a08",
+        "type": "mqtt in",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "topic": "sensors/enc",
+        "qos": "2",
+        "datatype": "utf8",
+        "broker": "b28dd0f42a9ff1d6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 90,
+        "y": 400,
+        "wires": [
+            [
+                "b596fa6417d10564"
+            ]
+        ]
+    },
+    {
+        "id": "523728b72cbffcd4",
+        "type": "debug",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 370,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "b596fa6417d10564",
+        "type": "base64",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "action": "b64",
+        "property": "payload",
+        "x": 160,
+        "y": 480,
+        "wires": [
+            [
+                "7b5d4d206391419f"
+            ]
+        ]
+    },
+    {
+        "id": "447c7df195e3c16b",
+        "type": "timestamp",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "x": 370,
+        "y": 480,
+        "wires": [
+            [
+                "37b1790ec1efaaad"
+            ]
+        ]
+    },
+    {
+        "id": "7b5d4d206391419f",
+        "type": "csv",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "sep": ",",
+        "hdrin": "",
+        "hdrout": "none",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 170,
+        "y": 540,
+        "wires": [
+            [
+                "523728b72cbffcd4",
+                "447c7df195e3c16b"
+            ]
+        ]
+    },
+    {
+        "id": "37b1790ec1efaaad",
+        "type": "template",
+        "z": "65e4cc568d352a50",
+        "name": "template city_001",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "INSERT INTO nonamecity (\n   sensor,\n   value1,\n   value2,\n   value3,\n   value4,\n   value5,\n   value6,\n   value7,\n   value8,\n   value9,\n   value10,\n   value11,\n   value12,\n   value13,\n   value14,\n   value15,\n   value16,\n   value17,\n   value18,\n   value19,\n   value20,\n   rssi,\n   timestamp\n)\nVALUES (\n   \"{{payload.col1}}\",\n   \"{{payload.col2}}\",\n   \"{{payload.col3}}\",\n   \"{{payload.col4}}\",\n   \"{{payload.col5}}\",\n   \"{{payload.col6}}\",\n   \"{{payload.col7}}\",\n   \"{{payload.col8}}\",\n   \"{{payload.col9}}\",\n   \"{{payload.col10}}\",\n   \"{{payload.col11}}\",\n   \"{{payload.col12}}\",\n   \"{{payload.col13}}\",\n   \"{{payload.col14}}\",\n   \"{{payload.col15}}\",\n   \"{{payload.col16}}\",\n   \"{{payload.col17}}\",\n   \"{{payload.col18}}\",\n   \"{{payload.col19}}\",\n   \"{{payload.col20}}\",\n   \"{{payload.col21}}\",\n   \"{{payload.col22}}\",    \n   \"{{timestamp}}\"\n);",
+        "output": "str",
+        "x": 550,
+        "y": 480,
+        "wires": [
+            [
+                "9395a655b7b2f0ce",
+                "38a139d3361c5f50"
+            ]
+        ]
+    },
+    {
+        "id": "9395a655b7b2f0ce",
+        "type": "debug",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "38a139d3361c5f50",
+        "type": "sqlite",
+        "z": "65e4cc568d352a50",
+        "mydb": "98a3f5798948f0b7",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "city_001--citydata",
+        "x": 750,
+        "y": 480,
+        "wires": [
+            [
+                "555d0231dbaec93a"
+            ]
+        ]
+    },
+    {
+        "id": "555d0231dbaec93a",
+        "type": "debug",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 540,
+        "wires": []
     },
     {
         "id": "b28dd0f42a9ff1d6",
