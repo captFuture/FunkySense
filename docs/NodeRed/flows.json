@@ -8,122 +8,6 @@
         "env": []
     },
     {
-        "id": "8ea1be0ee3110155",
-        "type": "mqtt in",
-        "z": "65e4cc568d352a50",
-        "name": "",
-        "topic": "sensors/evt",
-        "qos": "2",
-        "datatype": "auto",
-        "broker": "b28dd0f42a9ff1d6",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 90,
-        "y": 180,
-        "wires": [
-            [
-                "377f3094259b2118",
-                "2fdc0d140a7e1468"
-            ]
-        ]
-    },
-    {
-        "id": "377f3094259b2118",
-        "type": "debug",
-        "z": "65e4cc568d352a50",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 250,
-        "y": 300,
-        "wires": []
-    },
-    {
-        "id": "8c7546cd2ff35fc8",
-        "type": "sqlite",
-        "z": "65e4cc568d352a50",
-        "mydb": "98a3f5798948f0b7",
-        "sqlquery": "msg.topic",
-        "sql": "",
-        "name": "city_001--citydata",
-        "x": 810,
-        "y": 180,
-        "wires": [
-            [
-                "0e555557217cde20"
-            ]
-        ]
-    },
-    {
-        "id": "2fdc0d140a7e1468",
-        "type": "json",
-        "z": "65e4cc568d352a50",
-        "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 230,
-        "y": 180,
-        "wires": [
-            [
-                "cf8a319168d3a255"
-            ]
-        ]
-    },
-    {
-        "id": "ef2cadfd782ec3cd",
-        "type": "template",
-        "z": "65e4cc568d352a50",
-        "name": "template city_001",
-        "field": "topic",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "INSERT INTO nonamecity (\n   sensor,\n   value1,\n   value2,\n   value3,\n   value4,\n   value5,\n   value6,\n   value7,\n   value8,\n   value9,\n   value10,\n   timestamp\n)\nVALUES (\n   \"{{payload.s}}\",\n   {{payload.v1}},\n   {{payload.v2}},\n   {{payload.v3}},\n   {{payload.v4}},\n   {{payload.v5}},\n   {{payload.v6}},\n   {{payload.v7}},\n   {{payload.v8}},\n   {{payload.v9}},\n   {{payload.v10}},\n   \"{{timestamp}}\"\n);",
-        "output": "str",
-        "x": 590,
-        "y": 180,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "cf8a319168d3a255",
-        "type": "timestamp",
-        "z": "65e4cc568d352a50",
-        "name": "",
-        "x": 370,
-        "y": 180,
-        "wires": [
-            [
-                "ef2cadfd782ec3cd"
-            ]
-        ]
-    },
-    {
-        "id": "0e555557217cde20",
-        "type": "debug",
-        "z": "65e4cc568d352a50",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1050,
-        "y": 180,
-        "wires": []
-    },
-    {
         "id": "0cd72863206de857",
         "type": "mqtt in",
         "z": "65e4cc568d352a50",
@@ -181,8 +65,8 @@
         "topic": "",
         "payload": "{\"command\":1}",
         "payloadType": "json",
-        "x": 130,
-        "y": 640,
+        "x": 150,
+        "y": 580,
         "wires": [
             [
                 "1623cc1e792ae88f",
@@ -204,8 +88,8 @@
         "correl": "",
         "expiry": "",
         "broker": "b28dd0f42a9ff1d6",
-        "x": 390,
-        "y": 640,
+        "x": 410,
+        "y": 580,
         "wires": []
     },
     {
@@ -220,8 +104,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 390,
-        "y": 760,
+        "x": 410,
+        "y": 700,
         "wires": []
     },
     {
@@ -245,8 +129,8 @@
         "topic": "",
         "payload": "{\"command\":2}",
         "payloadType": "json",
-        "x": 140,
-        "y": 700,
+        "x": 160,
+        "y": 640,
         "wires": [
             [
                 "1623cc1e792ae88f",
@@ -275,96 +159,12 @@
         "topic": "",
         "payload": "{\"command\":3}",
         "payloadType": "json",
-        "x": 150,
-        "y": 760,
+        "x": 170,
+        "y": 700,
         "wires": [
             [
                 "1623cc1e792ae88f",
                 "1f06cfde139f5990"
-            ]
-        ]
-    },
-    {
-        "id": "d8e5c70163cb3024",
-        "type": "mqtt in",
-        "z": "65e4cc568d352a50",
-        "name": "",
-        "topic": "sensors/evt1",
-        "qos": "2",
-        "datatype": "auto",
-        "broker": "b28dd0f42a9ff1d6",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 90,
-        "y": 240,
-        "wires": [
-            [
-                "377f3094259b2118",
-                "3fcea01b4d6221c1"
-            ]
-        ]
-    },
-    {
-        "id": "3fcea01b4d6221c1",
-        "type": "json",
-        "z": "65e4cc568d352a50",
-        "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 250,
-        "y": 240,
-        "wires": [
-            [
-                "77ca701d491bbe59"
-            ]
-        ]
-    },
-    {
-        "id": "77ca701d491bbe59",
-        "type": "timestamp",
-        "z": "65e4cc568d352a50",
-        "name": "",
-        "x": 390,
-        "y": 240,
-        "wires": [
-            [
-                "075feccfac77e79c"
-            ]
-        ]
-    },
-    {
-        "id": "075feccfac77e79c",
-        "type": "template",
-        "z": "65e4cc568d352a50",
-        "name": "template city_001",
-        "field": "topic",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "INSERT INTO nonamecity (\n   sensor,\n   value11,\n   value12,\n   value13,\n   value14,\n   value15,\n   value16,\n   value17,\n   value18,\n   value19,\n   value20,\n   timestamp\n)\nVALUES (\n   \"{{payload.s}}\",\n   {{payload.v1}},\n   {{payload.v2}},\n   {{payload.v3}},\n   {{payload.v4}},\n   {{payload.v5}},\n   {{payload.v6}},\n   {{payload.v7}},\n   {{payload.v8}},\n   {{payload.v9}},\n   {{payload.v10}},\n   \"{{timestamp}}\"\n);",
-        "output": "str",
-        "x": 590,
-        "y": 240,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "8cb237543cf17c07",
-        "type": "sqlite",
-        "z": "65e4cc568d352a50",
-        "mydb": "98a3f5798948f0b7",
-        "sqlquery": "msg.topic",
-        "sql": "",
-        "name": "city_001-citydata1",
-        "x": 810,
-        "y": 240,
-        "wires": [
-            [
-                "0e555557217cde20"
             ]
         ]
     },
@@ -382,11 +182,9 @@
         "rh": 0,
         "inputs": 0,
         "x": 90,
-        "y": 400,
+        "y": 160,
         "wires": [
-            [
-                "b596fa6417d10564"
-            ]
+            []
         ]
     },
     {
@@ -394,7 +192,7 @@
         "type": "debug",
         "z": "65e4cc568d352a50",
         "name": "",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -402,7 +200,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 370,
-        "y": 540,
+        "y": 300,
         "wires": []
     },
     {
@@ -413,7 +211,7 @@
         "action": "b64",
         "property": "payload",
         "x": 160,
-        "y": 480,
+        "y": 240,
         "wires": [
             [
                 "7b5d4d206391419f"
@@ -426,7 +224,7 @@
         "z": "65e4cc568d352a50",
         "name": "",
         "x": 370,
-        "y": 480,
+        "y": 240,
         "wires": [
             [
                 "37b1790ec1efaaad"
@@ -449,7 +247,7 @@
         "include_empty_strings": "",
         "include_null_values": "",
         "x": 170,
-        "y": 540,
+        "y": 300,
         "wires": [
             [
                 "523728b72cbffcd4",
@@ -469,7 +267,7 @@
         "template": "INSERT INTO nonamecity (\n   sensor,\n   value1,\n   value2,\n   value3,\n   value4,\n   value5,\n   value6,\n   value7,\n   value8,\n   value9,\n   value10,\n   value11,\n   value12,\n   value13,\n   value14,\n   value15,\n   value16,\n   value17,\n   value18,\n   value19,\n   value20,\n   rssi,\n   timestamp\n)\nVALUES (\n   \"{{payload.col1}}\",\n   \"{{payload.col2}}\",\n   \"{{payload.col3}}\",\n   \"{{payload.col4}}\",\n   \"{{payload.col5}}\",\n   \"{{payload.col6}}\",\n   \"{{payload.col7}}\",\n   \"{{payload.col8}}\",\n   \"{{payload.col9}}\",\n   \"{{payload.col10}}\",\n   \"{{payload.col11}}\",\n   \"{{payload.col12}}\",\n   \"{{payload.col13}}\",\n   \"{{payload.col14}}\",\n   \"{{payload.col15}}\",\n   \"{{payload.col16}}\",\n   \"{{payload.col17}}\",\n   \"{{payload.col18}}\",\n   \"{{payload.col19}}\",\n   \"{{payload.col20}}\",\n   \"{{payload.col21}}\",\n   \"{{payload.col22}}\",    \n   \"{{timestamp}}\"\n);",
         "output": "str",
         "x": 550,
-        "y": 480,
+        "y": 240,
         "wires": [
             [
                 "9395a655b7b2f0ce",
@@ -490,7 +288,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 570,
-        "y": 540,
+        "y": 300,
         "wires": []
     },
     {
@@ -502,7 +300,7 @@
         "sql": "",
         "name": "city_001--citydata",
         "x": 750,
-        "y": 480,
+        "y": 240,
         "wires": [
             [
                 "555d0231dbaec93a"
@@ -514,7 +312,7 @@
         "type": "debug",
         "z": "65e4cc568d352a50",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -522,7 +320,206 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 830,
-        "y": 540,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "991bc418d0c564db",
+        "type": "mqtt in",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "topic": "sensors/status",
+        "qos": "2",
+        "datatype": "utf8",
+        "broker": "b28dd0f42a9ff1d6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 780,
+        "wires": [
+            [
+                "b78ace964d15e5b8"
+            ]
+        ]
+    },
+    {
+        "id": "b78ace964d15e5b8",
+        "type": "debug",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 330,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "bb389a0a0bda8064",
+        "type": "comment",
+        "z": "65e4cc568d352a50",
+        "name": "ESP32 Version",
+        "info": "",
+        "x": 300,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "68d8364f6dfc46fa",
+        "type": "mqtt in",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "topic": "sensors/plain",
+        "qos": "2",
+        "datatype": "utf8",
+        "broker": "b28dd0f42a9ff1d6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 90,
+        "y": 360,
+        "wires": [
+            [
+                "645e76d9d7eabea4"
+            ]
+        ]
+    },
+    {
+        "id": "a3d3cab2dcaa680b",
+        "type": "debug",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 370,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "7b46fa96828a789b",
+        "type": "timestamp",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "x": 370,
+        "y": 440,
+        "wires": [
+            [
+                "a29f2a85d6192e5a"
+            ]
+        ]
+    },
+    {
+        "id": "645e76d9d7eabea4",
+        "type": "csv",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "sep": ",",
+        "hdrin": "",
+        "hdrout": "none",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 170,
+        "y": 500,
+        "wires": [
+            [
+                "a3d3cab2dcaa680b",
+                "7b46fa96828a789b"
+            ]
+        ]
+    },
+    {
+        "id": "a29f2a85d6192e5a",
+        "type": "template",
+        "z": "65e4cc568d352a50",
+        "name": "template city_001",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "INSERT INTO nonamecity (\n   sensor,\n   value1,\n   value2,\n   value3,\n   value4,\n   value5,\n   value6,\n   value7,\n   value8,\n   value9,\n   value10,\n   value11,\n   value12,\n   value13,\n   value14,\n   value15,\n   value16,\n   value17,\n   value18,\n   value19,\n   value20,\n   rssi,\n   timestamp\n)\nVALUES (\n   \"{{payload.col1}}\",\n   \"{{payload.col2}}\",\n   \"{{payload.col3}}\",\n   \"{{payload.col4}}\",\n   \"{{payload.col5}}\",\n   \"{{payload.col6}}\",\n   \"{{payload.col7}}\",\n   \"{{payload.col8}}\",\n   \"{{payload.col9}}\",\n   \"{{payload.col10}}\",\n   \"{{payload.col11}}\",\n   \"{{payload.col12}}\",\n   \"{{payload.col13}}\",\n   \"{{payload.col14}}\",\n   \"{{payload.col15}}\",\n   \"{{payload.col16}}\",\n   \"{{payload.col17}}\",\n   \"{{payload.col18}}\",\n   \"{{payload.col19}}\",\n   \"{{payload.col20}}\",\n   \"{{payload.col21}}\",\n   \"{{payload.col22}}\",    \n   \"{{timestamp}}\"\n);",
+        "output": "str",
+        "x": 570,
+        "y": 440,
+        "wires": [
+            [
+                "1ca263e24256997d",
+                "ed4656f8453d4a1b"
+            ]
+        ]
+    },
+    {
+        "id": "1ca263e24256997d",
+        "type": "debug",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "ed4656f8453d4a1b",
+        "type": "sqlite",
+        "z": "65e4cc568d352a50",
+        "mydb": "98a3f5798948f0b7",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "city_001--citydata",
+        "x": 790,
+        "y": 440,
+        "wires": [
+            [
+                "a9955606a34bc5f5"
+            ]
+        ]
+    },
+    {
+        "id": "a9955606a34bc5f5",
+        "type": "debug",
+        "z": "65e4cc568d352a50",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "85d3f6c951ef4185",
+        "type": "comment",
+        "z": "65e4cc568d352a50",
+        "name": "Arduino Nano 33 Iot Version",
+        "info": "",
+        "x": 340,
+        "y": 360,
         "wires": []
     },
     {

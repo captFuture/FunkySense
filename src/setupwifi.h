@@ -10,13 +10,17 @@ void connectWifi()
     delay(500);
     DEBUG_INFORMATION_SERIAL.print(".");
     w++;
-    if (w > 25)
+    if (w > 10)
     {
-      #ifdef ESP32
+      DEBUG_INFORMATION_SERIAL.print("No connect Possible - Disabling WiFi");
+      wifiretries = wifiretries - 1;
+      return;
+      /*#ifdef ESP32
       ESP.restart();
       #else
       NVIC_SystemReset();
-      #endif     
+      #endif
+      */
     }
   }
   DEBUG_INFORMATION_SERIAL.println("");

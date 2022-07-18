@@ -12,8 +12,9 @@
 
 #define SAVE_SD
 bool SDinserted = false;
-bool NETworkmode = true;
-int retries = 10;
+bool NETworkmode = false;
+int wifiretries = 10;
+int mqttretries = 10;
 
 #ifdef ESP32
     int WaveshareUV_Pin = 36;
@@ -61,13 +62,13 @@ unsigned long oldMillisONE = 0;
 unsigned long pauseTWO = 10000; //10 seconds
 unsigned long oldMillisTWO = 0;
 
-const char* ssid = "TarantlBros";
-const char* password = "chillfumml";
-//const char* ssid = "KAJJAR";
-//const char* password = "hvstjsr6mrS2";
+//const char* ssid = "TarantlBros";
+//const char* password = "chillfumml";
+const char* ssid = "KAJJAR";
+const char* password = "hvstjsr6mrS2";
 
-const char* mqttuser = "captFuture";
-const char* mqttpassword = "Che11as!1";
+//const char* mqttuser = "myUser";
+//const char* mqttpassword = "myPassword";
 
 const char* version = xstr(VERSION);
 const char* clientId = xstr(CLIENTID);
@@ -80,6 +81,8 @@ const char sdFormat[] = "%s, %f,%f,%f,%f, %u,%u,%u,%u, %u,%u,   %u,%u,%u,%f, %u,
 const char statusFormat[] = "{\"n\":\"%s\", \"ip\":\"%s\", \"rssi\":%d, \"s\":\"ONLINE\"}";
 const char encFormat[] = "{\"e\":\"%s\"}";
 
+
+
 char msg[1024];
 char msg1[1024];
 char encmsg[1024];
@@ -88,6 +91,7 @@ char sdmsg[1024];
 char outTopic[] = "sensors/evt";
 char outTopic1[] = "sensors/evt1";
 char encTopic[] = "sensors/enc";
+char plainTopic[] = "sensors/plain";
 char statusTopic[] = "sensors/status";
 char inTopic[] = "sensors/cmd";
 char clearSDcommand[] = "clearsd";

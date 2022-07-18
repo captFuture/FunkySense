@@ -76,6 +76,10 @@ void setup() {
 }
 
 void loop() {
+  if(wifiretries < 1 || mqttretries < 1){
+    NETworkmode = false;
+  }
+
   if(NETworkmode){
     if (!client.connected()) {
       DEBUG_INFORMATION_SERIAL.println("Not connected - go to reconnect");

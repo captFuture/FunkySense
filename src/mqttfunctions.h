@@ -11,7 +11,7 @@ void saveSensors(){
   DEBUG_INFORMATION_SERIAL.println(sdmsg);
   #ifdef SAVE_SD
     DEBUG_INFORMATION_SERIAL.print("3SDinserted: ");
-    DEBUG_INFORMATION_SERIAL.println(SDinserted);
+    //DEBUG_INFORMATION_SERIAL.println(SDinserted);
     DEBUG_INFORMATION_SERIAL.println(SDinserted ? "YES" : "NO");
     if(SDinserted){
       writePayload();
@@ -33,20 +33,7 @@ void sendSensors(){
   }
 
   #else
-    unsigned char string[] = sdmsg;
-    unsigned char base64[1024]; 
-
-    // encode_base64() places a null terminator automatically, because the output is a string
-    unsigned int base64_length = encode_base64(sdmsg, strlen((char *) sdmsg), base64);
-
-    printf("%d\n", base64_length); // Prints "20"
-    printf((char *) base64); // Prints "U3RyaW5nIGV4YW1wbGU="
-
-
-    //String encoded = base64::encode(sdmsg);
-    String encoded = "lalalalala";
-    DEBUG_INFORMATION_SERIAL.println(encoded);
-    if (client.publish(encTopic, encoded.c_str())){
+    if (client.publish(plainTopic, sdmsg)){
       DEBUG_INFORMATION_SERIAL.println("Publish ok");
     } else {
       DEBUG_ERROR_SERIAL.println("Publish failed");
