@@ -12,7 +12,7 @@
 
 #define SAVE_SD
 bool SDinserted = false;
-bool NETworkmode = false;
+bool NETworkmode = true;
 int wifiretries = 10;
 int mqttretries = 10;
 

@@ -76,9 +76,9 @@ void setup() {
 }
 
 void loop() {
-  if(wifiretries < 1 || mqttretries < 1){
-    NETworkmode = false;
-  }
+
+  //DEBUG_INFORMATION_SERIAL.print("Networkmode: ");
+  //DEBUG_INFORMATION_SERIAL.print(NETworkmode);
 
   if(NETworkmode){
     if (!client.connected()) {

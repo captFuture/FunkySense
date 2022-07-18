@@ -10,10 +10,10 @@ void connectWifi()
     delay(500);
     DEBUG_INFORMATION_SERIAL.print(".");
     w++;
-    if (w > 10)
+    if (w > wifiretries)
     {
       DEBUG_INFORMATION_SERIAL.print("No connect Possible - Disabling WiFi");
-      wifiretries = wifiretries - 1;
+      NETworkmode = false;
       return;
       /*#ifdef ESP32
       ESP.restart();

@@ -134,6 +134,7 @@ void reconnect()
 {
   while (!client.connected())
   {
+  if(NETworkmode){
     DEBUG_INFORMATION_SERIAL.print("Attempting MQTT connection...");
     DEBUG_INFORMATION_SERIAL.println(mqttserver);
 
@@ -169,6 +170,7 @@ void reconnect()
         delay(5000);
       }
     }
+  }
   }
 }
 
