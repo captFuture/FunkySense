@@ -23,8 +23,9 @@ and install https://flows.nodered.org/node/node-red-node-sqlite connector and ht
 
 - mosquitto mqtt broker (https://mosquitto.org/download/ - mosquitto-2.0.14-install-windows-x64.exe - and create a startup task like with node red)
 IMPORTANT: 
-- Deactivate windows firewall or create exception for port 1880
-- change mosquitto conf [C:\Program Files\mosquitto\mosquitto.conf] (AND allow_anonymous true AND port 1883 at top of config file)
+- Deactivate windows firewall or create exception for port 1883
+- change mosquitto conf [C:\Program Files\mosquitto\mosquitto.conf] (ADD listener 1883 allow_anonymous true at top of config file)
+(for debugging kill mosquitto service and open it in a cmd window manually with mosquitto.exe -v -c mosquitto.conf)
 
 - SQlite (https://www.sqlite.org/download.html - sqlite-dll-win64-x64-3390000.zip - sqlite-tools-win32-x86-3390000.zip )
   Extract everything to C:\sqlite and add the directory to your path variable
@@ -34,7 +35,9 @@ For Development:
 - http://mqtt-explorer.com/
 
 
-Json Payload to send: DEMO (send to topic sensors/)
+Json Payload to send: DEMO (send to topic sensors/plain)
+{001, 0.02,0.03,0.04,0.05, 6,7,8,9,10,11,   12,13,14,0.15, 16,17,18,19, 20,21, 22}
+
 {"sensor": 1,"value1": 123,"value2": 123,"value3": 123,"value4": 123,"value5": 123,"value6": 123,"value7": 123,"value8": 123,"value9": 123,"value10": 123}
 timestamp is added automatically in UTC 
 
