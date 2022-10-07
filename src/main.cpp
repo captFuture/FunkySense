@@ -74,8 +74,9 @@ void setup() {
     WiFiManager wm;
     wm.setDebugOutput(true);
     wm.setConfigPortalTimeout(timeout);
-    //wm.preloadWiFi("TarantlBros", "chillfumml");
-    //wm.resetSettings();
+    if(SDinserted == true){
+      wm.preloadWiFi(config.ssid, config.password);
+    }
 
     bool res;
     res = wm.autoConnect(config.clientId);
