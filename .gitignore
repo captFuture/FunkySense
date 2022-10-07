@@ -34,3 +34,5 @@
 .pio
 .vscode
 city_*
+*.csv
+docs/sensordata.csv
