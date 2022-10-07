@@ -75,7 +75,7 @@ void setup() {
     wm.setDebugOutput(true);
     wm.setConfigPortalTimeout(timeout);
     if(SDinserted == true){
-      wm.preloadWiFi(config.ssid, config.password);
+      //wm.preloadWiFi(config.ssid, config.password);
     }
     bool res;
     showQrcode(1);
