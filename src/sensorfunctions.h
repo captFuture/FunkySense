@@ -11,7 +11,7 @@ void GroveMultiGas(){
 
   M5.lcd.fillRect(0, 140, 100, 60, BLACK);
   M5.lcd.setCursor(0, 140);
-  M5.lcd.printf("c2h5oh: %d  \r\nvoc: %d  \r\nco: %d \r\nno2: %f", c2h5oh, voc, co, no2);
+  M5.lcd.printf("c2h5oh: %d  \r\nvoc: %d  \r\nco: %d \r\nno2: %d", c2h5oh, voc, co, no2);
 
   DEBUG_SENSOR_SERIAL.print("C2H5OH: "); DEBUG_SENSOR_SERIAL.println(gas.measure_C2H5OH());
   DEBUG_SENSOR_SERIAL.print("VOC: "); DEBUG_SENSOR_SERIAL.println(gas.measure_VOC());
