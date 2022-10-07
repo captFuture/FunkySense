@@ -50,6 +50,9 @@ int voc = 0;
 int co = 0;
 int no2 = 0;
 
+float uv = 0.0;
+float ALS = 0.0;
+
 int buttonPress;
 int timeout = 60;
 

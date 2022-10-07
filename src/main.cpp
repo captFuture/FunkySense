@@ -31,6 +31,8 @@ PubSubClient client(wifiClient);
 #include <Adafruit_Sensor.h>
 #include <Adafruit_TSL2591.h>
 #include <Multichannel_Gas_GMXXX.h>
+#include <DEV_Config.h>
+#include <LTR390.h>
 
 /* Sensor Inits */
 SHT3X sht30;
@@ -66,6 +68,9 @@ void setup() {
   gas.begin(Wire, 0x08);
   M5.lcd.println(F("ANNA - ENV"));
   Serial.begin(115200);
+
+  LTR390_SetIntVal(5, 20);
+
   
 
 
@@ -75,7 +80,7 @@ void setup() {
     wm.setDebugOutput(true);
     wm.setConfigPortalTimeout(timeout);
     if(SDinserted == true){
-      //wm.preloadWiFi(config.ssid, config.password);
+      wm.preloadWiFi(config.ssid, config.password);
     }
     bool res;
     showQrcode(1);
@@ -159,6 +164,7 @@ void loop() {
     M5EnvIII();
     AdafruitTSL2591();
     GroveMultiGas();
+    ltr390();
     printLocalTime();
     writePayload();
     showNetStatus();
