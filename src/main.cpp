@@ -2,7 +2,9 @@
 #include <PubSubClient.h>
 #include <globals.h>
 #include <Arduino.h>
-#include <M5Stack.h>
+
+#include <M5Core2.h>
+
 #include <base64.h>
 
 /* time init */
@@ -54,7 +56,6 @@ void showQrcode(int showhide){
 
 void setup() {
   M5.begin();            
-  M5.Power.begin();       
   M5.lcd.setTextSize(2);  
   Wire.begin();
 
