@@ -1,0 +1,8 @@
+{
+  "clientid": "Sensor_002",
+  "city": "Graz",
+  "ssid": "TarantlBros",
+  "password": "chillfumml",
+  "mqttserver": "192.168.50.105",
+  "networkmode":true
+}

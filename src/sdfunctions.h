@@ -8,82 +8,69 @@ void initializeSD(){
         DEBUG_INFORMATION_SERIAL.println("SDCard present"); 
     }
     if(SDinserted){
-        if (SD.exists("sensor.csv")) {
+        if (SD.exists("/sensor.csv")) {
             DEBUG_INFORMATION_SERIAL.println("sensor.csv exists.");
-            #ifdef ESP32
-                File sensorFile = SD.open("sensor.csv", FILE_APPEND);
-            #else
-                File sensorFile = SD.open("sensor.csv", FILE_WRITE);
-            #endif
+            File sensorFile = SD.open("/sensor.csv", FILE_APPEND);
             sensorFile.println("exists NEW DATA ----------");
             sensorFile.close();
         } else {
             DEBUG_ERROR_SERIAL.println("sensor.csv doesn't exist.");
-            #ifdef ESP32
-                File sensorFile = SD.open("sensor.csv", FILE_APPEND);
-                int written = sensorFile.println("does not exist NEW FILE ----------");
-                DEBUG_INFORMATION_SERIAL.print(written);
-                sensorFile.close();
-            #else
-                File sensorFile = SD.open("sensor.csv", FILE_WRITE);
-                int written = sensorFile.println("does not exist NEW FILE ----------");
-                DEBUG_INFORMATION_SERIAL.print(written);
-
-                sensorFile.close();
-
-                /* File myFile;
-                myFile = SD.open("sensor.csv", FILE_WRITE);
-                // if the file opened okay, write to it:
-                if (myFile) {
-                    Serial.print("Writing sensor.csv...");
-                    myFile.println("testing 1, 2, 3.");
-                    // close the file:
-                    myFile.close();
-                    Serial.println("done.");
-                } else {
-                    // if the file didn't open, print an error:
-                    Serial.println("error opening sensor.csv");
-                }
-
-
-                myFile = SD.open("sensor.csv");
-                if (myFile) {
-                    Serial.println("sensor.csv:");
-
-                    // read from the file until there's nothing else in it:
-                    while (myFile.available()) {
-                    Serial.write(myFile.read());
-                    }
-                    // close the file:
-                    myFile.close();
-                } else {
-                    // if the file didn't open, print an error:
-                    Serial.println("error opening sensor.csv");
-                }*/
-            #endif
-
+            File sensorFile = SD.open("/sensor.csv", FILE_WRITE);
+            int written = sensorFile.println("does not exist NEW FILE ----------");
+            DEBUG_INFORMATION_SERIAL.println(written);
+            sensorFile.close();
         }
     }
 }
 
-void writePayload(){
-    #ifdef ESP32
-        File sensorFile = SD.open("sensor.csv", FILE_APPEND);
-    #else
-        File sensorFile = SD.open("sensor.csv", FILE_WRITE);
-    #endif
-    //sprintf(sdmsg,sdFormat, SensorValues.sensor, SensorValues.one, SensorValues.two, SensorValues.three, SensorValues.four, SensorValues.five, SensorValues.six, SensorValues.seven, SensorValues.eight, SensorValues.nine, SensorValues.ten, SensorValues1.one, SensorValues1.two, SensorValues1.three, SensorValues1.four, SensorValues1.five, SensorValues1.six, SensorValues1.seven, SensorValues1.eight, SensorValues1.nine, SensorValues1.ten, SensorValues.rssi );
-    DEBUG_INFORMATION_SERIAL.print("Writing Sensordata to SD: ");
-    DEBUG_INFORMATION_SERIAL.println(sdmsg);
+void readConfig(){
+    if(SDinserted == true){
+        File configFile = SD.open("/config.json", FILE_READ);
+        DEBUG_INFORMATION_SERIAL.print("Reading config from SD: ");
 
-    int written = sensorFile.println(sdmsg);
-    DEBUG_INFORMATION_SERIAL.print(written);
-    sensorFile.close();
+        StaticJsonDocument<512> doc;
+        DeserializationError error = deserializeJson(doc, configFile);
+        if (error){
+            Serial.println(F("Failed to read file, using default configuration"));      
+        }
+            
+        strlcpy(config.city, doc["city"] | xstr(CITY), sizeof(config.city));
+        strlcpy(config.clientId, doc["clientid"] | xstr(CLIENTID), sizeof(config.clientId));
+        strlcpy(config.ssid, doc["ssid"] | xstr(SSID), sizeof(config.ssid));
+        strlcpy(config.password, doc["password"] | xstr(PASSWORD), sizeof(config.password));
+        strlcpy(config.mqttserver, doc["mqttserver"] | xstr(MQTTSERVER), sizeof(config.mqttserver));
+        config.NETworkmode = doc["networkmode"] | true;
+
+        configFile.close();
+    }else{
+        DEBUG_INFORMATION_SERIAL.println("SD not present - config not readable");
+    }
+    
+}
+
+void writePayload(){
+    if(SDinserted == true){
+        File sensorFile = SD.open("/sensor.csv", FILE_APPEND);
+        sprintf(sdmsg,sdFormat, measureTime, config.clientId, config.city, tmp, hum, pre, ir, full, visible, lux, c2h5oh, voc, co, no2, WiFi.RSSI());
+        DEBUG_INFORMATION_SERIAL.print("Writing Sensordata to SD: ");
+        int written = sensorFile.println(sdmsg);
+        DEBUG_INFORMATION_SERIAL.println(written);
+        sensorFile.close();
+    }else{
+        sprintf(sdmsg,sdFormat, measureTime, config.clientId, config.city, tmp, hum, pre, ir, full, visible, lux, c2h5oh, voc, co, no2, WiFi.RSSI());
+        DEBUG_INFORMATION_SERIAL.println(sdmsg);
+        DEBUG_INFORMATION_SERIAL.println("SD not present - not writing");
+    }
+    
 }
 
 void clearSDcontent(){
-    SD.remove("sensor.csv");
-    File sensorFile = SD.open("sensor.csv", FILE_WRITE);
-    DEBUG_INFORMATION_SERIAL.println("Clearing SDcard");
-    sensorFile.close();
+    if(SDinserted == true){
+        SD.remove("/sensor.csv");
+        File sensorFile = SD.open("/sensor.csv", FILE_WRITE);
+        DEBUG_INFORMATION_SERIAL.println("SDcard cleared - new sensors.csv added");
+        sensorFile.close();
+    }else{
+        DEBUG_INFORMATION_SERIAL.println("SD not present - not clearing");
+    }
 }

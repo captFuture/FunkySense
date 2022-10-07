@@ -1,60 +1,22 @@
 #define xstr(a) str(a)
 #define str(a) #a
 
-#define DEBUG_ERROR true
-#define DEBUG_ERROR_SERIAL if(DEBUG_ERROR)Serial
+#define DEBUG_ERRORS true
+#define DEBUG_ERROR_SERIAL if(DEBUG_ERRORS)Serial
 
-#define DEBUG_SENSOR false
+#define DEBUG_SENSOR true
 #define DEBUG_SENSOR_SERIAL if(DEBUG_SENSOR)Serial
 
 #define DEBUG_INFORMATION true
 #define DEBUG_INFORMATION_SERIAL if(DEBUG_INFORMATION)Serial
 
+#define DEBUG_NTPClient true
+
 #define SAVE_SD
 bool SDinserted = false;
-bool NETworkmode = true;
-int wifiretries = 10;
 int mqttretries = 10;
 
-#ifdef ESP32
-    int WaveshareUV_Pin = 36;
-#else
-    int WaveshareUV_Pin = 14;
-#endif
-int uvvalue = 0;
-
-struct {
-    char *sensor;
-    float one;
-    float two;
-    float three;
-    float four;
-
-    int five;
-    int six;
-    int seven;
-    int eight;
-
-    int nine;
-    int ten;
-    int rssi;
-} SensorValues;
-
-struct {
-    char *sensor;
-    int one;
-    int two;
-    int three;
-    float four;
-
-    int five;
-    int six;
-    int seven;
-    int eight;
-    int nine;
-    int ten;
-    int rssi;
-} SensorValues1;
+int WaveshareUV_Pin = 36;
 
 unsigned long pauseONE = 10000; //10 seconds
 unsigned long oldMillisONE = 0;
@@ -62,34 +24,54 @@ unsigned long oldMillisONE = 0;
 unsigned long pauseTWO = 10000; //10 seconds
 unsigned long oldMillisTWO = 0;
 
-//const char* ssid = "TarantlBros";
-//const char* password = "chillfumml";
-const char* ssid = "KAJJAR";
-const char* password = "hvstjsr6mrS2";
-
-//const char* mqttuser = "myUser";
-//const char* mqttpassword = "myPassword";
+struct Config {
+  char city[40] = xstr(CITY);
+  char clientId[40] = xstr(CLIENTID);
+  char ssid[40] = xstr(SSID);
+  char password[40] = xstr(PASSWORD);
+  char mqttserver[40] = xstr(MQTTSERVER);
+  bool NETworkmode = true;
+};
+Config config;
 
 const char* version = xstr(VERSION);
-const char* clientId = xstr(CLIENTID);
-const char* mqttserver = xstr(MQTTSERVER);
 
-const char payloadFormat[] = "{\"s\":\"%s\",  \"v1\":%f, \"v2\":%f, \"v3\":%f, \"v4\":%f,  \"v5\":%u, \"v6\":%u, \"v7\":%u, \"v8\":%u,  \"v9\":%u, \"v10\":%u, \"rssi\":%d}";
-const char payloadFormat1[] = "{\"s\":\"%s\",  \"v1\":%u, \"v2\":%u, \"v3\":%u, \"v4\":%f,  \"v5\":%u, \"v6\":%u, \"v7\":%u, \"v8\":%u,  \"v9\":%u, \"v10\":%u, \"rssi\":%d}";
-const char sdFormat[] = "%s, %f,%f,%f,%f, %u,%u,%u,%u, %u,%u,   %u,%u,%u,%f, %u,%u,%u,%u, %u,%u, %d";
+float tmp = 0.0;
+float hum = 0.0;
+float pre = 0.0;
+
+float lux = 0.0;
+int ir = 0;
+int full = 0;
+int visible = 0;
+
+int c2h5oh = 0;
+int voc = 0;
+int co = 0;
+int no2 = 0;
+
+int buttonPress;
+int timeout = 60;
+
+// const char sdFormat[] = "string datetime, string sensorid, string city,float temp,float humidity,float pressure, int ir,int full,int visible,float lux, int c2h5oh,int voc, int co, int no2, uint rssi";
+const char sdFormat[] = "%s, %s, %s, %2.2f, %2.2f, %2.2f, %u, %u, %u, %2.2f, %u, %u, %u, %u, %d";
+/*
+https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm
+*/
 
 const char statusFormat[] = "{\"n\":\"%s\", \"ip\":\"%s\", \"rssi\":%d, \"s\":\"ONLINE\"}";
 const char encFormat[] = "{\"e\":\"%s\"}";
 
-
+const char* ntpServer = config.mqttserver;
+const long  gmtOffset_sec = 3600;
+const int   daylightOffset_sec = 3600;
+char measureTime[30];
 
 char msg[1024];
 char msg1[1024];
 char encmsg[1024];
-char sdmsg[1024];
+char sdmsg[2000];
 
-char outTopic[] = "sensors/evt";
-char outTopic1[] = "sensors/evt1";
 char encTopic[] = "sensors/enc";
 char plainTopic[] = "sensors/plain";
 char statusTopic[] = "sensors/status";

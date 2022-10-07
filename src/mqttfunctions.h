@@ -1,28 +1,22 @@
+String ip2Str(IPAddress ip){
+  String s="";
+  for (int i=0; i<4; i++) {
+    s += i  ? "." + String(ip[i]) : String(ip[i]);
+  }
+  return s;
+}
+
 void sendDeviceStatus()
 {
-  sprintf(msg, statusFormat, clientId, ip2Str(WiFi.localIP()), SensorValues.rssi);
+  sprintf(msg, statusFormat, config.clientId, ip2Str(WiFi.localIP()), WiFi.RSSI());
   if (client.publish(statusTopic, msg))
   {
   }
 }
 
-void saveSensors(){
-  sprintf(sdmsg,sdFormat, SensorValues.sensor, SensorValues.one, SensorValues.two, SensorValues.three, SensorValues.four, SensorValues.five, SensorValues.six, SensorValues.seven, SensorValues.eight, SensorValues.nine, SensorValues.ten, SensorValues1.one, SensorValues1.two, SensorValues1.three, SensorValues1.four, SensorValues1.five, SensorValues1.six, SensorValues1.seven, SensorValues1.eight, SensorValues1.nine, SensorValues1.ten, SensorValues.rssi );
-  DEBUG_INFORMATION_SERIAL.println(sdmsg);
-  #ifdef SAVE_SD
-    DEBUG_INFORMATION_SERIAL.print("3SDinserted: ");
-    //DEBUG_INFORMATION_SERIAL.println(SDinserted);
-    DEBUG_INFORMATION_SERIAL.println(SDinserted ? "YES" : "NO");
-    if(SDinserted){
-      writePayload();
-    }
-  #endif
-}
-
 void sendSensors(){
-  sprintf(sdmsg,sdFormat, SensorValues.sensor, SensorValues.one, SensorValues.two, SensorValues.three, SensorValues.four, SensorValues.five, SensorValues.six, SensorValues.seven, SensorValues.eight, SensorValues.nine, SensorValues.ten, SensorValues1.one, SensorValues1.two, SensorValues1.three, SensorValues1.four, SensorValues1.five, SensorValues1.six, SensorValues1.seven, SensorValues1.eight, SensorValues1.nine, SensorValues1.ten, SensorValues.rssi );
+  sprintf(sdmsg,sdFormat,measureTime,config.clientId,config.city,tmp,hum,pre,ir,full,visible,lux,c2h5oh,voc,co,no2,WiFi.RSSI());
   DEBUG_INFORMATION_SERIAL.println(sdmsg);
-  #ifdef ESP32
   String encoded = base64::encode(sdmsg);
   DEBUG_INFORMATION_SERIAL.println(encoded);
 
@@ -30,33 +24,6 @@ void sendSensors(){
     DEBUG_INFORMATION_SERIAL.println("Publish ok");
   } else {
     DEBUG_ERROR_SERIAL.println("Publish failed");
-  }
-
-  #else
-    if (client.publish(plainTopic, sdmsg)){
-      DEBUG_INFORMATION_SERIAL.println("Publish ok");
-    } else {
-      DEBUG_ERROR_SERIAL.println("Publish failed");
-    }
-  #endif
-
-  /* get some values and send this shit */
-  sprintf(msg,payloadFormat, SensorValues.sensor, SensorValues.one, SensorValues.two, SensorValues.three, SensorValues.four, SensorValues.five, SensorValues.six, SensorValues.seven, SensorValues.eight, SensorValues.nine, SensorValues.ten, SensorValues.rssi);
-  DEBUG_INFORMATION_SERIAL.print("Sending payload: ");
-  DEBUG_INFORMATION_SERIAL.println(msg);
-  if (client.publish(outTopic, msg)) {
-    DEBUG_INFORMATION_SERIAL.println("Publish ok");
-  } else {
-    DEBUG_ERROR_SERIAL.println("Publish failed");
-  }
-
-  sprintf(msg1,payloadFormat1, SensorValues1.sensor, SensorValues1.one, SensorValues1.two, SensorValues1.three, SensorValues1.four, SensorValues1.five, SensorValues1.six, SensorValues1.seven, SensorValues1.eight, SensorValues1.nine, SensorValues1.ten);
-  DEBUG_INFORMATION_SERIAL.print("Sending payload1: ");
-  DEBUG_INFORMATION_SERIAL.println(msg1);
-  if (client.publish(outTopic1, msg1)) {
-    DEBUG_INFORMATION_SERIAL.println("Publish1 ok");
-  } else {
-    DEBUG_ERROR_SERIAL.println("Publish1 failed");
   }
 
 }
@@ -73,37 +40,29 @@ void callback(char *topic, byte *payload, unsigned int length){
   DEBUG_INFORMATION_SERIAL.println(json);
 
   // Decode JSON request
-  StaticJsonBuffer<300> jsonBuffer;
-  JsonObject &doc = jsonBuffer.parseObject((char *)json);
-  if (!doc.success())
-  {
-    DEBUG_INFORMATION_SERIAL.println("parseObject() failed");
-    return;
-
+  StaticJsonDocument<512> doc;
+  DeserializationError error = deserializeJson(doc, (char *)json);
+  if (error){
+      Serial.println(F("Failed to read file, using default configuration"));      
   }
+      
+  //strlcpy(config.city, doc["city"] | xstr(CITY), sizeof(config.city));
+
     int command = doc["command"]; // 
     DEBUG_INFORMATION_SERIAL.print("COMMAND: ");
     DEBUG_INFORMATION_SERIAL.println(command);
 
     if(command == 1){
-     DEBUG_INFORMATION_SERIAL.println("Clearing SD content");
-     if(SDinserted){
-      #ifdef ESP32
-        clearSDcontent();
-      #endif
-     }
+    DEBUG_INFORMATION_SERIAL.println("Clearing SD content");
+      clearSDcontent();
     }
     if(command == 2){
-     DEBUG_INFORMATION_SERIAL.println("Rebooting device");
-     #ifdef ESP32
+    DEBUG_INFORMATION_SERIAL.println("Rebooting device");
       ESP.restart();
-     #else
-      NVIC_SystemReset();
-     #endif   
     }
 
     if(command == 3){
-      DEBUG_INFORMATION_SERIAL.println("Sending device Status");
+    DEBUG_INFORMATION_SERIAL.println("Sending device Status");
       sendDeviceStatus();
     }
 }
@@ -134,12 +93,11 @@ void reconnect()
 {
   while (!client.connected())
   {
-  if(NETworkmode){
+  if(config.NETworkmode){
     DEBUG_INFORMATION_SERIAL.print("Attempting MQTT connection...");
-    DEBUG_INFORMATION_SERIAL.println(mqttserver);
+    DEBUG_INFORMATION_SERIAL.println(config.mqttserver);
 
-    //if (client.connect(clientId, mqttuser, mqttpassword))
-    if (client.connect(clientId))
+    if (client.connect(config.clientId))
     {
       DEBUG_INFORMATION_SERIAL.println("connected");
       DEBUG_INFORMATION_SERIAL.print("state:");
@@ -151,23 +109,14 @@ void reconnect()
     else
     {
       DEBUG_ERROR_SERIAL.print("failed, rc=");
-      DEBUG_ERROR_SERIAL.print(client.state());
-      DEBUG_ERROR_SERIAL.println(" trying fallback");
-      delay(5000);
+      DEBUG_ERROR_SERIAL.println(client.state());
+      DEBUG_ERROR_SERIAL.print("Mqttretries: ");  DEBUG_ERROR_SERIAL.println(mqttretries);
 
-      client.setServer(mqttserver, 1883);
-      if (client.connect(clientId))
-      {
-        DEBUG_INFORMATION_SERIAL.println("fallback connected");
-        client.setBufferSize(512);
-        delay(1000);
-        initManagedDevice();
-      }else{
-        DEBUG_ERROR_SERIAL.print("failed, rc=");
-        DEBUG_ERROR_SERIAL.print(client.state());
-        DEBUG_ERROR_SERIAL.println(" back to server");
-        client.setServer(mqttserver, 1883);
-        delay(5000);
+      delay(5000);
+      mqttretries = mqttretries -1;
+      if(mqttretries <= 0){
+        config.NETworkmode = false;
+        return;
       }
     }
   }
