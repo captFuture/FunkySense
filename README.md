@@ -28,6 +28,10 @@ M5EnvIII - Temp/Hum/Pres Sensor
 ### Sensordata in csv
 string datetime, string sensorid, string city,float temp,float humidity,float pressure, int ir,int full,int visible,float lux, int c2h5oh,int voc, int co, int no2, uint rssi
 
+### Indicators on screen
+- Top right - Networkmode on
+- middle right - Sdcard inserted
+
 Windows Installation needed
 - nodejs (https://nodejs.org/en/ - 16.6 LTS)
 - node-red (https://nodered.org/docs/getting-started/windows - do not forget to create "Run Node-RED on Startup")

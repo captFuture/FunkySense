@@ -51,7 +51,6 @@ void showQrcode(int showhide){
   }else{
     M5.lcd.fillScreen(BLACK);
   }
-  
 }
 
 void setup() {
@@ -137,9 +136,18 @@ void showNetStatus(){
     M5.Lcd.drawRect(295, 5, 20, 20, YELLOW);
     M5.Lcd.fillRect(296, 6, 18, 18, RED);
   }
-
-  
 }
+
+void showSDStatus(){
+  if(SDinserted == true){
+    M5.Lcd.drawRect(295, 30, 20, 20, YELLOW);
+    M5.Lcd.fillRect(296, 31, 18, 18, GREEN);
+  }else{
+    M5.Lcd.drawRect(295, 30, 20, 20, YELLOW);
+    M5.Lcd.fillRect(296, 31, 18, 18, RED);
+  }
+}
+  
 
 void loop() {
   M5.update();
@@ -150,6 +158,7 @@ void loop() {
     printLocalTime();
     writePayload();
     showNetStatus();
+    showSDStatus();
     if(config.NETworkmode){
       sendSensors();
     }
