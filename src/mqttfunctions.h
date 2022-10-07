@@ -15,7 +15,7 @@ void sendDeviceStatus()
 }
 
 void sendSensors(){
-  sprintf(sdmsg,sdFormat,measureTime,config.clientId,config.city,tmp,hum,pre,ir,full,visible,lux,c2h5oh,voc,co,no2,WiFi.RSSI());
+  sprintf(sdmsg,sdFormat,measureTime,config.clientId,config.city,tmp,hum,pre,ir,full,visible,lux,c2h5oh,voc,co,no2,uv,WiFi.RSSI());
   DEBUG_INFORMATION_SERIAL.println(sdmsg);
   String encoded = base64::encode(sdmsg);
   DEBUG_INFORMATION_SERIAL.println(encoded);

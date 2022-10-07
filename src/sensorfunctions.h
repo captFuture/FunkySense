@@ -43,9 +43,9 @@ void AdafruitTSL2591(){
 void ltr390(){
   uv = LTR390_UVS();
 
-  M5.lcd.fillRect(0, 70, 100, 60, BLACK);
-  M5.lcd.setCursor(0, 70);
-  M5.lcd.printf("UV: %d:", uv);
+  M5.lcd.fillRect(170, 70, 100, 60, BLACK);
+  M5.lcd.setCursor(170, 70);
+  M5.lcd.printf("UV: %u", uv);
 
   DEBUG_SENSOR_SERIAL.print("UV: ");DEBUG_SENSOR_SERIAL.println(uv);
 }

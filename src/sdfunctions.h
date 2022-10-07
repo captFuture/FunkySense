@@ -51,13 +51,13 @@ void readConfig(){
 void writePayload(){
     if(SDinserted == true){
         File sensorFile = SD.open("/sensor.csv", FILE_APPEND);
-        sprintf(sdmsg,sdFormat, measureTime, config.clientId, config.city, tmp, hum, pre, ir, full, visible, lux, c2h5oh, voc, co, no2, WiFi.RSSI());
+        sprintf(sdmsg,sdFormat, measureTime, config.clientId, config.city, tmp, hum, pre, ir, full, visible, lux, c2h5oh, voc, co, no2, uv, WiFi.RSSI());
         DEBUG_INFORMATION_SERIAL.print("Writing Sensordata to SD: ");
         int written = sensorFile.println(sdmsg);
         DEBUG_INFORMATION_SERIAL.println(written);
         sensorFile.close();
     }else{
-        sprintf(sdmsg,sdFormat, measureTime, config.clientId, config.city, tmp, hum, pre, ir, full, visible, lux, c2h5oh, voc, co, no2, WiFi.RSSI());
+        sprintf(sdmsg,sdFormat, measureTime, config.clientId, config.city, tmp, hum, pre, ir, full, visible, lux, c2h5oh, voc, co, no2, uv, WiFi.RSSI());
         DEBUG_INFORMATION_SERIAL.println(sdmsg);
         DEBUG_INFORMATION_SERIAL.println("SD not present - not writing");
     }

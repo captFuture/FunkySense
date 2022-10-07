@@ -47,7 +47,9 @@ void showQrcode(int showhide){
     M5.lcd.fillScreen(BLACK);
     M5.lcd.setCursor(5, 5);
     M5.Lcd.printf("connect to Wifi: %s", config.clientId);
-    M5.Lcd.qrcode("http://192.168.4.1",50,30,200,6);
+    M5.lcd.setCursor(5, 30);
+    M5.Lcd.print("Then open 192.1168.4.1 in Browser");
+    //M5.Lcd.qrcode("http://192.168.4.1",50,30,200,6);
   }else{
     M5.lcd.fillScreen(BLACK);
   }
@@ -66,13 +68,11 @@ void setup() {
   qmp6988.init();
   tsl.begin();
   gas.begin(Wire, 0x08);
-  M5.lcd.println(F("ANNA - ENV"));
-  Serial.begin(115200);
-
+  LTR390_Init();
   LTR390_SetIntVal(5, 20);
 
-  
-
+  M5.lcd.println(F("ANNA - ENV"));
+  Serial.begin(115200);
 
   if(config.NETworkmode){
     WiFi.mode(WIFI_STA);
@@ -96,8 +96,8 @@ void setup() {
       showQrcode(0);
     }
   
-    configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
-    //configTime(gmtOffset_sec, daylightOffset_sec, "pool.ntp.org");
+    //configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+    configTime(gmtOffset_sec, daylightOffset_sec, "pool.ntp.org");
     
     if (getLocalTime(&timeinfo)){
       DEBUG_SENSOR_SERIAL.println("Set time from ntp");
@@ -155,6 +155,7 @@ void showSDStatus(){
 
 void loop() {
   M5.update();
+  
   if (millis() - oldMillisONE >= pauseONE) {
 
     M5.lcd.fillRect(0, 0, 320, 20, BLACK);
