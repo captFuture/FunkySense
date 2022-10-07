@@ -78,8 +78,8 @@ void setup() {
     //wm.resetSettings();
 
     bool res;
-    res = wm.autoConnect(config.clientId);
     showQrcode(1);
+    res = wm.autoConnect(config.clientId);
     if(!res) {
       DEBUG_SENSOR_SERIAL.println("Failed to connect");
       config.NETworkmode = false;
