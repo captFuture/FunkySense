@@ -2,7 +2,7 @@
 #include <PubSubClient.h>
 #include <globals.h>
 #include <Arduino.h>
-#include <M5Stack.h>
+#include <M5station.h>
 #include <base64.h>
 
 /* time init */
