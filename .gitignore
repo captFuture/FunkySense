@@ -34,3 +34,4 @@
 .pio
 .vscode
 city_*
+*.csv
