@@ -112,8 +112,6 @@ void setup() {
     rtc.setTime(00, 10, 12, 1, 1, 2000);
     DEBUG_SENSOR_SERIAL.println(rtc.getTime("%A, %B %d %Y %H:%M:%S")); 
   }
-
-  
 }
 
 void switchDisplay(int onoff){
@@ -152,6 +150,11 @@ void showSDStatus(){
 void loop() {
   M5.update();
   if (millis() - oldMillisONE >= pauseONE) {
+
+    M5.lcd.fillRect(0, 0, 320, 20, BLACK);
+    M5.lcd.setCursor(0, 0);
+    M5.lcd.println(config.clientId);   
+
     M5EnvIII();
     AdafruitTSL2591();
     GroveMultiGas();
