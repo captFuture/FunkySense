@@ -62,7 +62,8 @@ https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm
 const char statusFormat[] = "{\"n\":\"%s\", \"ip\":\"%s\", \"rssi\":%d, \"s\":\"ONLINE\"}";
 const char encFormat[] = "{\"e\":\"%s\"}";
 
-const char* ntpServer = config.mqttserver;
+//const char* ntpServer = config.mqttserver;
+const char* ntpServer = "pool.ntp.org";
 const long  gmtOffset_sec = 3600;
 const int   daylightOffset_sec = 3600;
 char measureTime[30];

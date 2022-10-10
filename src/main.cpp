@@ -54,7 +54,6 @@ void showQrcode(int showhide){
 
 void setup() {
   M5.begin();            
-  M5.Power.begin();       
   M5.lcd.setTextSize(2);  
   Wire.begin();
 
@@ -99,7 +98,7 @@ void setup() {
       rtc.setTimeStruct(timeinfo); 
     }else{
       DEBUG_SENSOR_SERIAL.println("Setting time locally");
-      rtc.setTime(00, 10, 12, 1, 1, 2000);
+      rtc.setTime(00, 0, 12, 1, 1, 2000);
       DEBUG_SENSOR_SERIAL.println(rtc.getTime("%A, %B %d %Y %H:%M:%S")); 
     }
 
@@ -118,12 +117,12 @@ void setup() {
 
 void switchDisplay(int onoff){
   if(onoff == 0){
-    M5.Lcd.sleep();
-    M5.Lcd.setBrightness(0);
+    //M5.Lcd.sleep();
+    //M5.Lcd.setBrightness(0);
     DEBUG_SENSOR_SERIAL.print("Display off");
   }else{
-    M5.Lcd.wakeup();
-    M5.Lcd.setBrightness(200);
+    //M5.Lcd.wakeup();
+    //M5.Lcd.setBrightness(200);
     DEBUG_SENSOR_SERIAL.print("Display on");
   }
 }
