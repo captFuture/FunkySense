@@ -96,8 +96,7 @@ void setup() {
       showQrcode(0);
     }
   
-    //configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
-    configTime(gmtOffset_sec, daylightOffset_sec, "pool.ntp.org");
+    configTime(gmtOffset_sec, daylightOffset_sec, config.ntpserver);
     
     if (getLocalTime(&timeinfo)){
       DEBUG_SENSOR_SERIAL.println("Set time from ntp");
