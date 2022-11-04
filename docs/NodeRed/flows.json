@@ -1,6 +1,6 @@
 [
     {
-        "id": "80240c82eda0722b",
+        "id": "74beb7b1a1d6cbdf",
         "type": "tab",
         "label": "Save SensorData",
         "disabled": false,
@@ -8,9 +8,9 @@
         "env": []
     },
     {
-        "id": "b2190e972bdc7544",
+        "id": "641e951279a6bf40",
         "type": "mqtt in",
-        "z": "80240c82eda0722b",
+        "z": "74beb7b1a1d6cbdf",
         "name": "",
         "topic": "#",
         "qos": "2",
@@ -24,14 +24,14 @@
         "y": 80,
         "wires": [
             [
-                "31f2b7fb96cb7f2f"
+                "a0b9d0d363b9d52b"
             ]
         ]
     },
     {
-        "id": "31f2b7fb96cb7f2f",
+        "id": "a0b9d0d363b9d52b",
         "type": "debug",
-        "z": "80240c82eda0722b",
+        "z": "74beb7b1a1d6cbdf",
         "name": "",
         "active": false,
         "tosidebar": true,
@@ -45,9 +45,9 @@
         "wires": []
     },
     {
-        "id": "6b8793cea85e089c",
+        "id": "4cbf7cb6b1fd07c1",
         "type": "inject",
-        "z": "80240c82eda0722b",
+        "z": "74beb7b1a1d6cbdf",
         "name": "Clear SDcard",
         "props": [
             {
@@ -66,18 +66,18 @@
         "payload": "{\"command\":1}",
         "payloadType": "json",
         "x": 150,
-        "y": 440,
+        "y": 560,
         "wires": [
             [
-                "5c459b0056c0dadd",
-                "13d1685d6248510f"
+                "27d1a77326819d62",
+                "fd8994524cdb6284"
             ]
         ]
     },
     {
-        "id": "5c459b0056c0dadd",
+        "id": "27d1a77326819d62",
         "type": "mqtt out",
-        "z": "80240c82eda0722b",
+        "z": "74beb7b1a1d6cbdf",
         "name": "",
         "topic": "sensors/cmd",
         "qos": "",
@@ -89,15 +89,15 @@
         "expiry": "",
         "broker": "b28dd0f42a9ff1d6",
         "x": 410,
-        "y": 440,
+        "y": 560,
         "wires": []
     },
     {
-        "id": "13d1685d6248510f",
+        "id": "fd8994524cdb6284",
         "type": "debug",
-        "z": "80240c82eda0722b",
+        "z": "74beb7b1a1d6cbdf",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -105,13 +105,13 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 410,
-        "y": 560,
+        "y": 680,
         "wires": []
     },
     {
-        "id": "a1f115901d9818ac",
+        "id": "9180f263e0dbe635",
         "type": "inject",
-        "z": "80240c82eda0722b",
+        "z": "74beb7b1a1d6cbdf",
         "name": "Reboot Sensor",
         "props": [
             {
@@ -130,18 +130,18 @@
         "payload": "{\"command\":2}",
         "payloadType": "json",
         "x": 160,
-        "y": 500,
+        "y": 620,
         "wires": [
             [
-                "5c459b0056c0dadd",
-                "13d1685d6248510f"
+                "27d1a77326819d62",
+                "fd8994524cdb6284"
             ]
         ]
     },
     {
-        "id": "3cb847e8b2bfc2fc",
+        "id": "85c292c68d091365",
         "type": "inject",
-        "z": "80240c82eda0722b",
+        "z": "74beb7b1a1d6cbdf",
         "name": "Get Sensor Status",
         "props": [
             {
@@ -160,18 +160,240 @@
         "payload": "{\"command\":3}",
         "payloadType": "json",
         "x": 170,
-        "y": 560,
+        "y": 680,
         "wires": [
             [
-                "5c459b0056c0dadd",
-                "13d1685d6248510f"
+                "27d1a77326819d62",
+                "fd8994524cdb6284"
             ]
         ]
     },
     {
-        "id": "44a98bfe54a3a9d3",
+        "id": "14658b6bed65c047",
         "type": "mqtt in",
-        "z": "80240c82eda0722b",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "",
+        "topic": "sensors/enc",
+        "qos": "2",
+        "datatype": "utf8",
+        "broker": "b28dd0f42a9ff1d6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 90,
+        "y": 1320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "55cdbd4bd4683bfb",
+        "type": "debug",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 370,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "f91c83ebe0978b91",
+        "type": "base64",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "",
+        "action": "b64",
+        "property": "payload",
+        "x": 160,
+        "y": 1400,
+        "wires": [
+            [
+                "3d29700ab7ef379a"
+            ]
+        ]
+    },
+    {
+        "id": "8ecca328d4d713c1",
+        "type": "timestamp",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "",
+        "x": 370,
+        "y": 1400,
+        "wires": [
+            [
+                "54eb04442ca62cc3"
+            ]
+        ]
+    },
+    {
+        "id": "3d29700ab7ef379a",
+        "type": "csv",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "",
+        "sep": ",",
+        "hdrin": "",
+        "hdrout": "none",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 170,
+        "y": 1460,
+        "wires": [
+            [
+                "55cdbd4bd4683bfb",
+                "8ecca328d4d713c1"
+            ]
+        ]
+    },
+    {
+        "id": "54eb04442ca62cc3",
+        "type": "template",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "template city_001",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "INSERT INTO nonamecity (\n   sensor,\n   value1,\n   value2,\n   value3,\n   value4,\n   value5,\n   value6,\n   value7,\n   value8,\n   value9,\n   value10,\n   value11,\n   value12,\n   value13,\n   value14,\n   value15,\n   value16,\n   value17,\n   value18,\n   value19,\n   value20,\n   rssi,\n   timestamp\n)\nVALUES (\n   \"{{payload.col1}}\",\n   \"{{payload.col2}}\",\n   \"{{payload.col3}}\",\n   \"{{payload.col4}}\",\n   \"{{payload.col5}}\",\n   \"{{payload.col6}}\",\n   \"{{payload.col7}}\",\n   \"{{payload.col8}}\",\n   \"{{payload.col9}}\",\n   \"{{payload.col10}}\",\n   \"{{payload.col11}}\",\n   \"{{payload.col12}}\",\n   \"{{payload.col13}}\",\n   \"{{payload.col14}}\",\n   \"{{payload.col15}}\",\n   \"{{payload.col16}}\",\n   \"{{payload.col17}}\",\n   \"{{payload.col18}}\",\n   \"{{payload.col19}}\",\n   \"{{payload.col20}}\",\n   \"{{payload.col21}}\",\n   \"{{payload.col22}}\",    \n   \"{{timestamp}}\"\n);",
+        "output": "str",
+        "x": 550,
+        "y": 1400,
+        "wires": [
+            [
+                "752cc0efdc8f3d7f",
+                "4bfc7febd0f63e98"
+            ]
+        ]
+    },
+    {
+        "id": "752cc0efdc8f3d7f",
+        "type": "debug",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "4bfc7febd0f63e98",
+        "type": "sqlite",
+        "z": "74beb7b1a1d6cbdf",
+        "mydb": "98a3f5798948f0b7",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "city_001--citydata",
+        "x": 750,
+        "y": 1400,
+        "wires": [
+            [
+                "a62396f8a162f86a"
+            ]
+        ]
+    },
+    {
+        "id": "a62396f8a162f86a",
+        "type": "debug",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "5f755cc85b8002cb",
+        "type": "mqtt in",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "",
+        "topic": "sensors/status",
+        "qos": "2",
+        "datatype": "utf8",
+        "broker": "b28dd0f42a9ff1d6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 760,
+        "wires": [
+            [
+                "289dc8606208b6c4"
+            ]
+        ]
+    },
+    {
+        "id": "289dc8606208b6c4",
+        "type": "debug",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 330,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "14d870dbb2c30b2f",
+        "type": "comment",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "ESP32 Version",
+        "info": "",
+        "x": 300,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "8e22c6a27154f551",
+        "type": "comment",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "Demo Node for all Messages",
+        "info": "",
+        "x": 140,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "c452a3c34ffc9ae4",
+        "type": "comment",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "Change filepath to correct sqlite file here...",
+        "info": "",
+        "x": 800,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "f03b0f2682c2ef84",
+        "type": "mqtt in",
+        "z": "74beb7b1a1d6cbdf",
         "name": "",
         "topic": "sensors/enc",
         "qos": "2",
@@ -185,16 +407,16 @@
         "y": 220,
         "wires": [
             [
-                "ac7c8b8ae28e46ff"
+                "e36377b55c584352"
             ]
         ]
     },
     {
-        "id": "dfbafd9d95e2ed54",
+        "id": "978e5c94f7645806",
         "type": "debug",
-        "z": "80240c82eda0722b",
+        "z": "74beb7b1a1d6cbdf",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -206,9 +428,9 @@
         "wires": []
     },
     {
-        "id": "ac7c8b8ae28e46ff",
+        "id": "e36377b55c584352",
         "type": "base64",
-        "z": "80240c82eda0722b",
+        "z": "74beb7b1a1d6cbdf",
         "name": "",
         "action": "b64",
         "property": "payload",
@@ -216,16 +438,16 @@
         "y": 300,
         "wires": [
             [
-                "de7b92007d7837b8",
-                "dfbafd9d95e2ed54",
-                "a8fdc8a1cc40d79e"
+                "c91f45c302c6443b",
+                "978e5c94f7645806",
+                "c41f1d9dfc083c9e"
             ]
         ]
     },
     {
-        "id": "de7b92007d7837b8",
+        "id": "c91f45c302c6443b",
         "type": "csv",
-        "z": "80240c82eda0722b",
+        "z": "74beb7b1a1d6cbdf",
         "name": "",
         "sep": ",",
         "hdrin": "",
@@ -240,50 +462,16 @@
         "x": 370,
         "y": 360,
         "wires": [
-            []
-        ]
-    },
-    {
-        "id": "1be7af7be321ccaa",
-        "type": "mqtt in",
-        "z": "80240c82eda0722b",
-        "name": "",
-        "topic": "sensors/status",
-        "qos": "2",
-        "datatype": "utf8",
-        "broker": "b28dd0f42a9ff1d6",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 110,
-        "y": 640,
-        "wires": [
             [
-                "37efb179468e3e6d"
+                "b8c0a70e77b97d45",
+                "48f2c83c974175f6"
             ]
         ]
     },
     {
-        "id": "37efb179468e3e6d",
-        "type": "debug",
-        "z": "80240c82eda0722b",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 330,
-        "y": 640,
-        "wires": []
-    },
-    {
-        "id": "e95fa1618116fe41",
+        "id": "d0293ffa0caae510",
         "type": "comment",
-        "z": "80240c82eda0722b",
+        "z": "74beb7b1a1d6cbdf",
         "name": "ESP32 Version",
         "info": "",
         "x": 100,
@@ -291,19 +479,9 @@
         "wires": []
     },
     {
-        "id": "079abb60ca04754c",
-        "type": "comment",
-        "z": "80240c82eda0722b",
-        "name": "Demo Node for all Messages",
-        "info": "",
-        "x": 140,
-        "y": 40,
-        "wires": []
-    },
-    {
-        "id": "a8fdc8a1cc40d79e",
+        "id": "c41f1d9dfc083c9e",
         "type": "file",
-        "z": "80240c82eda0722b",
+        "z": "74beb7b1a1d6cbdf",
         "name": "Sensordata",
         "filename": "D:\\Development\\GIT\\FunkySense\\docs\\sensordata.csv",
         "appendNewline": true,
@@ -314,14 +492,14 @@
         "y": 240,
         "wires": [
             [
-                "398ed0267b76ea77"
+                "c1c3ce9366a2229c"
             ]
         ]
     },
     {
-        "id": "398ed0267b76ea77",
+        "id": "c1c3ce9366a2229c",
         "type": "debug",
-        "z": "80240c82eda0722b",
+        "z": "74beb7b1a1d6cbdf",
         "name": "",
         "active": false,
         "tosidebar": true,
@@ -332,6 +510,90 @@
         "statusType": "auto",
         "x": 550,
         "y": 240,
+        "wires": []
+    },
+    {
+        "id": "b8c0a70e77b97d45",
+        "type": "debug",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "48f2c83c974175f6",
+        "type": "template",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "template city_001",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "INSERT INTO nonamecity (\n   time,\n   sensorname,\n   city,\n   temp,\n   hum,\n   press,\n   ir,\n   full,\n   visible,\n   lux,\n   c2h5oh,\n   voc,\n   co,\n   no2,\n   uv,\n   rssi\n\n)\nVALUES (\n   \"{{{payload.col1}}}\",\n   \"{{payload.col2}}\",\n   \"{{payload.col3}}\",\n   \"{{payload.col4}}\",\n   \"{{payload.col5}}\",\n   \"{{payload.col6}}\",\n   \"{{payload.col7}}\",\n   \"{{payload.col8}}\",\n   \"{{payload.col9}}\",\n   \"{{payload.col10}}\",\n   \"{{payload.col11}}\",\n   \"{{payload.col12}}\",\n   \"{{payload.col13}}\",\n   \"{{payload.col14}}\",\n   \"{{payload.col15}}\",\n   \"{{payload.col16}}\"\n);",
+        "output": "str",
+        "x": 410,
+        "y": 420,
+        "wires": [
+            [
+                "4e8c1d5c3ab8c94c",
+                "337d2da807f8d99b"
+            ]
+        ]
+    },
+    {
+        "id": "4e8c1d5c3ab8c94c",
+        "type": "debug",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "337d2da807f8d99b",
+        "type": "sqlite",
+        "z": "74beb7b1a1d6cbdf",
+        "mydb": "98a3f5798948f0b7",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "city_001--citydata",
+        "x": 670,
+        "y": 420,
+        "wires": [
+            [
+                "935384f9ae1f96af"
+            ]
+        ]
+    },
+    {
+        "id": "935384f9ae1f96af",
+        "type": "debug",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 420,
         "wires": []
     },
     {
@@ -359,5 +621,11 @@
         "willPayload": "",
         "willMsg": {},
         "sessionExpiry": ""
+    },
+    {
+        "id": "98a3f5798948f0b7",
+        "type": "sqlitedb",
+        "db": "D:\\Development\\GIT\\FunkySense\\sqlite\\city_001.sqlite3",
+        "mode": "RWC"
     }
 ]

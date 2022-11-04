@@ -103,7 +103,7 @@ void setup() {
       rtc.setTimeStruct(timeinfo); 
     }else{
       DEBUG_SENSOR_SERIAL.println("Setting time locally");
-      rtc.setTime(00, 10, 12, 1, 1, 2000);
+      rtc.setTime(00, 00, 00, 1, 1, 2000);
       DEBUG_SENSOR_SERIAL.println(rtc.getTime("%A, %B %d %Y %H:%M:%S")); 
     }
 
@@ -113,7 +113,7 @@ void setup() {
 
   }else{     
     DEBUG_SENSOR_SERIAL.println("Setting time locally");
-    rtc.setTime(00, 10, 12, 1, 1, 2000);
+    rtc.setTime(00, 00, 00, 1, 1, 2000);
     DEBUG_SENSOR_SERIAL.println(rtc.getTime("%A, %B %d %Y %H:%M:%S")); 
   }
 
