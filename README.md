@@ -31,6 +31,7 @@ string datetime, string sensorid, string city,float temp,float humidity,float pr
 Windows Installation needed
 - nodejs (https://nodejs.org/en/ - 16.6 LTS)
 - node-red (https://nodered.org/docs/getting-started/windows - do not forget to create "Run Node-RED on Startup")
+- SQlite (https://www.sqlite.org/download.html - sqlite-dll-win64-x64-3390000.zip - sqlite-tools-win32-x86-3390000.zip ) Extract everything to C:\sqlite and add the directory to your path variable
 
 and install https://flows.nodered.org/node/node-red-node-sqlite connector and https://flows.nodered.org/node/node-red-contrib-sqlitedb and https://flows.nodered.org/node/node-red-node-base64 and https://flows.nodered.org/node/thethingbox-node-timestamp
 
@@ -48,7 +49,7 @@ Import docs/nodered/flows.json into NodeRed at http://localhost:1880 and deploy
 
 Start MQTT-Explorer and connect to mqtt broker on localhost (without certificate) -> send Payload to sensors/ (see payload above)
 You should see an output in nodeRed debug console 
-
+- Sqlite browser (https://sqlitebrowser.org/dl/ - Standard installer for 64-bit Windows)
 
 Some Infos:
 // https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm

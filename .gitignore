@@ -36,4 +36,4 @@
 city_*
 *.csv
 docs/sensordata.csv
-docs/sensordata.csv
+sqlite/city_001.sqlite3
