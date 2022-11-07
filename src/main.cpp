@@ -31,8 +31,8 @@ PubSubClient client(wifiClient);
 #include <Adafruit_Sensor.h>
 #include <Adafruit_TSL2591.h>
 #include <Multichannel_Gas_GMXXX.h>
-#include <DEV_Config.h>
-#include <LTR390.h>
+//#include <DEV_Config.h>
+//#include <LTR390.h>
 
 /* Sensor Inits */
 SHT3X sht30;
@@ -68,8 +68,8 @@ void setup() {
   qmp6988.init();
   tsl.begin();
   gas.begin(Wire, 0x08);
-  LTR390_Init();
-  LTR390_SetIntVal(5, 20);
+  //LTR390_Init();
+  //LTR390_SetIntVal(5, 20);
 
   M5.lcd.println(F("ANNA - ENV"));
   Serial.begin(115200);
@@ -164,7 +164,7 @@ void loop() {
     M5EnvIII();
     AdafruitTSL2591();
     GroveMultiGas();
-    ltr390();
+    //ltr390();
     printLocalTime();
     writePayload();
     showNetStatus();

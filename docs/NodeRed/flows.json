@@ -104,7 +104,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 410,
+        "x": 490,
         "y": 680,
         "wires": []
     },
@@ -336,8 +336,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 110,
-        "y": 760,
+        "x": 130,
+        "y": 800,
         "wires": [
             [
                 "289dc8606208b6c4"
@@ -356,8 +356,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 330,
-        "y": 760,
+        "x": 350,
+        "y": 800,
         "wires": []
     },
     {
@@ -517,7 +517,7 @@
         "type": "debug",
         "z": "74beb7b1a1d6cbdf",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -553,7 +553,7 @@
         "type": "debug",
         "z": "74beb7b1a1d6cbdf",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -568,7 +568,7 @@
         "id": "337d2da807f8d99b",
         "type": "sqlite",
         "z": "74beb7b1a1d6cbdf",
-        "mydb": "98a3f5798948f0b7",
+        "mydb": "e126d4f9ebed8290",
         "sqlquery": "msg.topic",
         "sql": "",
         "name": "city_001--citydata",
@@ -595,6 +595,71 @@
         "x": 890,
         "y": 420,
         "wires": []
+    },
+    {
+        "id": "c2ad336f4d97ee34",
+        "type": "inject",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "Sync Time",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"command\":4}",
+        "payloadType": "json",
+        "x": 140,
+        "y": 740,
+        "wires": [
+            [
+                "4d209068dc93cf04"
+            ]
+        ]
+    },
+    {
+        "id": "2a19a0ae13a96a69",
+        "type": "debug",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "4d209068dc93cf04",
+        "type": "function",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "",
+        "func": "var d=new Date();\n\nvar day=d.getDate()  //day as a number 0 -31\nvar month=d.getMonth() // month as a number 0-11\nvar year=d.getFullYear() //year as a four digit number (yyyy)\nvar hours=d.getHours() //the hour (0-23)\nvar minutes=d.getMinutes() //-the minute (0-59)\nvar seconds=d.getSeconds() //-the seconds (0-59)\n\n\n\n//msg.payload.time = (day)+\"/\"+(month+1)+\"/\"+year+\" \"+(hours)+\":\"+minutes+\":\"+seconds;\nmsg.payload.time = seconds+\",\"+minutes+\",\"+hours+\",\"+day+\",\"+(month+1)+\",\"+year;\nreturn msg;\n\n// 5/10/2022 14:44:55",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 740,
+        "wires": [
+            [
+                "2a19a0ae13a96a69",
+                "27d1a77326819d62"
+            ]
+        ]
     },
     {
         "id": "b28dd0f42a9ff1d6",
@@ -626,6 +691,12 @@
         "id": "98a3f5798948f0b7",
         "type": "sqlitedb",
         "db": "D:\\Development\\GIT\\FunkySense\\sqlite\\city_001.sqlite3",
+        "mode": "RWC"
+    },
+    {
+        "id": "e126d4f9ebed8290",
+        "type": "sqlitedb",
+        "db": "D:\\Development\\GIT\\FunkySense\\sqlite\\city_002.sqlite3",
         "mode": "RWC"
     }
 ]

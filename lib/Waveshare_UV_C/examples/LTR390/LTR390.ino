@@ -17,7 +17,7 @@ void loop() {
     UV = LTR390_UVS();
     Serial.print("UV = ");
     Serial.println(UV);
-     DEV_Delay_ms(500);
+    DEV_Delay_ms(500);
   if(digitalRead(8) == 1){
       Serial.println("INT");
   }
