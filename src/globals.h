@@ -62,7 +62,7 @@ const char sdFormat[] = "%s, %s, %s, %2.2f, %2.2f, %2.2f, %u, %u, %u, %2.2f, %u,
 https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm
 */
 
-const char statusFormat[] = "{\"n\":\"%s\", \"ip\":\"%s\", \"rssi\":%d, \"s\":\"ONLINE\"}";
+const char statusFormat[] = "{\"n\":\"%s\", \"ip\":\"%s\", \"time\":\"%s\", \"rssi\":%d, \"s\":\"ONLINE\"}";
 const char encFormat[] = "{\"e\":\"%s\"}";
 
 const long  gmtOffset_sec = 3600;

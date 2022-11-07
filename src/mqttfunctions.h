@@ -8,7 +8,10 @@ String ip2Str(IPAddress ip){
 
 void sendDeviceStatus()
 {
-  sprintf(msg, statusFormat, config.clientId, ip2Str(WiFi.localIP()), WiFi.RSSI());
+  String sendtime = rtc.getTime("%d/%m/%Y %H:%M:%S");
+  DEBUG_INFORMATION_SERIAL.print("sendtime: ");
+  DEBUG_INFORMATION_SERIAL.println(sendtime);
+  sprintf(msg, statusFormat, config.clientId, ip2Str(WiFi.localIP()), sendtime, WiFi.RSSI());
   if (client.publish(statusTopic, msg))
   {
   }
@@ -64,6 +67,11 @@ void callback(char *topic, byte *payload, unsigned int length){
     if(command == 3){
     DEBUG_INFORMATION_SERIAL.println("Sending device Status");
       sendDeviceStatus();
+    }
+    if(command == 4){
+    DEBUG_INFORMATION_SERIAL.println("Set Time");
+      String mqttime = doc["time"];
+      SetTime(mqttime);
     }
 }
 
