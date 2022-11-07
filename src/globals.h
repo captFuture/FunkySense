@@ -30,6 +30,7 @@ struct Config {
   char ssid[40] = xstr(SSID);
   char password[40] = xstr(PASSWORD);
   char mqttserver[40] = xstr(MQTTSERVER);
+  char ntpserver[40] = xstr(NTPSERVER);
   bool NETworkmode = true;
 };
 Config config;
@@ -50,19 +51,20 @@ int voc = 0;
 int co = 0;
 int no2 = 0;
 
+int uv = 0;
+
 int buttonPress;
 int timeout = 60;
 
-// const char sdFormat[] = "string datetime, string sensorid, string city,float temp,float humidity,float pressure, int ir,int full,int visible,float lux, int c2h5oh,int voc, int co, int no2, uint rssi";
-const char sdFormat[] = "%s, %s, %s, %2.2f, %2.2f, %2.2f, %u, %u, %u, %2.2f, %u, %u, %u, %u, %d";
+// const char sdFormat[] = "string datetime, string sensorid, string city,float temp,float humidity,float pressure, int ir,int full,int visible,float lux, int c2h5oh,int voc, int co, int no2, int uv, uint rssi";
+const char sdFormat[] = "%s, %s, %s, %2.2f, %2.2f, %2.2f, %u, %u, %u, %2.2f, %u, %u, %u, %u,%u, %d";
 /*
 https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm
 */
 
-const char statusFormat[] = "{\"n\":\"%s\", \"ip\":\"%s\", \"rssi\":%d, \"s\":\"ONLINE\"}";
+const char statusFormat[] = "{\"n\":\"%s\", \"ip\":\"%s\", \"time\":\"%s\", \"rssi\":%d, \"s\":\"ONLINE\"}";
 const char encFormat[] = "{\"e\":\"%s\"}";
 
-const char* ntpServer = config.mqttserver;
 const long  gmtOffset_sec = 3600;
 const int   daylightOffset_sec = 3600;
 char measureTime[30];

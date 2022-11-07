@@ -40,6 +40,16 @@ void AdafruitTSL2591(){
   DEBUG_SENSOR_SERIAL.print("LuX: ");DEBUG_SENSOR_SERIAL.println(lux);
 }
 
+void ltr390(){
+  uv = LTR390_UVS();
+
+  M5.lcd.fillRect(170, 70, 100, 60, BLACK);
+  M5.lcd.setCursor(170, 70);
+  M5.lcd.printf("UV: %u", uv);
+
+  DEBUG_SENSOR_SERIAL.print("UV: ");DEBUG_SENSOR_SERIAL.println(uv);
+}
+
 void M5EnvIII(){
     pre = qmp6988.calcPressure();
     if (sht30.get() == 0) {

@@ -39,6 +39,7 @@ void readConfig(){
         strlcpy(config.ssid, doc["ssid"] | xstr(SSID), sizeof(config.ssid));
         strlcpy(config.password, doc["password"] | xstr(PASSWORD), sizeof(config.password));
         strlcpy(config.mqttserver, doc["mqttserver"] | xstr(MQTTSERVER), sizeof(config.mqttserver));
+        strlcpy(config.ntpserver, doc["ntpserver"] | xstr(NTPSERVER), sizeof(config.ntpserver));
         config.NETworkmode = doc["networkmode"] | true;
 
         configFile.close();
@@ -51,13 +52,13 @@ void readConfig(){
 void writePayload(){
     if(SDinserted == true){
         File sensorFile = SD.open("/sensor.csv", FILE_APPEND);
-        sprintf(sdmsg,sdFormat, measureTime, config.clientId, config.city, tmp, hum, pre, ir, full, visible, lux, c2h5oh, voc, co, no2, WiFi.RSSI());
+        sprintf(sdmsg,sdFormat, measureTime, config.clientId, config.city, tmp, hum, pre, ir, full, visible, lux, c2h5oh, voc, co, no2, uv, WiFi.RSSI());
         DEBUG_INFORMATION_SERIAL.print("Writing Sensordata to SD: ");
         int written = sensorFile.println(sdmsg);
         DEBUG_INFORMATION_SERIAL.println(written);
         sensorFile.close();
     }else{
-        sprintf(sdmsg,sdFormat, measureTime, config.clientId, config.city, tmp, hum, pre, ir, full, visible, lux, c2h5oh, voc, co, no2, WiFi.RSSI());
+        sprintf(sdmsg,sdFormat, measureTime, config.clientId, config.city, tmp, hum, pre, ir, full, visible, lux, c2h5oh, voc, co, no2, uv, WiFi.RSSI());
         DEBUG_INFORMATION_SERIAL.println(sdmsg);
         DEBUG_INFORMATION_SERIAL.println("SD not present - not writing");
     }

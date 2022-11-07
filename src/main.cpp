@@ -33,6 +33,8 @@ PubSubClient client(wifiClient);
 #include <Adafruit_Sensor.h>
 #include <Adafruit_TSL2591.h>
 #include <Multichannel_Gas_GMXXX.h>
+#include <DEV_Config.h>
+#include <LTR390.h>			   
 
 /* Sensor Inits */
 SHT3X sht30;
@@ -47,6 +49,8 @@ void showQrcode(int showhide){
     M5.lcd.fillScreen(BLACK);
     M5.lcd.setCursor(5, 5);
     M5.Lcd.printf("connect to Wifi: %s", config.clientId);
+    M5.lcd.setCursor(5, 30);
+    M5.Lcd.print("Then open 192.1168.4.1 in Browser");				
     M5.Lcd.qrcode("http://192.168.4.1",50,30,200,6);
   }else{
     M5.lcd.fillScreen(BLACK);
@@ -75,7 +79,7 @@ void setup() {
     wm.setDebugOutput(true);
     wm.setConfigPortalTimeout(timeout);
     if(SDinserted == true){
-      //wm.preloadWiFi(config.ssid, config.password);
+      wm.preloadWiFi(config.ssid, config.password);
     }
     bool res;
     showQrcode(1);
@@ -91,7 +95,7 @@ void setup() {
       showQrcode(0);
     }
   
-    configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+    configTime(gmtOffset_sec, daylightOffset_sec, config.ntpserver);
     //configTime(gmtOffset_sec, daylightOffset_sec, "pool.ntp.org");
     
     if (getLocalTime(&timeinfo)){
@@ -99,7 +103,7 @@ void setup() {
       rtc.setTimeStruct(timeinfo); 
     }else{
       DEBUG_SENSOR_SERIAL.println("Setting time locally");
-      rtc.setTime(00, 10, 12, 1, 1, 2000);
+      rtc.setTime(00, 00, 00, 1, 1, 2000);
       DEBUG_SENSOR_SERIAL.println(rtc.getTime("%A, %B %d %Y %H:%M:%S")); 
     }
 
@@ -109,7 +113,7 @@ void setup() {
 
   }else{     
     DEBUG_SENSOR_SERIAL.println("Setting time locally");
-    rtc.setTime(00, 10, 12, 1, 1, 2000);
+    rtc.setTime(00, 00, 00, 1, 1, 2000);
     DEBUG_SENSOR_SERIAL.println(rtc.getTime("%A, %B %d %Y %H:%M:%S")); 
   }
 }
@@ -154,7 +158,7 @@ void loop() {
     M5.lcd.fillRect(0, 0, 320, 20, BLACK);
     M5.lcd.setCursor(0, 0);
     M5.lcd.println(config.clientId);   
-
+	ltr390();
     M5EnvIII();
     AdafruitTSL2591();
     GroveMultiGas();
