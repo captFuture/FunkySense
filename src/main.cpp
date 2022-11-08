@@ -198,17 +198,26 @@ void loop() {
   }
 
   if (M5.BtnA.wasPressed()) {
-    config.NETworkmode = !config.NETworkmode;
+    switchDisplay(1);
+    buttonPress = 0;
   }
+
   if (M5.BtnB.wasPressed()) {
     switchDisplay(1);
     buttonPress = 0;
   }
 
   if (M5.BtnC.wasPressed()) {
+    switchDisplay(1);
+    buttonPress = 0;
+  }
 
-  }  
-  if (M5.BtnC.pressedFor(2000)) {
+  if (M5.BtnA.pressedFor(5000)) {
+    config.NETworkmode = !config.NETworkmode;
+    buttonPress = 0;
+  }
+
+  /*if (M5.BtnC.pressedFor(2000)) {
     WiFiManager wm;
     wm.setConfigPortalTimeout(timeout);
     showQrcode(1);
@@ -218,6 +227,16 @@ void loop() {
       ESP.restart();
     }
 
+  }*/
+  
+  if (M5.BtnB.pressedFor(5000)) {
+    clearSDcontent();
+    buttonPress = 0;
+  }
+
+  if (M5.BtnC.pressedFor(5000)) {
+    writeSDcontent();
+    buttonPress = 0;
   }
   
   if(buttonPress >= 2){

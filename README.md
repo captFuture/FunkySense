@@ -21,9 +21,9 @@ M5EnvIII - Temp/Hum/Pres Sensor
 - the wifi credentials will be remembered
 - The Access point will close after 60 Seconds and sensor will start "offline" operation and only record to sdcard
 ### Button functions
-- Button A - toggle network Mode (indicated by square in the top right display corner)
-- Button B - Switch on display for 10Seconds
-- Long Press Button C - Wifi connection mode activated for 60 Seconds 
+- Long Press Button A - toggle network Mode (indicated by square in the top right display corner)
+- Long Press Button B - Clear SDcard Sensordata
+- Long Press Button C - Write Standard Config to SDcard
 
 ### Sensordata in csv
 string datetime, string sensorid, string city,float temp,float humidity,float pressure, int ir,int full,int visible,float lux, int c2h5oh,int voc, int co, int no2, uint rssi

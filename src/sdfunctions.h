@@ -59,7 +59,7 @@ void writePayload(){
         DEBUG_INFORMATION_SERIAL.print("Writing Sensordata to SD: ");
         int written = sensorFile.println(sdmsg);
         DEBUG_INFORMATION_SERIAL.println(written);
-        DEBUG_SENSOR_SERIAL.println(sdmsg);
+        //DEBUG_SENSOR_SERIAL.println(sdmsg);
         sensorFile.close();
     }else{
         sprintf(sdmsg,sdFormat, measureTime, config.clientId, config.city, tmp, hum, pre, ir, full, visible, lux, c2h5oh, voc, co, no2, uv, WiFi.RSSI());
@@ -77,5 +77,21 @@ void clearSDcontent(){
         sensorFile.close();
     }else{
         DEBUG_INFORMATION_SERIAL.println("SD not present - not clearing");
+    }
+}
+
+void writeSDcontent(){
+    if(SDinserted == true){
+        SD.remove("/config.json");
+        File configFile = SD.open("/config.json", FILE_WRITE);
+        String standardconfig = "{\n  \"clientid\": \"Maker_001\",\n  \"city\": \"Wien\",\n  \"ssid\": \"FranzBan\",\n  \"password\": \"FranzBan\",\n  \"mqttserver\": \"makeradmin.ddns.net\",\n  \"mqttuser\": \"citybunny\",\n  \"mqttpwd\": \"thisiskungfu\",\n  \"mqttport\": \"1883\",\n  \"ntpserver\":\"pool.ntp.org\",\n  \"networkmode\":true\n}";
+        int written = configFile.println(standardconfig);
+        DEBUG_INFORMATION_SERIAL.println(written);
+        DEBUG_SENSOR_SERIAL.println(sdmsg);
+        
+        DEBUG_INFORMATION_SERIAL.println("Writing standard Config config.json added");
+        configFile.close();
+    }else{
+        DEBUG_INFORMATION_SERIAL.println("SD not present - not writing standard config");
     }
 }
