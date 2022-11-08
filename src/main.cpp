@@ -5,10 +5,17 @@
 #include <M5Stack.h>
 #include <base64.h>
 
-/* time init */
+/* time init - INTERNAL TIME - not used at the moment*/
 #include <ESP32Time.h>
 struct tm timeinfo;
 ESP32Time rtc(3600);
+
+/* time init - unitRTC */
+#include "Unit_RTC.h"
+Unit_RTC unitRTC;
+rtc_time_type RTCtime;
+rtc_date_type RTCdate;
+char str_buffer[64];
 
 /* wifi and ntp */
 #include <SPI.h>
@@ -31,8 +38,10 @@ PubSubClient client(wifiClient);
 #include <Adafruit_Sensor.h>
 #include <Adafruit_TSL2591.h>
 #include <Multichannel_Gas_GMXXX.h>
-//#include <DEV_Config.h>
-//#include <LTR390.h>
+
+#include <LTR390.h>
+#define I2C_ADDRESS 0x53
+LTR390 ltr390(I2C_ADDRESS);
 
 /* Sensor Inits */
 SHT3X sht30;
@@ -61,15 +70,13 @@ void setup() {
   M5.Power.begin();       
   M5.lcd.setTextSize(2);  
   Wire.begin();
-
+  unitRTC.begin();
   initializeSD(); 
   readConfig();
-  DEBUG_SENSOR_SERIAL.print("Networkmode: "); DEBUG_SENSOR_SERIAL.println(config.NETworkmode); 
+  DEBUG_INFORMATION_SERIAL.print("Networkmode: "); DEBUG_INFORMATION_SERIAL.println(config.NETworkmode); 
   qmp6988.init();
   tsl.begin();
   gas.begin(Wire, 0x08);
-  //LTR390_Init();
-  //LTR390_SetIntVal(5, 20);
 
   M5.lcd.println(F("ANNA - ENV"));
   Serial.begin(115200);
@@ -86,49 +93,58 @@ void setup() {
     showQrcode(1);
     res = wm.autoConnect(config.clientId);
     if(!res) {
-      DEBUG_SENSOR_SERIAL.println("Failed to connect");
+      DEBUG_INFORMATION_SERIAL.println("Failed to connect");
       config.NETworkmode = false;
       showQrcode(0);
     }else {
-      DEBUG_SENSOR_SERIAL.println("WiFi connected");
-      DEBUG_SENSOR_SERIAL.print("IP address: ");
-      DEBUG_SENSOR_SERIAL.println(WiFi.localIP());
+      DEBUG_INFORMATION_SERIAL.println("WiFi connected");
+      DEBUG_INFORMATION_SERIAL.print("IP address: ");
+      DEBUG_INFORMATION_SERIAL.println(WiFi.localIP());
       showQrcode(0);
     }
   
-    configTime(gmtOffset_sec, daylightOffset_sec, config.ntpserver);
+    /*configTime(gmtOffset_sec, daylightOffset_sec, config.ntpserver);
     
     if (getLocalTime(&timeinfo)){
-      DEBUG_SENSOR_SERIAL.println("Set time from ntp");
+      DEBUG_INFORMATION_SERIAL.println("Set time from ntp");
       rtc.setTimeStruct(timeinfo); 
     }else{
-      DEBUG_SENSOR_SERIAL.println("Setting time locally");
+      DEBUG_INFORMATION_SERIAL.println("Setting time locally");
       rtc.setTime(00, 00, 00, 1, 1, 2000);
-      DEBUG_SENSOR_SERIAL.println(rtc.getTime("%A, %B %d %Y %H:%M:%S")); 
-    }
-
+      DEBUG_INFORMATION_SERIAL.println(rtc.getTime("%A, %B %d %Y %H:%M:%S")); 
+    }*/
+    
+    unitRTC.getTime(&RTCtime);
+    unitRTC.getDate(&RTCdate);
+    DEBUG_INFORMATION_SERIAL.printf("RTC Time Now is %02d:%02d:%02d\n", RTCtime.Hours, RTCtime.Minutes, RTCtime.Seconds); 
+    DEBUG_INFORMATION_SERIAL.printf("RTC Date Now is %02d/%02d/%02d\n", RTCdate.Date, RTCdate.Month, RTCdate.Year); 
+    
     client.setServer(config.mqttserver, 1883);
     client.setCallback(callback);
     initManagedDevice();
 
   }else{     
-    DEBUG_SENSOR_SERIAL.println("Setting time locally");
+    /*
+    DEBUG_INFORMATION_SERIAL.println("Setting time locally");
     rtc.setTime(00, 00, 00, 1, 1, 2000);
-    DEBUG_SENSOR_SERIAL.println(rtc.getTime("%A, %B %d %Y %H:%M:%S")); 
+    DEBUG_INFORMATION_SERIAL.println(rtc.getTime("%A, %B %d %Y %H:%M:%S")); 
+    */
+    unitRTC.getTime(&RTCtime);
+    unitRTC.getDate(&RTCdate);
+    DEBUG_INFORMATION_SERIAL.printf("RTC Time Now is %02d:%02d:%02d\n", RTCtime.Hours, RTCtime.Minutes, RTCtime.Seconds); 
+    DEBUG_INFORMATION_SERIAL.printf("RTC Date Now is %02d/%02d/%02d\n", RTCdate.Date, RTCdate.Month, RTCdate.Year); 
   }
-
-  
 }
 
 void switchDisplay(int onoff){
   if(onoff == 0){
     M5.Lcd.sleep();
     M5.Lcd.setBrightness(0);
-    DEBUG_SENSOR_SERIAL.print("Display off");
+    DEBUG_INFORMATION_SERIAL.print("Display off");
   }else{
     M5.Lcd.wakeup();
     M5.Lcd.setBrightness(200);
-    DEBUG_SENSOR_SERIAL.print("Display on");
+    DEBUG_INFORMATION_SERIAL.print("Display on");
   }
 }
 
@@ -165,7 +181,8 @@ void loop() {
     AdafruitTSL2591();
     GroveMultiGas();
     //ltr390();
-    printLocalTime();
+    //printLocalTime();
+    printUnitRtcTime();
     writePayload();
     showNetStatus();
     showSDStatus();
@@ -197,7 +214,7 @@ void loop() {
     wm.setConfigPortalTimeout(timeout);
     showQrcode(1);
     if (!wm.startConfigPortal(config.clientId)) {
-      DEBUG_SENSOR_SERIAL.println("failed to connect and hit timeout");
+      DEBUG_INFORMATION_SERIAL.println("failed to connect and hit timeout");
       delay(3000);
       ESP.restart();
     }

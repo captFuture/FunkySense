@@ -71,7 +71,8 @@ void callback(char *topic, byte *payload, unsigned int length){
     if(command == 4){
     DEBUG_INFORMATION_SERIAL.println("Set Time");
       String mqttime = doc["time"];
-      SetTime(mqttime);
+      //SetTime(mqttime);
+      SetUnitRtcTime(mqttime);
     }
 }
 

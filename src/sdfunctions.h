@@ -56,6 +56,7 @@ void writePayload(){
         DEBUG_INFORMATION_SERIAL.print("Writing Sensordata to SD: ");
         int written = sensorFile.println(sdmsg);
         DEBUG_INFORMATION_SERIAL.println(written);
+        DEBUG_SENSOR_SERIAL.println(sdmsg);
         sensorFile.close();
     }else{
         sprintf(sdmsg,sdFormat, measureTime, config.clientId, config.city, tmp, hum, pre, ir, full, visible, lux, c2h5oh, voc, co, no2, uv, WiFi.RSSI());

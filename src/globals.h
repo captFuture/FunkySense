@@ -1,13 +1,13 @@
 #define xstr(a) str(a)
 #define str(a) #a
 
-#define DEBUG_ERRORS true
+#define DEBUG_ERRORS false
 #define DEBUG_ERROR_SERIAL if(DEBUG_ERRORS)Serial
 
 #define DEBUG_SENSOR true
 #define DEBUG_SENSOR_SERIAL if(DEBUG_SENSOR)Serial
 
-#define DEBUG_INFORMATION true
+#define DEBUG_INFORMATION false
 #define DEBUG_INFORMATION_SERIAL if(DEBUG_INFORMATION)Serial
 
 #define DEBUG_NTPClient true
