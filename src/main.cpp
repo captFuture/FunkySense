@@ -214,7 +214,10 @@ void loop() {
 
   if (M5.BtnA.pressedFor(5000)) {
     config.NETworkmode = !config.NETworkmode;
+    DEBUG_INFORMATION_SERIAL.print("Networkmode: ");
+    DEBUG_INFORMATION_SERIAL.println(config.NETworkmode);
     buttonPress = 0;
+    delay(2000);
   }
 
   /*if (M5.BtnC.pressedFor(2000)) {
@@ -232,11 +235,13 @@ void loop() {
   if (M5.BtnB.pressedFor(5000)) {
     clearSDcontent();
     buttonPress = 0;
+    delay(2000);
   }
 
   if (M5.BtnC.pressedFor(5000)) {
     writeSDcontent();
     buttonPress = 0;
+    delay(2000);
   }
   
   if(buttonPress >= 2){
