@@ -3,7 +3,10 @@
   "city": "Graz",
   "ssid": "TarantlBros",
   "password": "chillfumml",
-  "mqttserver": "192.168.50.105",
+  "mqttserver": "makeradmin.ddns.net",
+  "mqttuser": "citybunny",
+  "mqttpwd": "thisiskungfu",
+  "mqttport": "1883",
   "ntpserver":"192.168.50.105",
   "networkmode":true
 }

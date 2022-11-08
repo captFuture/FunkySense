@@ -86,9 +86,7 @@ void setup() {
     WiFiManager wm;
     wm.setDebugOutput(true);
     wm.setConfigPortalTimeout(timeout);
-    if(SDinserted == true){
-      wm.preloadWiFi(config.ssid, config.password);
-    }
+    wm.preloadWiFi(config.ssid, config.password);
     bool res;
     showQrcode(1);
     res = wm.autoConnect(config.clientId);
@@ -119,7 +117,8 @@ void setup() {
     DEBUG_INFORMATION_SERIAL.printf("RTC Time Now is %02d:%02d:%02d\n", RTCtime.Hours, RTCtime.Minutes, RTCtime.Seconds); 
     DEBUG_INFORMATION_SERIAL.printf("RTC Date Now is %02d/%02d/%02d\n", RTCdate.Date, RTCdate.Month, RTCdate.Year); 
     
-    client.setServer(config.mqttserver, 1883);
+    int mqttport = atoi(config.mqttport);
+    client.setServer(config.mqttserver, mqttport);
     client.setCallback(callback);
     initManagedDevice();
 

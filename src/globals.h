@@ -1,13 +1,13 @@
 #define xstr(a) str(a)
 #define str(a) #a
 
-#define DEBUG_ERRORS false
+#define DEBUG_ERRORS true
 #define DEBUG_ERROR_SERIAL if(DEBUG_ERRORS)Serial
 
 #define DEBUG_SENSOR true
 #define DEBUG_SENSOR_SERIAL if(DEBUG_SENSOR)Serial
 
-#define DEBUG_INFORMATION false
+#define DEBUG_INFORMATION true
 #define DEBUG_INFORMATION_SERIAL if(DEBUG_INFORMATION)Serial
 
 #define DEBUG_NTPClient true
@@ -29,7 +29,10 @@ struct Config {
   char clientId[40] = xstr(CLIENTID);
   char ssid[40] = xstr(SSID);
   char password[40] = xstr(PASSWORD);
-  char mqttserver[40] = xstr(MQTTSERVER);
+  char mqttserver[60] = xstr(MQTTSERVER);
+  char mqttuser[60] = xstr(MQTTUSER);
+  char mqttpwd[60] = xstr(MQTTPWD);
+  char mqttport[5] = xstr(MQTTPORT);
   char ntpserver[40] = xstr(NTPSERVER);
   bool NETworkmode = true;
 };

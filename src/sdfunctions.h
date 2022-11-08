@@ -39,6 +39,9 @@ void readConfig(){
         strlcpy(config.ssid, doc["ssid"] | xstr(SSID), sizeof(config.ssid));
         strlcpy(config.password, doc["password"] | xstr(PASSWORD), sizeof(config.password));
         strlcpy(config.mqttserver, doc["mqttserver"] | xstr(MQTTSERVER), sizeof(config.mqttserver));
+        strlcpy(config.mqttport, doc["mqttport"] | xstr(MQTTPORT), sizeof(config.mqttport));
+        strlcpy(config.mqttuser, doc["mqttuser"] | xstr(MQTTUSER), sizeof(config.mqttuser));
+        strlcpy(config.mqttpwd, doc["mqttpwd"] | xstr(MQTTPWD), sizeof(config.mqttpwd));
         strlcpy(config.ntpserver, doc["ntpserver"] | xstr(NTPSERVER), sizeof(config.ntpserver));
         config.NETworkmode = doc["networkmode"] | true;
 

@@ -106,7 +106,7 @@ void reconnect()
     DEBUG_INFORMATION_SERIAL.print("Attempting MQTT connection...");
     DEBUG_INFORMATION_SERIAL.println(config.mqttserver);
 
-    if (client.connect(config.clientId))
+    if (client.connect(config.clientId, config.mqttuser, config.mqttpwd))
     {
       DEBUG_INFORMATION_SERIAL.println("connected");
       DEBUG_INFORMATION_SERIAL.print("state:");
