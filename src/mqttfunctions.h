@@ -28,7 +28,12 @@ void sendSensors(){
   } else {
     DEBUG_ERROR_SERIAL.println("Publish failed");
   }
-
+  
+  if (client.publish(plainTopic, sdmsg)){
+    DEBUG_INFORMATION_SERIAL.println("Publish ok");
+  } else {
+    DEBUG_ERROR_SERIAL.println("Publish failed");
+  }
 }
 
 void callback(char *topic, byte *payload, unsigned int length){

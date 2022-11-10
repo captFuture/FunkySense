@@ -15,7 +15,7 @@
         "topic": "#",
         "qos": "2",
         "datatype": "auto",
-        "broker": "b28dd0f42a9ff1d6",
+        "broker": "d661ee886e32b95f",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -87,8 +87,8 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "b28dd0f42a9ff1d6",
-        "x": 410,
+        "broker": "d661ee886e32b95f",
+        "x": 550,
         "y": 560,
         "wires": []
     },
@@ -104,7 +104,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 490,
+        "x": 890,
         "y": 680,
         "wires": []
     },
@@ -169,161 +169,6 @@
         ]
     },
     {
-        "id": "14658b6bed65c047",
-        "type": "mqtt in",
-        "z": "74beb7b1a1d6cbdf",
-        "name": "",
-        "topic": "sensors/enc",
-        "qos": "2",
-        "datatype": "utf8",
-        "broker": "b28dd0f42a9ff1d6",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 90,
-        "y": 1320,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "55cdbd4bd4683bfb",
-        "type": "debug",
-        "z": "74beb7b1a1d6cbdf",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 370,
-        "y": 1460,
-        "wires": []
-    },
-    {
-        "id": "f91c83ebe0978b91",
-        "type": "base64",
-        "z": "74beb7b1a1d6cbdf",
-        "name": "",
-        "action": "b64",
-        "property": "payload",
-        "x": 160,
-        "y": 1400,
-        "wires": [
-            [
-                "3d29700ab7ef379a"
-            ]
-        ]
-    },
-    {
-        "id": "8ecca328d4d713c1",
-        "type": "timestamp",
-        "z": "74beb7b1a1d6cbdf",
-        "name": "",
-        "x": 370,
-        "y": 1400,
-        "wires": [
-            [
-                "54eb04442ca62cc3"
-            ]
-        ]
-    },
-    {
-        "id": "3d29700ab7ef379a",
-        "type": "csv",
-        "z": "74beb7b1a1d6cbdf",
-        "name": "",
-        "sep": ",",
-        "hdrin": "",
-        "hdrout": "none",
-        "multi": "one",
-        "ret": "\\n",
-        "temp": "",
-        "skip": "0",
-        "strings": true,
-        "include_empty_strings": "",
-        "include_null_values": "",
-        "x": 170,
-        "y": 1460,
-        "wires": [
-            [
-                "55cdbd4bd4683bfb",
-                "8ecca328d4d713c1"
-            ]
-        ]
-    },
-    {
-        "id": "54eb04442ca62cc3",
-        "type": "template",
-        "z": "74beb7b1a1d6cbdf",
-        "name": "template city_001",
-        "field": "topic",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "INSERT INTO nonamecity (\n   sensor,\n   value1,\n   value2,\n   value3,\n   value4,\n   value5,\n   value6,\n   value7,\n   value8,\n   value9,\n   value10,\n   value11,\n   value12,\n   value13,\n   value14,\n   value15,\n   value16,\n   value17,\n   value18,\n   value19,\n   value20,\n   rssi,\n   timestamp\n)\nVALUES (\n   \"{{payload.col1}}\",\n   \"{{payload.col2}}\",\n   \"{{payload.col3}}\",\n   \"{{payload.col4}}\",\n   \"{{payload.col5}}\",\n   \"{{payload.col6}}\",\n   \"{{payload.col7}}\",\n   \"{{payload.col8}}\",\n   \"{{payload.col9}}\",\n   \"{{payload.col10}}\",\n   \"{{payload.col11}}\",\n   \"{{payload.col12}}\",\n   \"{{payload.col13}}\",\n   \"{{payload.col14}}\",\n   \"{{payload.col15}}\",\n   \"{{payload.col16}}\",\n   \"{{payload.col17}}\",\n   \"{{payload.col18}}\",\n   \"{{payload.col19}}\",\n   \"{{payload.col20}}\",\n   \"{{payload.col21}}\",\n   \"{{payload.col22}}\",    \n   \"{{timestamp}}\"\n);",
-        "output": "str",
-        "x": 550,
-        "y": 1400,
-        "wires": [
-            [
-                "752cc0efdc8f3d7f",
-                "4bfc7febd0f63e98"
-            ]
-        ]
-    },
-    {
-        "id": "752cc0efdc8f3d7f",
-        "type": "debug",
-        "z": "74beb7b1a1d6cbdf",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 570,
-        "y": 1460,
-        "wires": []
-    },
-    {
-        "id": "4bfc7febd0f63e98",
-        "type": "sqlite",
-        "z": "74beb7b1a1d6cbdf",
-        "mydb": "98a3f5798948f0b7",
-        "sqlquery": "msg.topic",
-        "sql": "",
-        "name": "city_001--citydata",
-        "x": 750,
-        "y": 1400,
-        "wires": [
-            [
-                "a62396f8a162f86a"
-            ]
-        ]
-    },
-    {
-        "id": "a62396f8a162f86a",
-        "type": "debug",
-        "z": "74beb7b1a1d6cbdf",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 830,
-        "y": 1460,
-        "wires": []
-    },
-    {
         "id": "5f755cc85b8002cb",
         "type": "mqtt in",
         "z": "74beb7b1a1d6cbdf",
@@ -331,7 +176,7 @@
         "topic": "sensors/status",
         "qos": "2",
         "datatype": "utf8",
-        "broker": "b28dd0f42a9ff1d6",
+        "broker": "d661ee886e32b95f",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -361,16 +206,6 @@
         "wires": []
     },
     {
-        "id": "14d870dbb2c30b2f",
-        "type": "comment",
-        "z": "74beb7b1a1d6cbdf",
-        "name": "ESP32 Version",
-        "info": "",
-        "x": 300,
-        "y": 1320,
-        "wires": []
-    },
-    {
         "id": "8e22c6a27154f551",
         "type": "comment",
         "z": "74beb7b1a1d6cbdf",
@@ -386,8 +221,8 @@
         "z": "74beb7b1a1d6cbdf",
         "name": "Change filepath to correct sqlite file here...",
         "info": "",
-        "x": 800,
-        "y": 360,
+        "x": 740,
+        "y": 380,
         "wires": []
     },
     {
@@ -398,7 +233,7 @@
         "topic": "sensors/enc",
         "qos": "2",
         "datatype": "utf8",
-        "broker": "b28dd0f42a9ff1d6",
+        "broker": "d661ee886e32b95f",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -423,7 +258,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 390,
+        "x": 890,
         "y": 300,
         "wires": []
     },
@@ -464,6 +299,7 @@
         "wires": [
             [
                 "b8c0a70e77b97d45",
+                "0a0f8b0236afd020",
                 "48f2c83c974175f6"
             ]
         ]
@@ -508,7 +344,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 550,
+        "x": 890,
         "y": 240,
         "wires": []
     },
@@ -524,8 +360,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 530,
-        "y": 360,
+        "x": 890,
+        "y": 340,
         "wires": []
     },
     {
@@ -553,22 +389,22 @@
         "type": "debug",
         "z": "74beb7b1a1d6cbdf",
         "name": "",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 410,
-        "y": 480,
+        "x": 890,
+        "y": 460,
         "wires": []
     },
     {
         "id": "337d2da807f8d99b",
         "type": "sqlite",
         "z": "74beb7b1a1d6cbdf",
-        "mydb": "e126d4f9ebed8290",
+        "mydb": "98a3f5798948f0b7",
         "sqlquery": "msg.topic",
         "sql": "",
         "name": "city_001--citydata",
@@ -585,7 +421,7 @@
         "type": "debug",
         "z": "74beb7b1a1d6cbdf",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -630,14 +466,14 @@
         "type": "debug",
         "z": "74beb7b1a1d6cbdf",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 910,
+        "x": 890,
         "y": 740,
         "wires": []
     },
@@ -662,10 +498,85 @@
         ]
     },
     {
-        "id": "b28dd0f42a9ff1d6",
+        "id": "5716d35940e5425a",
+        "type": "serial in",
+        "z": "74beb7b1a1d6cbdf",
+        "d": true,
+        "name": "",
+        "serial": "f4ab36ef5e14c0db",
+        "x": 130,
+        "y": 900,
+        "wires": [
+            [
+                "afc9eab999922073"
+            ]
+        ]
+    },
+    {
+        "id": "afc9eab999922073",
+        "type": "debug",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "0a0f8b0236afd020",
+        "type": "ui_chart",
+        "z": "74beb7b1a1d6cbdf",
+        "name": "",
+        "group": "9e0273eee7bac59b",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 650,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d661ee886e32b95f",
         "type": "mqtt-broker",
-        "name": "localhost",
-        "broker": "localhost",
+        "name": "Makeraustria",
+        "broker": "makeradmin.ddns.net",
         "port": "1883",
         "clientid": "",
         "autoConnect": true,
@@ -694,9 +605,41 @@
         "mode": "RWC"
     },
     {
-        "id": "e126d4f9ebed8290",
-        "type": "sqlitedb",
-        "db": "D:\\Development\\GIT\\FunkySense\\sqlite\\city_002.sqlite3",
-        "mode": "RWC"
+        "id": "f4ab36ef5e14c0db",
+        "type": "serial-port",
+        "serialport": "COM6",
+        "serialbaud": "115200",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "9e0273eee7bac59b",
+        "type": "ui_group",
+        "name": "anna",
+        "tab": "9cacaa07eebbb63f",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9cacaa07eebbb63f",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
     }
 ]
