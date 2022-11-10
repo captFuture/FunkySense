@@ -169,7 +169,7 @@ void showSDStatus(){
 
 void loop() {
   M5.update();
-  
+  pauseONE = atoi(config.pausesend);
   if (millis() - oldMillisONE >= pauseONE) {
 
     M5.lcd.fillRect(0, 0, 320, 20, BLACK);

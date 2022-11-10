@@ -35,6 +35,7 @@ struct Config {
   char mqttport[5] = xstr(MQTTPORT);
   char ntpserver[40] = xstr(NTPSERVER);
   bool NETworkmode = true;
+  char pausesend[10] = xstr(PAUSESEND);
 };
 Config config;
 

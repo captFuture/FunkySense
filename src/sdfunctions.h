@@ -44,6 +44,7 @@ void readConfig(){
         strlcpy(config.mqttpwd, doc["mqttpwd"] | xstr(MQTTPWD), sizeof(config.mqttpwd));
         strlcpy(config.ntpserver, doc["ntpserver"] | xstr(NTPSERVER), sizeof(config.ntpserver));
         config.NETworkmode = doc["networkmode"] | true;
+        strlcpy(config.pausesend, doc["pausesend"] | xstr(PAUSESEND), sizeof(config.pausesend));
 
         configFile.close();
     }else{
